@@ -17,6 +17,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
+    "interactjs": "^1.10.11",
     "vue": "^3.0.0"
   },
   "devDependencies": {
@@ -53,7 +54,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",

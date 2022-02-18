@@ -25,9 +25,12 @@
 @import 'components/table';
 @import 'components/tabs';
 @import 'components/tag';
+@import 'components/fp-components';
 
 // Partials
-@import 'partials/test';
+@import 'partials/top-menu';
+@import 'partials/right-menu';
+@import 'partials/workspace';
 
 
 // Twitter bootstrap's grid v4.1.0

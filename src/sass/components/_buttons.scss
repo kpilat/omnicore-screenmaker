@@ -18,38 +18,33 @@ button {
 }
 
 .button {
-  background-color: $bg-button;
-  border: 0;
-  border-radius: $bdr-button;
-  color: $c-button;
+  background-color: $bgc-body;
+  border: none;
+  color: $c-dark;
   display: inline-block;
   font-family: $ff-button;
   font-size: $fz-button;
   font-weight: $fw-button;
   line-height: $lh-button;
-  margin: $m-button;
   padding: $p-button;
   text-align: center;
   text-decoration: none;
   text-transform: $tt-button;
   transition: opacity .2s ease-in-out;
   white-space: nowrap;
+  margin: 0;
 
   &:focus,
   &:hover,
   &:active {
-    color: $c-button;
+    color: $c-light;
+    background-color: $c-soundcloud;
   }
 
-  &:hover {
-    background-color: rgba($c-primary, .8);
-    color: $c-white;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  &:active {
+  &.is-active {
     opacity: 1;
+    color: $c-light;
+    background-color: $c-soundcloud;
   }
 
   &:first-child {

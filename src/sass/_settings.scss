@@ -15,8 +15,9 @@ $c-error: #e74c3c !default;
 $c-gray: #969da6 !default;
 $c-gray-light: #eceff1 !default;
 
-$c-primary: #03a9f4 !default;
-$c-secondary: #e91e63 !default;
+$c-primary: #F1D00A !default;
+$c-secondary: #21325E!default;
+$c-secondary-light: #3E497A!default;
 $c-dark: #18232f !default;
 $c-light: $c-gray-light !default;
 
@@ -24,7 +25,7 @@ $c-text: #272727 !default;
 $c-link: $c-primary !default;
 $c-link-hover: rgba($c-primary, .8) !default;
 
-$bgc-body: $c-white !default;
+$bgc-body: #F0F0F0 !default;
 
 $c-map: (
   'primary':              $c-primary,
@@ -133,15 +134,18 @@ $grid-columns: 12 !default;
 $grid-gutter-width: $w-gutter !default;
 
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px
+  sm: 100%,
+  md: 100%,
+  lg: 100%,
+  xl: 100%
 ) !default;
 
 /**
  *  COMPONENTS
  */
+
+// Menu
+$top-menu-height: 40px;
 
 // Badges
 $c-badge: $c-text !default;
