@@ -164,6 +164,9 @@ li {
 /**
  *  FLOATS
  */
+.hide {
+  display: none; }
+
 .fleft {
   float: left; }
 
@@ -3251,6 +3254,24 @@ ABB reserves all rights regarding Intellectual Property Rights
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content; }
+
+.c-context-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #eceff1;
+  cursor: pointer; }
+  .c-context-menu__item {
+    padding: 8px 24px;
+    transition-duration: .2s; }
+    .c-context-menu__item:hover {
+      background-color: #969da6; }
 
 .container {
   width: 100%;

@@ -1,0 +1,18 @@
+.c-context-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: fit-content;
+    height: fit-content;
+    background-color: $c-gray-light;
+    cursor: pointer;
+
+    &__item {
+        padding: 8px $w-gutter;
+        transition-duration: .2s;
+
+        &:hover {
+            background-color: $c-gray;
+        }
+    }
+}
