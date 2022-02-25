@@ -56,6 +56,7 @@ const dropzoneInit = () => {
   });
 };
 
+// Creates new element in workspace
 const cloneDraggable = (item) => {
   if (item.classList.contains("assigned")) {
     return;
@@ -75,6 +76,9 @@ const cloneDraggable = (item) => {
     `;
   resetComponent(item);
   resetComponent(newItem);
+  newItem['componentConfig'] = {
+    'id': (Math.random() + 1).toString(36).substring(2)
+  }
   document.querySelector(dropzone).appendChild(newItem);
 };
 

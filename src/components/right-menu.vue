@@ -7,10 +7,17 @@
       </div>
       <div class="right-menu__content">
         <div class="right-menu__item">
-          <div id="normal-button" class="fp-components-button draggable">Button</div>
+          <div class="fp-components-button draggable" data-type="button" data-name="Button">
+            <span class="fp-components-button-text">Button</span>
+          </div>
         </div>
         <div class="right-menu__item">
-          <div id="normal-button" class="fp-components-button draggable">Button</div>
+          <div
+            class="fp-components-digital-a-container draggable"
+            data-type="digital" data-name="Digital">
+            <div class="fp-components-digital-a">0</div>
+            <div class="fp-components-digital-a-desc">Digital</div>
+          </div>
         </div>
       </div>
     </div>

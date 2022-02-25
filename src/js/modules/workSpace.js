@@ -31,6 +31,8 @@ const contentChanged = (mutationsList, observer) => {
       components.splice(components.indexOf(node), 1);
     });
   }
+  // Saves components contained in workspace (for app build)
+  window.components = components;
 };
 
 // Modifying components according data-action attributes

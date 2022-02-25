@@ -2,7 +2,7 @@
     <div class="top-menu-wrapper">
         <div class="container">
             <div class="top-menu">
-                
+                <div class="button" id="build-app">Build app</div>
             </div>
         </div>
     </div>
