@@ -10,7 +10,7 @@
 
 <script>
 /* eslint-disable vue/no-unused-components */
-import {Custom} from './js/custom.js'
+import Custom from './js/custom.js'
 import Button from './components/button.vue'
 import TopMenu from './components/top-menu.vue'
 import RightMenu from './components/right-menu.vue'

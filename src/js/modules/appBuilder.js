@@ -1,3 +1,6 @@
+//import ipcRenderer from 'electron';
+//const ipcRenderer = require('electron');
+
 const linker = () => {
   let jsCode = [];
   window.components?.forEach((component) =>
@@ -62,7 +65,18 @@ const createAppJs = (jsCode) => {
 
 // Initialization
 const init = () => {
-  document.querySelector("#build-app").addEventListener("click", linker);
+  window.api.receive("fromMain", (data) => {
+    console.log(`Received ${data} from main process`);
+    if(data) {
+      document.querySelector("#build-app").style.color = "green";
+    }
+});
+  document.querySelector("#build-app").addEventListener("click", () => {
+    //ipcRenderer.send('main', window.components);
+    // window.electronAPI.setTitle('title');
+    console.log(window.api);
+    window.api.send('toMain', JSON.stringify({ name: 'title' }));
+  });
 };
 
 export default { init };
