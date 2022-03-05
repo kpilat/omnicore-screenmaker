@@ -5,7 +5,9 @@ const sendData = () => {
             type: component.getAttribute('data-type'),
             id: component.componentConfig.id,
             name: component.getAttribute('data-name'),
-            signalName: 'signalName'
+            signalName: 'diSignal_0',
+            top: component.style.top,
+            left: component.style.left
         }
         components.push(objectComponent);
     });
