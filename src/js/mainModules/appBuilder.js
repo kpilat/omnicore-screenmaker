@@ -10,17 +10,15 @@ const build = (data) => {
         'componentSubscribe': [],
         'componentUnsubscribe': []
     }
-    const appPath = './WebApps/generated-app/';
-    const assetsPath = './src/assets/';
-    const jsFile = 'app.js';
-    const htmlFile = 'index.html';
-    const appinfoFile = 'appinfo.xml';
-    const controllerFiles = 'controller-files';
-    const fpComponents = 'fp-components';
-    const rwsApi = 'rws-api';
-    const icon = 'App_Default_100.png';
-
-    console.log(data[0]);
+    const appPath = './WebApps/generated-app/',
+        assetsPath = './src/assets/',
+        jsFile = 'app.js',
+        htmlFile = 'index.html',
+        appinfoFile = 'appinfo.xml',
+        controllerFiles = 'controller-files',
+        fpComponents = 'fp-components',
+        rwsApi = 'rws-api',
+        icon = 'App_Default_100.png';
 
     data.forEach(component => {
         components.componentCode.push(JsTemplate.componentInit(component));

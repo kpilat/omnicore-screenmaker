@@ -8,7 +8,8 @@ module.exports = {
         'src/js/mainModules/appBuilder.js',
         'src/js/mainModules/componentTempl.js',
         'src/js/mainModules/jsTempl.js',
-        'src/js/mainModules/htmlTempl.js'
+        'src/js/mainModules/htmlTempl.js',
+        'src/js/mainModules/componentConfigTempl.js'
       ]
     },
   },

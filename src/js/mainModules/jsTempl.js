@@ -5,10 +5,13 @@ import Components from "./componentTempl";
 const componentInit = (component) => {
     switch (component.type) {
         case "button":
-            //return digitalInit(component);
-            break;
+            return Components.buttonInit(component);
         case "digital":
             return Components.digitalInit(component);
+        case "switch":
+            return Components.switchInit(component);
+        case "toggle":
+            return Components.toggleInit(component);
         default:
             return undefined;
     }
@@ -20,32 +23,31 @@ const injectTemplate = (components) => {
     const code = `
         ${components.componentVariables}
         window.addEventListener("load", async function () {
-        try {
-                ${components.componentCode}
-            } catch (e) {
-        var err = JSON.stringify(e);
-        console.log(err);
-        console.log(e);
-        FPComponents.Popup_A.message("Something went wrong!", "Application might not work as intended");
-    }
+            try {
+                    ${components.componentCode}
+                } catch (e) {
+            var err = JSON.stringify(e);
+            console.log(err);
+            console.log(e);
+            FPComponents.Popup_A.message("Something went wrong!", "Application might not work as intended");
+            }
+            this.initView();
+        });
     
-    this.initView();
-    
-    var initView = function () {
-    var mainView = document.getElementById("io-view");
-    mainView.style.display = "flex";
-    mainView.style.position = "relative";
-    }
-    var appActivate = async function () {
-        ${components.componentSubscribe}
-        return true;
-    }
-    
-    var appDeactivate = async function () {
-        ${components.componentUnsubscribe}
-        return true;
-    }
-    });
+        var initView = function () {
+        var mainView = document.getElementById("io-view");
+        mainView.style.display = "flex";
+        mainView.style.position = "relative";
+        }
+        var appActivate = async function () {
+            ${components.componentSubscribe}
+            return true;
+        }
+        
+        var appDeactivate = async function () {
+            ${components.componentUnsubscribe}
+            return true;
+        }
     `;
 
     return code;

@@ -5,9 +5,20 @@ const sendData = () => {
             type: component.getAttribute('data-type'),
             id: component.componentConfig.id,
             name: component.getAttribute('data-name'),
-            signalName: 'diSignal_0',
+            // Position
             top: component.style.top,
-            left: component.style.left
+            left: component.style.left,
+            // Data
+            signalName: 'diSignal_0',
+            rapidVarName: 'bool1',
+            // Location
+            robotName: 'T_ROB1',
+            moduleName: 'main_module',
+            // Other Parameters
+            text: '+',
+            textAdditional: '+',
+            increase: true,
+            changeValueBy: 20
         }
         components.push(objectComponent);
     });
