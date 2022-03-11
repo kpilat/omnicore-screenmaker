@@ -93,7 +93,7 @@ $bdc-base: #d5d9db !default;
 $bd-medium: 1px solid $bdc-base !default;
 $bdr-base: 3px !default;
 $bdr-medium: $bdr-base !default;
-$bdr-rounded-corners: 5px !default;
+$bdr-rounded-corners: 10px !default;
 
 // Defaults (HTML elements)
 $fw-strong: $fw-bold !default;
@@ -111,7 +111,7 @@ $m-huge: 48px !default;
 // Padding
 $p-small: 4px !default;
 $p-medium: 8px !default;
-$p-big: 16px !default;
+$p-big: 20px !default;
 $p-huge: 36px !default;
 
 // Layout

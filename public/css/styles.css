@@ -230,10 +230,10 @@ li {
   padding-bottom: 8px; }
 
 .p-big {
-  padding: 16px; }
+  padding: 20px; }
 
 .pb-big {
-  padding-bottom: 16px; }
+  padding-bottom: 20px; }
 
 .p-huge {
   padding: 36px; }
@@ -254,7 +254,7 @@ li {
   opacity: .5; }
 
 .rounded-corners {
-  border-radius: 5px; }
+  border-radius: 10px; }
 
 .rounded {
   border-radius: 100%; }
@@ -434,7 +434,7 @@ h4 {
   color: #272727;
   display: inline-block;
   line-height: 1.2em;
-  padding: 8px 16px; }
+  padding: 8px 20px; }
   .badge--big {
     font-size: 1.3em; }
   .badge--small {
@@ -477,38 +477,41 @@ button {
   cursor: pointer; }
 
 .button {
-  background-color: #F0F0F0;
-  border: none;
-  color: #18232f;
+  background-color: #F1D00A;
+  border: 0;
+  border-radius: 200px;
+  color: #fff;
   display: inline-block;
   font-family: "Lato", sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5em;
-  padding: 8px 16px;
+  padding: 8px 20px;
+  min-width: 100px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   transition: opacity .2s ease-in-out;
-  white-space: nowrap;
-  margin: 0; }
+  white-space: nowrap; }
   .button:focus, .button:hover, .button:active {
-    color: #eceff1;
-    background-color: #f76600; }
-  .button.is-active {
-    opacity: 1;
-    color: #eceff1;
-    background-color: #f76600; }
+    color: #fff; }
+  .button:hover {
+    background-color: rgba(241, 208, 10, 0.8);
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none; }
+  .button:active {
+    opacity: 1; }
   .button:first-child {
     margin-left: 0; }
   .button:last-child {
     margin-right: 0; }
   .button--big {
     font-size: 24px;
-    padding: 16px 36px; }
+    padding: 20px 36px; }
   .button--small {
     font-size: 12px;
-    padding: 4px 16px; }
+    padding: 4px 20px; }
   @media (max-width: 991px) {
     .button--mobileFull {
       margin-left: 0;
@@ -642,7 +645,7 @@ input:-webkit-autofill {
     font-size: 16px;
     line-height: 1.5em;
     margin: 0;
-    padding: 8px 16px;
+    padding: 8px 20px;
     padding-right: 30px;
     transition: background-color 0.2s ease-in-out;
     width: 100%; }
@@ -689,7 +692,7 @@ input:-webkit-autofill {
     line-height: 1.5em;
     margin: 0;
     min-height: 120px;
-    padding: 8px 16px;
+    padding: 8px 20px;
     transition: background-color 0.2s ease-in-out;
     width: 100%; }
     .textarea textarea::-webkit-input-placeholder {
@@ -829,7 +832,7 @@ input:-webkit-autofill {
     line-height: 1.5em;
     margin: 0;
     outline: none;
-    padding: 8px 16px;
+    padding: 8px 20px;
     width: 100%; }
     .input input::-webkit-input-placeholder {
       color: #969da6; }
@@ -1147,7 +1150,7 @@ input:-webkit-autofill {
   border-radius: 3px;
   color: #fff;
   margin-bottom: 36px;
-  padding: 16px; }
+  padding: 20px; }
   .notification p:last-child {
     margin-bottom: 0; }
   .notification--primary {
@@ -1202,7 +1205,7 @@ input:-webkit-autofill {
     background-color: #eceff1;
     border-radius: 3px;
     display: block;
-    padding: 8px 16px; }
+    padding: 8px 20px; }
     .paginator-itemLink.is-active {
       background-color: #F1D00A;
       color: #fff;
@@ -1334,8 +1337,11 @@ input:-webkit-autofill {
     display: inline-block;
     margin: 0 16px 0 0;
     min-width: 70px;
-    padding: 16px;
-    position: relative; }
+    padding: 20px;
+    position: relative;
+    cursor: pointer; }
+    .tabs-item:last-child {
+      margin: 0; }
     .tabs-item:hover {
       color: #F1D00A;
       text-decoration: none; }
@@ -3229,9 +3235,6 @@ ABB reserves all rights regarding Intellectual Property Rights
   margin-right: 24px; }
   .right-menu .button--category {
     width: 50%; }
-  .right-menu__category {
-    border-bottom: 1px solid #969da6;
-    border-right: 1px solid #969da6; }
   .right-menu__item {
     padding: 10px 20px;
     display: flex;
@@ -3272,6 +3275,34 @@ ABB reserves all rights regarding Intellectual Property Rights
     transition-duration: .2s; }
     .c-context-menu__item:hover {
       background-color: #969da6; }
+
+.c-property-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 400px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 20px 50px -10px rgba(0, 0, 0, 0.2); }
+  .c-property-menu__content {
+    padding: 20px; }
+    .c-property-menu__content:not([name^="signal"]) {
+      display: none; }
+  .c-property-menu__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: auto; }
+    .c-property-menu__buttons .button {
+      width: 50%; }
+      .c-property-menu__buttons .button:first-child {
+        margin-right: 20px; }
 
 .container {
   width: 100%;

@@ -1,13 +1,19 @@
 <template>
   <div class="workspace"></div>
-  <div class="c-context-menu hide">
-    <div class="c-context-menu__item" data-action="delete">Remove component</div>
-  </div>
+  <ComponentContextMenu/>
+  <ComponentProperyMenu/>
 </template>
 
 <script>
+import ComponentContextMenu from './c-context-menu.vue'
+import ComponentProperyMenu from './c-property-menu.vue'
+
 export default {
-  name: "workspace",
-  props: {},
+  name: 'workspace',
+  components: {
+    ComponentContextMenu,
+    ComponentProperyMenu
+  },
+  props: {}
 };
 </script>

@@ -23,6 +23,11 @@
     min-width: $miw-tabs-item;
     padding: $p-tabs-item;
     position: relative;
+    cursor: pointer;
+
+    &:last-child {
+      margin: 0;
+    }
 
     &:hover {
       color: $c-tabs-item-hover;
