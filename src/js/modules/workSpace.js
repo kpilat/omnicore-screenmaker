@@ -7,7 +7,7 @@ const workspaceSelector = ".workspace",
   observerConfig = {
     childList: true,
   };
-let activeComponent = undefined;
+
 
 // Workspace changes observer
 const watchDog = () => {
@@ -24,7 +24,7 @@ const contentChanged = (mutationsList, observer) => {
 
       node.addEventListener("contextmenu", (event) => {
         event.preventDefault();
-        activeComponent = event.target;
+        window.activeComponent = event.target;
         contextMenuVisibility(event);
       });
     });
@@ -44,7 +44,7 @@ const contextMenuActions = (event) => {
 
   switch(action) {
     case 'delete':
-        activeComponent.remove();
+        window.activeComponent.remove();
       break;
     case 'properties':
         ComponentProperty.toggleVisibility();
@@ -60,7 +60,7 @@ const contextMenuVisibility = (event) => {
         menu.classList.remove('hide');
     } else {
         menu.classList.add('hide');
-        activeComponent = undefined;
+        // window.activeComponent = undefined;
     }
     menu.style.cssText = `
         top: ${event.pageY}px;

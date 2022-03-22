@@ -8,3 +8,10 @@
     position: absolute;
     width: fit-content;
 }
+
+.draggable {
+
+    & * {
+        pointer-events: none;
+    }
+}

@@ -165,7 +165,7 @@ li {
  *  FLOATS
  */
 .hide {
-  display: none; }
+  display: none !important; }
 
 .fleft {
   float: left; }
@@ -3258,6 +3258,9 @@ ABB reserves all rights regarding Intellectual Property Rights
   width: -moz-fit-content;
   width: fit-content; }
 
+.draggable * {
+  pointer-events: none; }
+
 .c-context-menu {
   position: absolute;
   top: 50%;
@@ -3277,22 +3280,21 @@ ABB reserves all rights regarding Intellectual Property Rights
       background-color: #969da6; }
 
 .c-property-menu {
-  display: flex;
-  flex-direction: column;
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 400px;
-  height: 500px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 20px 50px -10px rgba(0, 0, 0, 0.2); }
+  .c-property-menu__inner {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 500px; }
   .c-property-menu__content {
     padding: 20px; }
-    .c-property-menu__content:not([name^="signal"]) {
-      display: none; }
   .c-property-menu__buttons {
     display: flex;
     justify-content: space-between;

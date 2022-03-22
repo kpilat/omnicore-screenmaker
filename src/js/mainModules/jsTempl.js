@@ -23,6 +23,7 @@ const injectTemplate = (components) => {
     const code = `
         ${components.componentVariables}
         window.addEventListener("load", async function () {
+            fpComponentsEnableLog();
             try {
                     ${components.componentCode}
                 } catch (e) {
