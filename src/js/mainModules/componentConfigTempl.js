@@ -1,29 +1,37 @@
 const subscribeVariable = (component) => {
-    const template = `
+  const template = `
         try {
-            ${component.id + component.id} = await RWS.Rapid.getData("${component.robotName}", "${component.moduleName}", "${component.targetName}");
+            ${component.id + component.id} = await RWS.Rapid.getData("${
+    component.robotName
+  }", "${component.moduleName}", "${component.targetName}");
             await ${component.id + component.id}.subscribe(true);
         } catch(e) {
-            FPComponents.Popup_A.message(e.message, [e.message, \`Couldn't find Rapid variable with name ${component.targetName}\`]);
+            FPComponents.Popup_A.message(e.message, [e.message, \`Couldn't find Rapid variable with name ${
+              component.targetName
+            }\`]);
         }
     `;
-    return template;
+  return template;
 };
 
 const subscribeSignal = (component) => {
-    const template = `
+  const template = `
         try {
-            ${component.id + component.id} = await RWS.IO.getSignal('${component.targetName}');
+            ${component.id + component.id} = await RWS.IO.getSignal('${
+    component.targetName
+  }');
             await ${component.id + component.id}.subscribe(true);
         } catch(e) {
-            FPComponents.Popup_A.message(e.message, [e.message, \`Couldn't find I/O with name ${component.targetName}\`]);
+            FPComponents.Popup_A.message(e.message, [e.message, \`Couldn't find I/O with name ${
+              component.targetName
+            }\`]);
         }
     `;
-    return template;
+  return template;
 };
 
 const increaseValue = (component) => {
-    const template = `
+  const template = `
         let value = await ${component.id + component.id}.getValue();
         value = Number.parseInt(value);
         value += ${component.step};
@@ -33,25 +41,33 @@ const increaseValue = (component) => {
             FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
         }
     `;
-    return template;
-}
+  return template;
+};
 
 const decreaseValue = (component) => {
-    const template = `
+  const template = `
         let value = await ${component.id + component.id}.getValue();
         value = Number.parseInt(value);
-        value += ${component.step};
+        value -= ${component.step};
         try {
             await ${component.id + component.id}.setValue(value);
         } catch (e) {
             FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
         }
     `;
-    return template;
+  return template;
+};
+
+const  toggleSignal = (component) => {
+    if (component.type === 'digital') {
+        return toggleSignalDigital(component);
+    } else {
+        return toggleSignalSwitch(component);
+    }
 }
 
-const toggleSignal = (component) => {
-    const template = `
+const toggleSignalDigital = (component) => {
+  const template = `
         var setValue = ${component.id}.active ? 0 : 1;
         ${component.id}.active = !${component.id}.active
         try {
@@ -60,11 +76,23 @@ const toggleSignal = (component) => {
             FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
         }
     `;
+  return template;
+};
+
+const toggleSignalSwitch = (component) => {
+    const template = `
+          var setValue = ${component.id}.active ? 1 : 0;
+          try {
+              await ${component.id + component.id}.setValue(setValue);
+          } catch (e) {
+              FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
+          }
+      `;
     return template;
-}
+  };
 
 const setValue = (component) => {
-    const template = `
+  const template = `
         let value = await ${component.id + component.id}.getValue();
         try {
             await ${component.id + component.id}.setValue(!value);
@@ -72,37 +100,59 @@ const setValue = (component) => {
             FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
         }
     `;
-    return template;
-}
+  return template;
+};
 
 const alertMessage = (component) => {
-    const template = `
-        FPComponents.Popup_A.confirm('${component.alertTitle}', '${component.alertMessage}', async function (action) {
+  const template = `
+        FPComponents.Popup_A.confirm('${component.alertTitle}', '${
+    component.alertMessage
+  }', async function (action) {
             if (action == FPComponents.Popup_A.OK) {
                 ${
-                    component.action === "increase-value"
-                        ? increaseValue(component)
-                        : ""
+                  component.action === "increase-value"
+                    ? increaseValue(component)
+                    : ""
                 }
                 ${
-                    component.action === "decrease-value"
-                        ? decreaseValue(component)
-                        : ""
+                  component.action === "decrease-value"
+                    ? decreaseValue(component)
+                    : ""
                 }
+                ${component.action === "set-value" ? setValue(component) : ""}
                 ${
-                    component.action === "set-value"
-                        ? setValue(component)
-                        : ""
-                }
-                ${
-                    component.action === "toggle-signal"
-                        ? toggleSignal(component)
-                        : ""
+                  component.action === "toggle-signal"
+                    ? toggleSignal(component)
+                    : ""
                 }
             }
+            ${component.type === "switch" ? alertElsePart(component) : ""}
         });
     `;
-    return template;
-}
+  return template;
+};
 
-export default { subscribeVariable, subscribeSignal, increaseValue, decreaseValue, toggleSignal, setValue, alertMessage }
+// Assuming that this part is being used in switch event callbback because a variable
+// from switch onChange event listener is being used here
+const alertElsePart = (component) => {
+  const template = `
+        else {
+            try {
+                ${component.id}.active = !active;
+            } catch (e) {
+                FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
+            }
+        }
+    `;
+  return template;
+};
+
+export default {
+  subscribeVariable,
+  subscribeSignal,
+  increaseValue,
+  decreaseValue,
+  toggleSignal,
+  setValue,
+  alertMessage,
+};
