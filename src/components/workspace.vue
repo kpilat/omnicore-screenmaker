@@ -1,6 +1,6 @@
 <template>
   <div class="workspace"></div>
-  <ComponentContextMenu :onClick="testConsole" />
+  <ComponentContextMenu :onClick="openPropertyMenu" />
   <component :is="propMenu.component" v-bind="propMenu.props" />
 </template>
 
@@ -20,18 +20,27 @@ export default {
       propMenu: {
         component: "ComponentPropertyMenu",
         props: {
-          isStartup: true,
+          visible: false,
         },
       },
     };
   },
   methods: {
-    testConsole: function () {
+    openPropertyMenu: function () {
       this.propMenu = {
         component: "ComponentPropertyMenu",
         props: {
-          isStartup: false,
-          component: window.activeComponent
+          visible: true,
+          component: window.activeComponent,
+          close: this.closePropertyMenu
+        },
+      };
+    },
+    closePropertyMenu: function () {
+      this.propMenu = {
+        component: "ComponentPropertyMenu",
+        props: {
+          visible: false,
         },
       };
     },

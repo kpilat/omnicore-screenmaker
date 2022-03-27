@@ -1,6 +1,3 @@
-import ComponentProperty from './componentPropertyMenu'
-
-
 const workspaceSelector = ".workspace",
   menuSelector = ".c-context-menu",
   components = [],
@@ -46,9 +43,6 @@ const contextMenuActions = (event) => {
     case 'delete':
         window.activeComponent.remove();
       break;
-    case 'properties':
-        ComponentProperty.toggleVisibility();
-      break;
     default:
       // code block
   }
@@ -84,7 +78,6 @@ const contextMenuInit = (event) => {
 const init = () => {
   watchDog();
   contextMenuInit();
-  ComponentProperty.windowInit();
   document.addEventListener('click', contextMenuVisibility);
 };
 

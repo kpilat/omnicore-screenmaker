@@ -1,12 +1,6 @@
 const windowInit = () => {
-  // const tabs = document.querySelector(".c-property-menu .tabs").children;
-  // [...tabs].forEach((tab) => tab.addEventListener("click", tabSwitch));
-  // document
-  //   .querySelector('.c-property-menu [data-btn-type="cancel"]')
-  //   .addEventListener("click", toggleVisibility);
-  // document
-  //   .querySelector('.c-property-menu [data-btn-type="save"]')
-  //   .addEventListener("click", saveConfig);
+  const tabs = document.querySelector(".c-property-menu .tabs").children;
+  [...tabs].forEach((tab) => tab.addEventListener("click", tabSwitch));
 };
 
 // Switching between tabs
@@ -49,10 +43,4 @@ const saveConfig = () => {
   };
 };
 
-// Properties menu windows visibility toggle
-const toggleVisibility = () => {
-  // const propWindow = document.querySelector(".c-property-menu");
-  // propWindow.classList.toggle("hide");
-};
-
-export default { windowInit, toggleVisibility };
+export default { windowInit, saveConfig };

@@ -1,9 +1,8 @@
 <template>
-  <div class="c-property-menu" v-if="!isStartup">
+  <div class="c-property-menu" v-if="visible">
     <form action="javascript:void(0);" id="c-property-form">
       <div class="c-property-menu__inner">
         <div class="tabs">
-          <div class="tabs-item is-selected" name="basic">{{component}}</div>
           <div class="tabs-item is-selected" name="basic">Basic</div>
           <div class="tabs-item" name="action-callback">Action/Callback</div>
         </div>
@@ -67,10 +66,10 @@
           </div>
         </div>
         <div class="c-property-menu__buttons">
-          <div class="button button--primary" data-btn-type="cancel">
+          <div class="button button--primary" data-btn-type="cancel" :onclick="close">
             Cancel
           </div>
-          <button class="button button--primary" data-btn-type="save">
+          <button class="button button--primary" data-btn-type="save" :onclick="save">
             Save
           </button>
         </div>
@@ -80,12 +79,22 @@
 </template>
 
 <script>
+import componentsPropertyMenu from "./../js/modules/componentPropertyMenu"
+
 export default {
   name: "c-property-menu",
   props: {
-    isStartup: Boolean,
-    test: String,
+    visible: Boolean,
+    close: Function,
     component: Object
   },
+  methods: {
+    save:  () => {
+      componentsPropertyMenu.saveConfig();
+    }
+  },
+  updated() {
+    this.visible ? componentsPropertyMenu.windowInit() : void(0);
+  }
 };
 </script>
