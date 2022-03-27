@@ -79,7 +79,9 @@ const cloneDraggable = (item) => {
     resetComponent(newItem);
 
     newItem['componentConfig'] = {
-        'id': idGenerator(10)
+        'id': idGenerator(10),
+        'type': item.getAttribute('data-type'),
+        'name': item.getAttribute('data-name'),
     }
     document.querySelector(dropzone).appendChild(newItem);
 };

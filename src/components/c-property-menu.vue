@@ -1,8 +1,9 @@
 <template>
-  <div class="c-property-menu">
+  <div class="c-property-menu" v-if="!isStartup">
     <form action="javascript:void(0);" id="c-property-form">
       <div class="c-property-menu__inner">
         <div class="tabs">
+          <div class="tabs-item is-selected" name="basic">{{component}}</div>
           <div class="tabs-item is-selected" name="basic">Basic</div>
           <div class="tabs-item" name="action-callback">Action/Callback</div>
         </div>
@@ -81,6 +82,10 @@
 <script>
 export default {
   name: "c-property-menu",
-  props: {},
+  props: {
+    isStartup: Boolean,
+    test: String,
+    component: Object
+  },
 };
 </script>

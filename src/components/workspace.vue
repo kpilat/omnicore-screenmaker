@@ -1,19 +1,40 @@
 <template>
   <div class="workspace"></div>
-  <ComponentContextMenu/>
-  <ComponentProperyMenu/>
+  <ComponentContextMenu :onClick="testConsole" />
+  <component :is="propMenu.component" v-bind="propMenu.props" />
 </template>
 
 <script>
-import ComponentContextMenu from './c-context-menu.vue'
-import ComponentProperyMenu from './c-property-menu.vue'
+import ComponentContextMenu from "./c-context-menu.vue";
+import ComponentPropertyMenu from "./c-property-menu.vue";
 
 export default {
-  name: 'workspace',
+  name: "workspace",
   components: {
     ComponentContextMenu,
-    ComponentProperyMenu
+    ComponentPropertyMenu,
   },
-  props: {}
+  props: {},
+  data() {
+    return {
+      propMenu: {
+        component: "ComponentPropertyMenu",
+        props: {
+          isStartup: true,
+        },
+      },
+    };
+  },
+  methods: {
+    testConsole: function () {
+      this.propMenu = {
+        component: "ComponentPropertyMenu",
+        props: {
+          isStartup: false,
+          component: window.activeComponent
+        },
+      };
+    },
+  },
 };
 </script>

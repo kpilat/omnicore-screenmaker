@@ -3,7 +3,7 @@
     <div class="c-context-menu__item" data-action="delete">
       Remove component
     </div>
-    <div class="c-context-menu__item" data-action="properties">
+    <div class="c-context-menu__item" data-action="properties" :onclick="onClick">
       Properties
     </div>
   </div>
@@ -12,6 +12,8 @@
 <script>
 export default {
   name: 'c-context-menu',
-  props: {},
+  props: {
+    onClick: Function
+  }
 };
 </script>

@@ -3,9 +3,9 @@ const sendData = () => {
   window.components?.forEach((component) => {
     const path = component.componentConfig.path.split("/");
     const objectComponent = {
-      type: component.getAttribute("data-type"),
+      type: component.componentConfig.type,
       id: component.componentConfig.id,
-      name: component.getAttribute("data-name"),
+      name: component.componentConfig.name,
       // Position
       top: component.style.top,
       left: component.style.left,
