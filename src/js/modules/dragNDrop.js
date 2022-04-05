@@ -83,6 +83,7 @@ const cloneDraggable = (item) => {
         'type': item.getAttribute('data-type'),
         'name': item.getAttribute('data-name'),
     }
+    newItem['componentSettings'] = assingSettings(newItem.componentConfig);
     document.querySelector(dropzone).appendChild(newItem);
 };
 
@@ -99,6 +100,18 @@ const idGenerator = (length) => {
         result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
     }
     return result;
+}
+
+const assingSettings = (newItem) => {
+    const obj = {}
+    switch (newItem.type) {
+        case 'button':
+        case 'digital':
+            obj['componentText'] = true;
+            break;
+            
+    }
+    return obj;
 }
 
 // Initialization

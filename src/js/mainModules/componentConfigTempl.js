@@ -61,8 +61,10 @@ const decreaseValue = (component) => {
 const  toggleSignal = (component) => {
     if (component.type === 'digital') {
         return toggleSignalDigital(component);
-    } else {
+    } else if(component.type === 'switch') {
         return toggleSignalSwitch(component);
+    } else {
+        return toggleSignalButton(component);
     }
 }
 
@@ -91,6 +93,27 @@ const toggleSignalSwitch = (component) => {
     return template;
   };
 
+const toggleSignalButton = (component) => {
+  const template = `
+        try {
+            var setValue;
+            if (${component.id}.active) {
+                setValue = ${component.id}.active;
+            } else {
+                setValue = await ${component.id + component.id}.getValue();
+                ${component.id}['active'] = setValue;
+            }
+
+            setValue = setValue === 0 ? 1 : 0;
+            ${component.id}.active = setValue;
+            await ${component.id + component.id}.setValue(setValue);
+        } catch (e) {
+            FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
+        }
+    `;
+  return template;
+};
+
 const setValue = (component) => {
   const template = `
         let value = await ${component.id + component.id}.getValue();
@@ -103,7 +126,7 @@ const setValue = (component) => {
   return template;
 };
 
-const alertMessage = (component) => {
+const alertPopup = (component) => {
   const template = `
         FPComponents.Popup_A.confirm('${component.alertTitle}', '${
     component.alertMessage
@@ -127,7 +150,7 @@ const alertMessage = (component) => {
                 }
             }
             ${component.type === "switch" ? alertElsePart(component) : ""}
-        });
+        }, FPComponents.Popup_A.STYLE.${component.alertType});
     `;
   return template;
 };
@@ -154,5 +177,5 @@ export default {
   decreaseValue,
   toggleSignal,
   setValue,
-  alertMessage,
+  alertPopup,
 };

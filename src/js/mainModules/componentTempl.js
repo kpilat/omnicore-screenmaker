@@ -8,7 +8,7 @@ const digitalInit = (component) => {
     ${component.id}.desc = "${component.name}";
     ${component.id}.attachToId("${component.id}");
     ${component.id}.onclick = async function () {
-        ${component.alertMessage ? Config.alertMessage(component) :
+        ${component.alertType ? Config.alertPopup(component) :
 
             (
                 component.action === "set-value"
@@ -61,7 +61,7 @@ const buttonInit = (component) => {
         ${component.id}.attachToId("${component.id}");
         ${component.id}.text = "${component.text}";
         ${component.id}.onclick = async function () {
-            ${component.alertMessage ? Config.alertMessage(component) :
+            ${component.alertType ? Config.alertPopup(component) :
                 (
                     component.action === "increase-value"
                     ? Config.increaseValue(component)
@@ -111,7 +111,7 @@ const switchInit = (component) => {
         ${component.id} = new FPComponents.Switch_A();
         ${component.id}.attachToId("${component.id}");
         ${component.id}.onchange = async function (active) {
-            ${component.alertMessage ? Config.alertMessage(component) :
+            ${component.alertType ? Config.alertPopup(component) :
                 (
                     component.action === "increase-value"
                     ? Config.increaseValue(component)
