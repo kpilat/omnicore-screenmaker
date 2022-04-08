@@ -15,7 +15,7 @@
             class="input input-fullWidth"
             v-if="component.componentSettings.componentText"
           >
-            <input
+            <input v-model="componentText"
               placeholder="Component Text"
               type="text"
               name="component-text"
@@ -31,6 +31,7 @@
           </div>
           <div class="input input-fullWidth" v-if="this.targetType === 'rapid'">
             <input
+              v-model="robotName"
               placeholder="Robot Name"
               type="text"
               name="component-robotName"
@@ -38,13 +39,15 @@
           </div>
           <div class="input input-fullWidth" v-if="this.targetType === 'rapid'">
             <input
-              placeholder="Target Module"
+              v-model="moduleName"
+              placeholder="Module Name"
               type="text"
               name="component-moduleName"
             />
           </div>
           <div class="input input-fullWidth" v-if="this.targetType === 'signal' || this.targetType === 'rapid'">
             <input
+              v-model="targetName"
               placeholder="Target Name"
               type="text"
               name="component-targetName"
@@ -66,13 +69,13 @@
             </select>
           </div>
           <div class="input input-fullWidth" v-if="this.actionType === 'increase-value' || this.actionType === 'decrease-value'">
-            <input placeholder="Step" type="number" name="component-step" />
+            <input placeholder="Step" type="number" name="component-step" v-model="step" />
           </div>
           <label class="label" for="component-callback"
             >Component Callback</label
           >
           <div class="select select-fullWidth">
-            <select name="component-callback">
+            <select name="component-callback" v-model="callbackType">
               <option value="">None</option>
               <option value="increase-value">Increase Value</option>
               <option value="decrease-value">Decrease Value</option>
@@ -96,6 +99,7 @@
           </div>
           <div class="input input-fullWidth" v-if="alertType">
             <input
+              v-model="alertTitle"
               placeholder="Alert Title"
               type="text"
               name="component-alertTitle"
@@ -103,6 +107,7 @@
           </div>
           <div class="input input-fullWidth" v-if="alertType">
             <input
+              v-model="alertMessage"
               placeholder="Alert Message"
               type="text"
               name="component-alertMessage"
@@ -146,7 +151,17 @@ export default {
     return {
       targetType: '',
       actionType: '',
-      alertType: ''
+      alertType: '',
+      callbackType: '',
+
+      // Input values
+      componentText: '',
+      targetName: '',
+      robotName: '',
+      moduleName: '',
+      alertTitle: '',
+      alertMessage: '',
+      step: '',
     }
   },
   methods: {
@@ -158,7 +173,25 @@ export default {
     }
   },
   updated() {
-    this.visible ? componentsPropertyMenu.windowInit() : void 0;
+    this.visible ? (componentsPropertyMenu.windowInit()) : void 0;
+  },
+  watch: {
+    // whenever property changes, this function will run
+    visible: function () {
+      if(this.visible) {
+        this.targetType = this.component.componentConfig.target;
+        this.actionType = this.component.componentConfig.action;
+        this.callbackType = this.component.componentConfig.callback;
+        this.alertType = this.component.componentConfig.alertType;
+        this.componentText = this.component.componentConfig.text;
+        this.targetName = this.component.componentConfig.targetName;
+        this.robotName = this.component.componentConfig.robotName;
+        this.moduleName = this.component.componentConfig.moduleName;
+        this.alertTitle = this.component.componentConfig.alertTitle;
+        this.alertMessage = this.component.componentConfig.alertMessage;
+        this.step = this.component.componentConfig.step;
+      }
+    }
   },
 };
 </script>

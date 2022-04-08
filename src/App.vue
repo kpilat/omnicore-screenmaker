@@ -10,11 +10,15 @@
 
 <script>
 /* eslint-disable vue/no-unused-components */
-import Custom from './js/custom.js'
 import Button from './components/button.vue'
 import TopMenu from './components/top-menu.vue'
 import RightMenu from './components/right-menu.vue'
 import Workspace from './components/workspace.vue'
+
+import DragNDrop from './js/modules/dragNDrop'
+import Rescale from './js/modules/rescale'
+import WorkSpace from './js/modules/workSpace'
+import ComponentParser from './js/modules/componentParser'
 
 export default {
   name: 'App',
@@ -22,8 +26,13 @@ export default {
     TopMenu,
     RightMenu,
     Workspace,
-    Button,
-    Custom
+    Button
+  },
+  mounted: () => {
+    DragNDrop.init();
+    Rescale.init();
+    WorkSpace.init();
+    ComponentParser.init();
   }
 }
 </script>
