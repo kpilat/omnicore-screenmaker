@@ -1,8 +1,32 @@
-const fs = require('fs-extra')
+const isDev = require('electron-is-dev');
+const path = require('path')
 import JsTemplate from './jsTempl';
 import HtmlTemplate from './htmlTempl';
+import FileManager from './fileManager';
 
-const build = (data) => {
+const build = async (data) => {
+    let appPath = './WebApps/generated-app/';
+    const assetsPath = './src/assets/',
+    jsFile = 'app.js',
+    htmlFile = 'index.html',
+    appinfoFile = 'appinfo.xml',
+    controllerFiles = 'controller-files',
+    fpComponents = 'fp-components',
+    rwsApi = 'rws-api',
+    icon = 'App_Default_100.png';
+
+    if (!isDev) {
+        const result = await FileManager.saveDialog();
+    
+        if(result.canceled) {
+            return;
+        } else {
+            const filePath = path.dirname(result.filePath);
+            const basename = path.basename(result.filePath);
+            appPath = path.join(filePath, path.parse(basename).name, '/');
+        }
+    }
+    
     data = JSON.parse(data);
     const components = {
         'componentCode': [],
@@ -10,15 +34,6 @@ const build = (data) => {
         'componentSubscribe': [],
         'componentUnsubscribe': []
     }
-    const appPath = './WebApps/generated-app/',
-        assetsPath = './src/assets/',
-        jsFile = 'app.js',
-        htmlFile = 'index.html',
-        appinfoFile = 'appinfo.xml',
-        controllerFiles = 'controller-files',
-        fpComponents = 'fp-components',
-        rwsApi = 'rws-api',
-        icon = 'App_Default_100.png';
 
     data.forEach(component => {
         components.componentCode.push(JsTemplate.componentInit(component));
@@ -33,13 +48,13 @@ const build = (data) => {
 
     const appInfo = `<?xml version="1.0" encoding="UTF-8"?><WebApp><name>Generated APP</name><icon>App_Default_100.png</icon><path>index.html</path></WebApp>`;
 
-    fsWrite(jsTemplate, appPath, jsFile);
-    fsWrite(htmlTemplate, appPath, htmlFile);
-    fsWrite(appInfo, appPath, appinfoFile);
-    copyFiles(assetsPath + controllerFiles, appPath + controllerFiles);
-    copyFiles(assetsPath + fpComponents, appPath + fpComponents);
-    copyFiles(assetsPath + rwsApi, appPath + rwsApi);
-    copyFiles(assetsPath + icon, appPath + icon);
+    FileManager.fsWrite(jsTemplate, appPath, jsFile);
+    FileManager.fsWrite(htmlTemplate, appPath, htmlFile);
+    FileManager.fsWrite(appInfo, appPath, appinfoFile);
+    FileManager.copyFiles(assetsPath + controllerFiles, appPath + controllerFiles);
+    FileManager.copyFiles(assetsPath + fpComponents, appPath + fpComponents);
+    FileManager.copyFiles(assetsPath + rwsApi, appPath + rwsApi);
+    FileManager.copyFiles(assetsPath + icon, appPath + icon);
 };
 
 
@@ -47,30 +62,6 @@ const build = (data) => {
 //                  Utilities
 // ================================================
 
-const ensureDirectoryExistence = (appPath) => {
-    if (!fs.existsSync(appPath)) {
-        fs.mkdirSync(appPath, {recursive: true});
-    }
-}
 
-
-// Write code to file and put it to the proper location
-const fsWrite = (componentJs, appPath, jsFile) => {
-    ensureDirectoryExistence(appPath);
-    fs.writeFile(appPath + jsFile, componentJs, function (err) {
-        if (err) return console.log(err);
-        console.log('Done!');
-    });
-};
-
-
-async function copyFiles(source, destination) {
-    try {
-        await fs.copy(source, destination)
-        console.log('success!')
-    } catch (err) {
-        console.error(err)
-    }
-}
 
 export default {build};

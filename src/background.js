@@ -4,6 +4,7 @@ import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import AppBuilder from './js/mainModules/appBuilder'
+import Project from './js/mainModules/project'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path');
@@ -39,9 +40,16 @@ async function createWindow() {
     }
 
     // IRPC
-    ipcMain.on('toMain', (event, data) => {
+    ipcMain.on('build', (event, data) => {
         AppBuilder.build(data);
         // win.webContents.send('fromMain', args);
+    });
+    ipcMain.on('save', (event, data) => {
+        Project.save(data);
+    });
+    ipcMain.on('load', async () => {
+        const result = await Project.load();
+        win.webContents.send('fromMain', result);
     });
 }
 

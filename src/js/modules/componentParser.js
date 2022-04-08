@@ -33,7 +33,7 @@ const sendData = () => {
   });
 
   if (components.length > 0) {
-    window.api.send("toMain", JSON.stringify(components));
+    window.api.send("build", JSON.stringify(components));
   }
 };
 

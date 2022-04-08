@@ -9,7 +9,10 @@ module.exports = {
         'src/js/mainModules/componentTempl.js',
         'src/js/mainModules/jsTempl.js',
         'src/js/mainModules/htmlTempl.js',
-        'src/js/mainModules/componentConfigTempl.js'
+        'src/js/mainModules/componentConfigTempl.js',
+        'src/js/mainModules/project.js',
+        'src/js/mainModules/fileManager.js',
+        'src/js/mainModules/utilities.js'
       ]
     },
   },
