@@ -5,7 +5,7 @@ const sendData = () => {
     const objectComponent = {
       type: component.componentConfig.type,
       id: component.componentConfig.id,
-      name: component.componentConfig.name,
+      // name: component.componentConfig.name,
       // Position
       top: component.style.top,
       left: component.style.left,

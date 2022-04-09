@@ -5,7 +5,7 @@ const digitalInit = (component) => {
   console.log(component);
   const newComponent = `
     ${component.id} = new FPComponents.Digital_A();
-    ${component.id}.desc = "${component.name}";
+    ${component.id}.desc = "${component.text}";
     ${component.id}.attachToId("${component.id}");
     ${component.id}.onclick = async function () {
         ${component.alertType ? Config.alertPopup(component) :

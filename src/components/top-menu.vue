@@ -37,7 +37,6 @@ export default {
         const elements = [];
 
         parsed?.forEach(item => elements.push(Utilities.toDOM(item)));
-        console.log(elements);
         elements?.forEach(item => document.querySelector('.workspace').appendChild(item));
     });
   },

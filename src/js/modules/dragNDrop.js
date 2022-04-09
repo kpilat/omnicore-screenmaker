@@ -81,7 +81,7 @@ const cloneDraggable = (item) => {
     newItem['componentConfig'] = {
         'id': idGenerator(10),
         'type': item.getAttribute('data-type'),
-        'name': item.getAttribute('data-name'),
+        'text': item.getAttribute('data-text'),
     }
     newItem['componentSettings'] = assingSettings(newItem.componentConfig);
     document.querySelector(dropzone).appendChild(newItem);

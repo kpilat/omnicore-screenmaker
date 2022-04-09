@@ -20,7 +20,7 @@ export default {
       propMenu: {
         component: "ComponentPropertyMenu",
         props: {
-          visible: false,
+          rendered: false,
         },
       },
     };
@@ -30,7 +30,7 @@ export default {
       this.propMenu = {
         component: "ComponentPropertyMenu",
         props: {
-          visible: true,
+          rendered: true,
           component: window.activeComponent,
           close: this.closePropertyMenu
         },
@@ -40,10 +40,10 @@ export default {
       this.propMenu = {
         component: "ComponentPropertyMenu",
         props: {
-          visible: false,
+          rendered: false,
         },
       };
     },
-  },
+  }
 };
 </script>

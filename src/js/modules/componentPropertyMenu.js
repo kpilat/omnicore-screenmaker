@@ -41,6 +41,12 @@ const saveConfig = () => {
     ...window.components[index].componentConfig,
     ...componentConfig,
   };
+
+  // Not working beacuse some elements have nested element which would overwrite (works just with button)
+
+  // if (window.components[index].innerText) {
+  //   window.components[index].innerText = componentConfig.text;
+  // }
 };
 
 export default { windowInit, saveConfig };

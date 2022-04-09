@@ -1,5 +1,5 @@
 <template>
-  <div class="c-property-menu" v-if="visible">
+  <div class="c-property-menu" v-if="rendered">
     <form action="javascript:void(0);" id="c-property-form">
       <div class="c-property-menu__inner">
         <!-- Tabs -->
@@ -15,7 +15,8 @@
             class="input input-fullWidth"
             v-if="component.componentSettings.componentText"
           >
-            <input v-model="componentText"
+            <input
+              v-model="componentText"
               placeholder="Component Text"
               type="text"
               name="component-text"
@@ -45,7 +46,10 @@
               name="component-moduleName"
             />
           </div>
-          <div class="input input-fullWidth" v-if="this.targetType === 'signal' || this.targetType === 'rapid'">
+          <div
+            class="input input-fullWidth"
+            v-if="this.targetType === 'signal' || this.targetType === 'rapid'"
+          >
             <input
               v-model="targetName"
               placeholder="Target Name"
@@ -68,8 +72,19 @@
               <option value="toggle-signal">Toggle Signal</option>
             </select>
           </div>
-          <div class="input input-fullWidth" v-if="this.actionType === 'increase-value' || this.actionType === 'decrease-value'">
-            <input placeholder="Step" type="number" name="component-step" v-model="step" />
+          <div
+            class="input input-fullWidth"
+            v-if="
+              this.actionType === 'increase-value' ||
+              this.actionType === 'decrease-value'
+            "
+          >
+            <input
+              placeholder="Step"
+              type="number"
+              name="component-step"
+              v-model="step"
+            />
           </div>
           <label class="label" for="component-callback"
             >Component Callback</label
@@ -143,26 +158,26 @@ import componentsPropertyMenu from "./../js/modules/componentPropertyMenu";
 export default {
   name: "c-property-menu",
   props: {
-    visible: Boolean,
+    rendered: Boolean,
     close: Function,
     component: Object,
   },
   data: function () {
     return {
-      targetType: '',
-      actionType: '',
-      alertType: '',
-      callbackType: '',
+      targetType: "",
+      actionType: "",
+      alertType: "",
+      callbackType: "",
 
       // Input values
-      componentText: '',
-      targetName: '',
-      robotName: '',
-      moduleName: '',
-      alertTitle: '',
-      alertMessage: '',
-      step: '',
-    }
+      componentText: "",
+      targetName: "",
+      robotName: "",
+      moduleName: "",
+      alertTitle: "",
+      alertMessage: "",
+      step: "",
+    };
   },
   methods: {
     save: () => {
@@ -170,28 +185,42 @@ export default {
     },
     consoleLog: (text) => {
       console.log(text);
-    }
+    },
+    componentChange: function () {
+      this.targetType = this.component.componentConfig.target;
+      this.actionType = this.component.componentConfig.action;
+      this.callbackType = this.component.componentConfig.callback;
+      this.alertType = this.component.componentConfig.alertType;
+      this.componentText = this.component.componentConfig.text;
+      this.targetName = this.component.componentConfig.targetName;
+      this.robotName = this.component.componentConfig.robotName;
+      this.moduleName = this.component.componentConfig.moduleName;
+      this.alertTitle = this.component.componentConfig.alertTitle;
+      this.alertMessage = this.component.componentConfig.alertMessage;
+      this.step = this.component.componentConfig.step;
+    },
   },
   updated() {
-    this.visible ? (componentsPropertyMenu.windowInit()) : void 0;
+    this.rendered ? componentsPropertyMenu.windowInit() : void 0;
   },
   watch: {
-    // whenever property changes, this function will run
-    visible: function () {
-      if(this.visible) {
-        this.targetType = this.component.componentConfig.target;
-        this.actionType = this.component.componentConfig.action;
-        this.callbackType = this.component.componentConfig.callback;
-        this.alertType = this.component.componentConfig.alertType;
-        this.componentText = this.component.componentConfig.text;
-        this.targetName = this.component.componentConfig.targetName;
-        this.robotName = this.component.componentConfig.robotName;
-        this.moduleName = this.component.componentConfig.moduleName;
-        this.alertTitle = this.component.componentConfig.alertTitle;
-        this.alertMessage = this.component.componentConfig.alertMessage;
-        this.step = this.component.componentConfig.step;
-      }
-    }
+    rendered: {
+      deep: true,
+      // whenever property changes, this handler will run
+      handler() {
+        if (this.rendered) {
+          this.componentChange();
+        }
+      },
+    },
+
+    component: {
+      handler() {
+        if(this.rendered) {
+          this.componentChange();
+        }
+      },
+    },
   },
 };
 </script>

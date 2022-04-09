@@ -35,6 +35,8 @@ const build = async (data) => {
         'componentUnsubscribe': []
     }
 
+    console.log(data);
+
     data.forEach(component => {
         components.componentCode.push(JsTemplate.componentInit(component));
         components.componentVariables.push('var ' + component.id + ';');

@@ -13,7 +13,7 @@
           <div
             class="fp-components-button draggable"
             data-type="button"
-            data-name="Button"
+            data-text="Button"
           >
             <span class="fp-components-button-text">Button</span>
           </div>
@@ -23,7 +23,7 @@
           <div
             class="fp-components-digital-a-container draggable"
             data-type="digital"
-            data-name="Digital"
+            data-text="Digital"
           >
             <div class="fp-components-digital-a">0</div>
             <div class="fp-components-digital-a-desc">Digital</div>
@@ -34,7 +34,7 @@
           <div
             class="fp-components-switch-container draggable"
             data-type="switch"
-            data-name="Switch"
+            data-text="Switch"
           >
             <div class="fp-components-switch-button">
               <div></div>
@@ -46,7 +46,7 @@
           <div
             class="fp-components-base fp-components-toggle draggable"
             data-type="toggle"
-            data-name="Toggle"
+            data-text="Toggle"
           >
             <div
               class="fp-components-toggle-on"
