@@ -19,10 +19,11 @@ body {
 .content-wrapper {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
+  padding-top: $top-menu-height;
 }
 
 p {

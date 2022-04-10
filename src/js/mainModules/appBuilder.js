@@ -31,19 +31,27 @@ const build = async (data) => {
     const components = {
         'componentCode': [],
         'componentVariables': [],
+        'componentGroups': [],
         'componentSubscribe': [],
         'componentUnsubscribe': []
     }
 
-    console.log(data);
-
     data.forEach(component => {
         components.componentCode.push(JsTemplate.componentInit(component));
-        components.componentVariables.push('var ' + component.id + ';');
-        components.componentVariables.push('var ' + component.id + component.id + ';');
+        if (component.type === 'radio') {
+            components.componentGroups.push(`var ${component.group} = {};`);
+            components.componentVariables.push(`${component.group}['${component.id}'] = '';`);
+            components.componentVariables.push(`${component.group}['${component.id + component.id}'] = '';`);
+        } else {
+            components.componentVariables.push('var ' + component.id + ';');
+            components.componentVariables.push('var ' + component.id + component.id + ';');
+        }
         components.componentSubscribe.push(JsTemplate.subscribe(component));
         components.componentUnsubscribe.push(JsTemplate.unsubscribe(component));
     });
+
+    // Unique group names
+    components.componentGroups = components.componentGroups.filter((x, i, a) => a.indexOf(x) == i);
 
     const jsTemplate = JsTemplate.injectTemplate(JsTemplate.stringJoin(components));
     const htmlTemplate = HtmlTemplate.injectTemplate(data);

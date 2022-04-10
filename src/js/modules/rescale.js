@@ -13,12 +13,12 @@ const rescaleComponents = () => {
   };
   document.querySelectorAll(draggable).forEach((item) => {
     const style = getComputedStyle(item);
-    item.style.width = "";
-    item.style.width = `${coeficient.x * parseInt(style.width)}px`;
-    item.style.height = "";
-    item.style.height = `${coeficient.y * parseInt(style.height)}px`;
-    item.style.fontSize = "";
-    item.style.fontSize = `${coeficient.y * parseInt(style.fontSize)}px`;
+      item.style.width = "";
+      item.style.width = `${coeficient.x * parseInt(style.width)}px`;
+      item.style.height = "";
+      item.style.height = `${coeficient.y * parseInt(style.height)}px`;
+      item.style.fontSize = "";
+      item.style.fontSize = `${coeficient.y * parseInt(style.fontSize)}px`;
   });
 };
 

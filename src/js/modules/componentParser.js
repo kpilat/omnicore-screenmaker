@@ -23,6 +23,7 @@ const sendData = () => {
       alertMessage: component.componentConfig.alertMessage,
       alertTitle: component.componentConfig.alertTitle,
       step: component.componentConfig.step,
+      group: 'goup1',
     };
     Object.keys(objectComponent).forEach((key) => {
       if (objectComponent[key] === '' || objectComponent[key] === undefined) {

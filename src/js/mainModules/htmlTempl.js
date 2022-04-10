@@ -3,8 +3,9 @@ const injectTemplate = (components) => {
 
     components.forEach((component) => {
         elements += `
-            <div id="${component.id}" style="position: absolute; top:${component.top}; left:${component.left}"></div>
-        `
+            <div id="${component.id}" style="position: absolute; top:${component.top}; left:${component.left}; ${component.type === 'input' ? 'width:200px;' : ''};"></div>
+            
+        `;
     });
 
     const template = `

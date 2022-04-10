@@ -47,10 +47,10 @@ body {
 .content-wrapper {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
   height: 100vh;
   max-height: 100vh;
-  overflow: hidden; }
+  overflow: hidden;
+  padding-top: 40px; }
 
 p {
   font-weight: normal;
@@ -3219,14 +3219,25 @@ ABB reserves all rights regarding Intellectual Property Rights
   background-repeat: no-repeat;
   background-position: center; }
 
+.fp-components-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
 .top-menu-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 40px;
   background-color: #F0F0F0;
   border: 1px solid #969da6;
   width: 100%; }
 
 .right-menu-wrapper {
-  width: 20%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 400px;
   height: 100vh;
   margin-left: auto;
   border: 1px solid #969da6; }
@@ -3248,18 +3259,18 @@ ABB reserves all rights regarding Intellectual Property Rights
     margin-right: 10px; }
 
 .workspace {
-  width: 80%;
+  width: 100%;
   height: 100vh;
   position: relative; }
 
 .assigned {
-  position: absolute;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content; }
+  position: absolute; }
 
 .draggable * {
   pointer-events: none; }
+
+.fp-components-input {
+  width: 200px; }
 
 .c-context-menu {
   position: absolute;

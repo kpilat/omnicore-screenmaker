@@ -73,7 +73,8 @@ const cloneDraggable = (item) => {
         left: ${(100 / workspace.clientWidth) * position.x}%;
         width: ${item.style.width};
         height: ${item.style.height};
-        font-size: ${item.style.fontSize}
+        font-size: ${item.style.fontSize};
+        min-width: auto
     `;
     resetComponent(item);
     resetComponent(newItem);
@@ -83,7 +84,7 @@ const cloneDraggable = (item) => {
         'type': item.getAttribute('data-type'),
         'text': item.getAttribute('data-text'),
     }
-    newItem['componentSettings'] = assingSettings(newItem.componentConfig);
+    newItem['componentSettings'] = assignSettings(newItem.componentConfig);
     document.querySelector(dropzone).appendChild(newItem);
 };
 
@@ -102,7 +103,7 @@ const idGenerator = (length) => {
     return result;
 }
 
-const assingSettings = (newItem) => {
+const assignSettings = (newItem) => {
     const obj = {}
     switch (newItem.type) {
         case 'button':

@@ -70,6 +70,7 @@
               <option value="set-value">Set Value</option>
               <option value="push-signal">Push Signal</option>
               <option value="toggle-signal">Toggle Signal</option>
+              <option value="set-string">Set String</option>
             </select>
           </div>
           <div

@@ -10,70 +10,51 @@
       </div>
       <div class="right-menu__content">
         <div class="right-menu__item">
-          <div
-            class="fp-components-button draggable"
-            data-type="button"
-            data-text="Button"
-          >
-            <span class="fp-components-button-text">Button</span>
-          </div>
+          <FpButton />
         </div>
 
         <div class="right-menu__item">
-          <div
-            class="fp-components-digital-a-container draggable"
-            data-type="digital"
-            data-text="Digital"
-          >
-            <div class="fp-components-digital-a">0</div>
-            <div class="fp-components-digital-a-desc">Digital</div>
-          </div>
+          <FpDigital />
         </div>
 
         <div class="right-menu__item">
-          <div
-            class="fp-components-switch-container draggable"
-            data-type="switch"
-            data-text="Switch"
-          >
-            <div class="fp-components-switch-button">
-              <div></div>
-            </div>
-          </div>
+          <FpSwitch />
         </div>
 
         <div class="right-menu__item">
-          <div
-            class="fp-components-base fp-components-toggle draggable"
-            data-type="toggle"
-            data-text="Toggle"
-          >
-            <div
-              class="fp-components-toggle-on"
-              style="padding: 12px 32px 12px 8px"
-            >
-              <div
-                class="fp-components-toggle-icon"
-                style="background-image: none"
-              ></div>
-              <div>Value 0</div>
-            </div>
-            <div class="" style="padding: 12px 32px 12px 8px">
-              <div
-                class="fp-components-toggle-icon"
-                style="background-image: none"
-              ></div>
-              <div>Value 1</div>
-            </div>
-          </div>
+          <FpToggle />
+        </div>
+
+        <div class="right-menu__item">
+          <FpInput />
+        </div>
+
+        <div class="right-menu__item">
+          <FpRadio />
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import FpButton from "./fp-button.vue";
+import FpDigital from "./fp-digital.vue";
+import FpSwitch from "./fp-switch.vue";
+import FpToggle from "./fp-toggle.vue";
+import FpInput from "./fp-input.vue";
+import FpRadio from "./fp-radio.vue";
+
 export default {
   name: "right-menu",
   props: {},
+  components: {
+    FpButton,
+    FpDigital,
+    FpSwitch,
+    FpToggle,
+    FpInput,
+    FpRadio,
+  },
 };
 </script>
