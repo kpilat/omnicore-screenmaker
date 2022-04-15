@@ -1,5 +1,5 @@
 const subscribeVariable = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         try {
             ${component.id + component.id} = await RWS.Rapid.getData("${
         component.robotName
@@ -18,24 +18,28 @@ const subscribeVariable = (component) => {
 };
 
 const subscribeVariableRadio = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         try {
           ${component.group}.${
         component.id + component.id
-    } = await RWS.Rapid.getData("${component.robotName}", "${component.moduleName}", "${component.targetName}");
+    } = await RWS.Rapid.getData("${component.robotName}", "${
+        component.moduleName
+    }", "${component.targetName}");
 
             await ${component.group}.${
         component.id + component.id
     }.subscribe(true);
         } catch(e) {
-            FPComponents.Popup_A.message(e.message, [e.message, \`Couldn't find Rapid variable with name ${component.targetName}\`]);
+            FPComponents.Popup_A.message(e.message, [e.message, \`Couldn't find Rapid variable with name ${
+                component.targetName
+            }\`]);
         }
     `;
     return template;
 };
 
 const subscribeSignal = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         try {
             ${component.id + component.id} = await RWS.IO.getSignal('${
         component.targetName
@@ -51,7 +55,7 @@ const subscribeSignal = (component) => {
 };
 
 const increaseValue = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         let value = await ${component.id + component.id}.getValue();
         value = Number.parseInt(value);
         value += ${component.step};
@@ -65,7 +69,7 @@ const increaseValue = (component) => {
 };
 
 const decreaseValue = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         let value = await ${component.id + component.id}.getValue();
         value = Number.parseInt(value);
         value -= ${component.step};
@@ -89,7 +93,7 @@ const toggleSignal = (component) => {
 };
 
 const toggleSignalDigital = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         var setValue = ${component.id}.active ? 0 : 1;
         ${component.id}.active = !${component.id}.active
         try {
@@ -102,7 +106,7 @@ const toggleSignalDigital = (component) => {
 };
 
 const toggleSignalSwitch = (component) => {
-    const template = `
+    const template = /*javascript*/ `
           var setValue = ${component.id}.active ? 1 : 0;
           try {
               await ${component.id + component.id}.setValue(setValue);
@@ -114,7 +118,7 @@ const toggleSignalSwitch = (component) => {
 };
 
 const toggleSignalButton = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         try {
             var setValue;
             if (${component.id}.active) {
@@ -135,7 +139,7 @@ const toggleSignalButton = (component) => {
 };
 
 const setValue = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         let value = await ${component.id + component.id}.getValue();
         try {
             await ${component.id + component.id}.setValue(!value);
@@ -147,7 +151,7 @@ const setValue = (component) => {
 };
 
 const setString = (component) => {
-    const template = `
+    const template = /*javascript*/ `
     try {
       await ${component.id + component.id}.setValue(newValue);
     } catch (e) {
@@ -158,7 +162,7 @@ const setString = (component) => {
 };
 
 const alertPopup = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         FPComponents.Popup_A.confirm('${component.alertTitle}', '${
         component.alertMessage
     }', async function (action) {
@@ -191,7 +195,7 @@ const alertPopup = (component) => {
 // Assuming that this part is being used in switch event callbback because a variable
 // from switch onChange event listener is being used here
 const alertElseSwitch = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         else {
             try {
                 ${component.id}.active = !active;
@@ -204,7 +208,7 @@ const alertElseSwitch = (component) => {
 };
 
 const alertElseInput = (component) => {
-    const template = `
+    const template = /*javascript*/ `
         else {
           ${component.id}.text = ${component.id}.prevText;
         }
@@ -213,7 +217,7 @@ const alertElseInput = (component) => {
 };
 
 const inputCallback = (component) => {
-    const template = `
+    const template = /*javascript*/ `
       ${
           component.id + component.id
       }.addCallbackOnChanged(async function (value) {

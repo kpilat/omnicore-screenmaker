@@ -3,11 +3,11 @@
 </template>
 
 <script>
-export default {
-  name: "button",
-  props: {
-    text: String,
-    onClick: String,
-  },
-};
+  export default {
+    name: "button",
+    props: {
+      text: String,
+      onClick: String,
+    },
+  };
 </script>

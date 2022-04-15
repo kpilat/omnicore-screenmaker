@@ -4,7 +4,7 @@ import Config from "./componentConfigTempl";
 // Digital component code creation with desired values
 const digitalInit = (component) => {
     console.log(component);
-    const newComponent = `
+    const newComponent = /*javascript*/ `
     ${component.id} = new FPComponents.Digital_A();
     ${component.id}.desc = "${component.text}";
     ${component.id}.attachToId("${component.id}");
@@ -56,7 +56,7 @@ const digitalInit = (component) => {
 
 const buttonInit = (component) => {
     console.log(component);
-    const newComponent = `
+    const newComponent = /*javascript*/ `
         ${component.id} = new FPComponents.Button_A();
         ${component.id}.attachToId("${component.id}");
         ${component.id}.text = "${component.text}";
@@ -94,7 +94,7 @@ const buttonInit = (component) => {
 
 const switchInit = (component) => {
     console.log(component);
-    const newComponent = `
+    const newComponent = /*javascript*/ `
         ${
             component.targetType === "signal"
                 ? Config.subscribeSignal(component)
@@ -137,7 +137,7 @@ const switchInit = (component) => {
 
 const inputInit = (component) => {
     console.log(component);
-    const newComponent = `
+    const newComponent = /*javascript*/ `
     ${component.id} = new FPComponents.Input_A();
     ${component.id}.attachToId("${component.id}");
     ${component.id}.text = "${component.text}";
@@ -159,7 +159,7 @@ const inputInit = (component) => {
 
 const radioInit = (component) => {
     console.log(component);
-    const newComponent = `
+    const newComponent = /*javascript*/ `
     ${component.group}.${component.id} = new FPComponents.Radio_A();
     ${component.group}.${component.id}.attachToId("${component.id}");
     ${component.group}.${component.id}.desc = "${component.text}";
@@ -174,8 +174,9 @@ const radioInit = (component) => {
 		}
 
 		Object.entries(${component.group}).forEach(async (item) => {
-			if ('${component.id + component.id}' !== item[0] && '${component.id}' !== item[0]) {
-				console.log(item[0]);
+			if ('${component.id + component.id}' !== item[0] && '${
+        component.id
+    }' !== item[0]) {
 				if (item[0].length > 10) {
 					try {
 						await item[1].setValue(false);
@@ -192,7 +193,9 @@ const radioInit = (component) => {
     ${Config.subscribeVariableRadio(component)}
 
 	try {
-		const initValue = await ${component.group}.${component.id + component.id}.getValue();
+		const initValue = await ${component.group}.${
+        component.id + component.id
+    }.getValue();
 		${component.group}.${component.id}.checked = initValue;
 	} catch (e) {
 		FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
@@ -203,7 +206,7 @@ const radioInit = (component) => {
 
 const toggleInit = (component) => {
     console.log(component);
-    const newComponent = `
+    const newComponent = /*javascript*/ `
         ${component.id} = new FPComponents.Toggle_A();
         ${component.id}.model = [
             { text: "${component.text}" },

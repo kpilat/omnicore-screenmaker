@@ -1,8 +1,8 @@
 import interact from "interactjs";
+import ComponentService from "./componentService";
 
 const draggable = ".draggable",
-    dropzone = ".workspace",
-    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    dropzone = ".workspace";
 
 // Draggable components setup
 const draggableInit = () => {
@@ -41,9 +41,9 @@ const dropzoneInit = () => {
         ondropdeactivate: function (event) {
             const item = event.relatedTarget;
             if (!item.classList.contains("can-drop")) {
-                resetComponent(item);
+                ComponentService.resetComponent(item);
             } else {
-                cloneDraggable(item);
+                ComponentService.componentInit(item);
             }
         },
         ondragenter: function (event) {
@@ -57,68 +57,10 @@ const dropzoneInit = () => {
     });
 };
 
-// Creates new element in workspace
-const cloneDraggable = (item) => {
-    if (item.classList.contains("assigned")) {
-        return;
-    }
-    const newItem = item.cloneNode(true);
-    const position = item.getBoundingClientRect();
-    const workspace = document.querySelector(dropzone);
-    newItem.classList.add("assigned");
-    newItem.style.cssText = `
-        top: ${
-        (100 / workspace.clientHeight) * (position.y - workspace.offsetTop)
-    }%;
-        left: ${(100 / workspace.clientWidth) * position.x}%;
-        width: ${item.style.width};
-        height: ${item.style.height};
-        font-size: ${item.style.fontSize};
-        min-width: auto
-    `;
-    resetComponent(item);
-    resetComponent(newItem);
-
-    newItem['componentConfig'] = {
-        'id': idGenerator(10),
-        'type': item.getAttribute('data-type'),
-        'text': item.getAttribute('data-text'),
-    }
-    newItem['componentSettings'] = assignSettings(newItem.componentConfig);
-    document.querySelector(dropzone).appendChild(newItem);
-};
-
-const resetComponent = (item) => {
-    item.setAttribute("data-x", 0);
-    item.setAttribute("data-y", 0);
-    item.style.transform = "translate(0, 0)";
-    item.classList.remove("dragging", "can-drop");
-};
-
-const idGenerator = (length) => {
-    let result = '';
-    for ( let i = 0; i < length; i++ ) {
-        result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-    }
-    return result;
-}
-
-const assignSettings = (newItem) => {
-    const obj = {}
-    switch (newItem.type) {
-        case 'button':
-        case 'digital':
-            obj['componentText'] = true;
-            break;
-            
-    }
-    return obj;
-}
-
 // Initialization
 const init = () => {
     draggableInit();
     dropzoneInit();
 };
 
-export default {init};
+export default { init };
