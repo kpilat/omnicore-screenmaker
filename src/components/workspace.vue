@@ -7,7 +7,8 @@
 <script>
 import ComponentContextMenu from "./c-context-menu.vue";
 import ComponentPropertyMenu from "./c-property-menu.vue";
-import ComponentService from './../js/modules/componentService'
+import ComponentService from "./../js/modules/componentService";
+import Workspace from './../js/modules/workSpace'
 
 export default {
     name: "workspace",
@@ -29,6 +30,8 @@ export default {
     },
 
     mounted() {
+        // Catches data from main proces (Open project action)
+        Workspace.openProject();
         this.copyComponent();
         this.pasteComponent();
     },
@@ -68,7 +71,7 @@ export default {
                     (e.ctrlKey && e.key === "v") ||
                     (e.metaKey && e.key === "v")
                 ) {
-                    if(window.clipBoard) {
+                    if (window.clipBoard) {
                         ComponentService.componentClone(window.clipBoard);
                     }
                 }

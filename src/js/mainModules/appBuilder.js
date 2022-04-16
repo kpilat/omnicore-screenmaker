@@ -6,8 +6,8 @@ import FileManager from './fileManager';
 
 const build = async (data) => {
     let appPath = './WebApps/generated-app/';
-    const assetsPath = './src/assets/',
-    jsFile = 'app.js',
+    let assetsPath = './public/assets/';
+    const jsFile = 'app.js',
     htmlFile = 'index.html',
     appinfoFile = 'appinfo.xml',
     controllerFiles = 'controller-files',
@@ -17,6 +17,7 @@ const build = async (data) => {
 
     if (!isDev) {
         const result = await FileManager.saveDialog();
+        assetsPath = path.join(process.resourcesPath + '/assets/');
     
         if(result.canceled) {
             return;

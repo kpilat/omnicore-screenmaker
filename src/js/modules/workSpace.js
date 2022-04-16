@@ -1,3 +1,4 @@
+import Utilities from "./utilities";
 const workspaceSelector = ".workspace",
     menuSelector = ".c-context-menu",
     components = [],
@@ -78,6 +79,21 @@ const contextMenuInit = (event) => {
     });
 };
 
+const openProject = () => {
+    window.api.receive("fromMain", (data) => {
+        const parsed = JSON.parse(data);
+        const elements = [];
+
+        const workspace = document.querySelector(workspaceSelector);
+        while (workspace.firstChild) {
+            workspace.removeChild(workspace.firstChild);
+        }
+
+        parsed?.forEach((item) => elements.push(Utilities.toDOM(item)));
+        elements?.forEach((item) => workspace.appendChild(item));
+    });
+}
+
 // Initialization
 const init = () => {
     watchDog();
@@ -85,4 +101,4 @@ const init = () => {
     document.addEventListener("click", contextMenuVisibility);
 };
 
-export default { init };
+export default { init, openProject };
