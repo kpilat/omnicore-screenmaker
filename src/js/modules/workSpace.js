@@ -1,5 +1,6 @@
 import Utilities from './utilities';
 import Rescale from './rescale';
+import ComponentService from './componentService';
 
 const workspaceSelector = ".workspace",
     menuSelector = ".c-context-menu",
@@ -21,15 +22,15 @@ const contentChanged = (mutationsList, observer) => {
         if (item.addedNodes) {
             item.addedNodes.forEach((node) => {
                 components.push(node);
-                window.activeComponent = node;
+                ComponentService.changeActiveState(node);
 
-                node.addEventListener("contextmenu", (event) => {
+                node.addEventListener('contextmenu', (event) => {
                     event.preventDefault();
-                    window.activeComponent = event.target;
+                    ComponentService.changeActiveState(event.target);
                     contextMenuVisibility(event);
                 });
-                node.addEventListener("click", (event) => {
-                    window.activeComponent = event.target;
+                node.addEventListener('click', (event) => {
+                    ComponentService.changeActiveState(event.target);
                 });
             });
         }
@@ -63,7 +64,6 @@ const contextMenuVisibility = (event) => {
         menu.classList.remove("hide");
     } else {
         menu.classList.add("hide");
-        // window.activeComponent = undefined;
     }
     menu.style.cssText = `
         top: ${event.pageY}px;

@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import ComponentContextMenu from "./c-context-menu.vue";
-import ComponentPropertyMenu from "./c-property-menu.vue";
-import ComponentService from "./../js/modules/componentService";
+import ComponentContextMenu from "./c-context-menu.vue"
+import ComponentPropertyMenu from "./c-property-menu.vue"
+import ComponentService from "./../js/modules/componentService"
 import Workspace from './../js/modules/workSpace'
 
 export default {
@@ -79,7 +79,7 @@ export default {
         },
         deselectComponent: function (e) {
             if (e.target === e.currentTarget) {
-                window.activeComponent = undefined;
+                ComponentService.changeActiveState();
             }
         },
     },

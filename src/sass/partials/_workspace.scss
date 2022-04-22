@@ -18,6 +18,20 @@
     transition-duration: 0s !important;
 }
 
+.active-component {
+    // box-shadow: #0ba9ca 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    // box-shadow: #0ba9ca 0px 3px 12px;
+    box-shadow:rgba(0, 221, 255, 0.2) 0px 0px 5px 1px;
+}
+
 .fp-components-input {
     width: 200px;
+}
+
+.fp-components-switch-button {
+    min-height: 20px;
+}
+
+.fp-components-digital-a {
+    min-height: 28px;
 }

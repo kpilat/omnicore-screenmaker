@@ -20,6 +20,9 @@ const draggableInit = () => {
                 mode: "grid",
             })
         ],
+        onstart: function (event) {
+            ComponentService.changeActiveState(event.target);
+        },
         onmove: function (event) {
             const target = event.target;
 
@@ -73,6 +76,7 @@ const dropzoneInit = () => {
         ondropdeactivate: function (event) {
             const item = event.relatedTarget;
             if (!item.classList.contains("can-drop")) {
+                ComponentService.changeActiveState();
                 ComponentService.resetComponent(item);
             } else {
                 ComponentService.componentInit(item);

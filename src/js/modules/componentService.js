@@ -69,4 +69,17 @@ const assignSettings = (newItem) => {
     return obj;
 };
 
-export default { componentInit, componentClone, resetComponent };
+// Pass node to be set as active || pass nothing to just set a current node as inactive
+const changeActiveState = (target) => {
+    if (window.activeComponent) {
+        window.activeComponent.classList.remove('active-component');
+    }
+    if (target) {
+        target.classList.add('active-component');
+        window.activeComponent = target;
+    } else {
+        window.activeComponent = undefined;
+    }
+};
+
+export default { componentInit, componentClone, resetComponent, changeActiveState };

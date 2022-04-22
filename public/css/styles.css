@@ -3270,8 +3270,17 @@ ABB reserves all rights regarding Intellectual Property Rights
   .draggable * {
     pointer-events: none; }
 
+.active-component {
+  box-shadow: rgba(0, 221, 255, 0.2) 0px 0px 5px 1px; }
+
 .fp-components-input {
   width: 200px; }
+
+.fp-components-switch-button {
+  min-height: 20px; }
+
+.fp-components-digital-a {
+  min-height: 28px; }
 
 .c-context-menu {
   position: absolute;
