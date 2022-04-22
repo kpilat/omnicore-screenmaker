@@ -21,6 +21,7 @@ async function createWindow() {
         height: 768,
         'minWidth': 1260,
         'minHeight': 720,
+        'fullscreenable': false,
         webPreferences: {
 
             // Use pluginOptions.nodeIntegration, leave this alone

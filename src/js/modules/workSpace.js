@@ -1,4 +1,6 @@
-import Utilities from "./utilities";
+import Utilities from './utilities';
+import Rescale from './rescale';
+
 const workspaceSelector = ".workspace",
     menuSelector = ".c-context-menu",
     components = [],
@@ -19,6 +21,7 @@ const contentChanged = (mutationsList, observer) => {
         if (item.addedNodes) {
             item.addedNodes.forEach((node) => {
                 components.push(node);
+                window.activeComponent = node;
 
                 node.addEventListener("contextmenu", (event) => {
                     event.preventDefault();
@@ -37,6 +40,7 @@ const contentChanged = (mutationsList, observer) => {
         }
         // Saves components contained in workspace (for app build)
         window.components = components;
+        Rescale.rescaleComponents();
     });
 };
 

@@ -48,7 +48,7 @@ const injectTemplate = (components) => {
         <body style="display: flex;
                     flex-direction: row;
                     height: 680px;
-                    width: 1026px;">
+                    width: 1024px;">
             <div class="content" id="io-view" style="position: relative;
                                                     flex-direction: column;
                                                     justify-content: flex-start;

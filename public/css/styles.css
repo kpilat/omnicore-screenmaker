@@ -3237,7 +3237,6 @@ ABB reserves all rights regarding Intellectual Property Rights
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  max-width: 400px;
   height: 100vh;
   margin-left: auto;
   border: 1px solid #969da6; }
@@ -3266,8 +3265,10 @@ ABB reserves all rights regarding Intellectual Property Rights
 .assigned {
   position: absolute; }
 
-.draggable * {
-  pointer-events: none; }
+.draggable {
+  transition-duration: 0s !important; }
+  .draggable * {
+    pointer-events: none; }
 
 .fp-components-input {
   width: 200px; }

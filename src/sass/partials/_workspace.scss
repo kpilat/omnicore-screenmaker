@@ -14,6 +14,8 @@
     & * {
         pointer-events: none;
     }
+
+    transition-duration: 0s !important;
 }
 
 .fp-components-input {
