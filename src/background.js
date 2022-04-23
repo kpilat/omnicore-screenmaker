@@ -1,10 +1,11 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, Menu } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import AppBuilder from './js/mainModules/appBuilder'
 import Project from './js/mainModules/project'
+import MenuTemplate from './menu'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path');
@@ -32,6 +33,10 @@ async function createWindow() {
         }
     });
 
+    // Setting up native window menu
+    const menu = Menu.buildFromTemplate(MenuTemplate.menuInit(win))
+    Menu.setApplicationMenu(menu)
+
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
@@ -43,17 +48,17 @@ async function createWindow() {
     }
 
     // IRPC
-    ipcMain.on('build', (event, data) => {
+    ipcMain.on('build_fromRenderer', (event, data) => {
         AppBuilder.build(data);
         // win.webContents.send('fromMain', args);
     });
-    ipcMain.on('save', (event, data) => {
+    ipcMain.on('save_fromRenderer', (event, data) => {
         Project.save(data);
     });
-    ipcMain.on('load', async () => {
-        const result = await Project.load();
-        win.webContents.send('fromMain', result);
-    });
+    // ipcMain.on('load', async () => {
+    //     const result = await Project.load();
+    //     win.webContents.send('fromMain', result);
+    // });
 }
 
 // Quit when all windows are closed.

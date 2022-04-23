@@ -8,7 +8,6 @@
 import ComponentContextMenu from "./c-context-menu.vue"
 import ComponentPropertyMenu from "./c-property-menu.vue"
 import ComponentService from "./../js/modules/componentService"
-import Workspace from './../js/modules/workSpace'
 
 export default {
     name: "workspace",
@@ -31,7 +30,6 @@ export default {
 
     mounted() {
         // Catches data from main proces (Open project action)
-        Workspace.openProject();
         this.copyComponent();
         this.pasteComponent();
     },

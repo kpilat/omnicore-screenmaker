@@ -1,6 +1,6 @@
-import Utilities from './utilities';
-import Rescale from './rescale';
-import ComponentService from './componentService';
+import Utilities from "./utilities";
+import Rescale from "./rescale";
+import ComponentService from "./componentService";
 
 const workspaceSelector = ".workspace",
     menuSelector = ".c-context-menu",
@@ -24,12 +24,12 @@ const contentChanged = (mutationsList, observer) => {
                 components.push(node);
                 ComponentService.changeActiveState(node);
 
-                node.addEventListener('contextmenu', (event) => {
+                node.addEventListener("contextmenu", (event) => {
                     event.preventDefault();
                     ComponentService.changeActiveState(event.target);
                     contextMenuVisibility(event);
                 });
-                node.addEventListener('click', (event) => {
+                node.addEventListener("click", (event) => {
                     ComponentService.changeActiveState(event.target);
                 });
             });
@@ -83,21 +83,6 @@ const contextMenuInit = (event) => {
     });
 };
 
-const openProject = () => {
-    window.api.receive("fromMain", (data) => {
-        const parsed = JSON.parse(data);
-        const elements = [];
-
-        const workspace = document.querySelector(workspaceSelector);
-        while (workspace.firstChild) {
-            workspace.removeChild(workspace.firstChild);
-        }
-
-        parsed?.forEach((item) => elements.push(Utilities.toDOM(item)));
-        elements?.forEach((item) => workspace.appendChild(item));
-    });
-}
-
 // Initialization
 const init = () => {
     watchDog();
@@ -105,4 +90,4 @@ const init = () => {
     document.addEventListener("click", contextMenuVisibility);
 };
 
-export default { init, openProject };
+export default { init };

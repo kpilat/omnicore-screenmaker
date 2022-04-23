@@ -3,7 +3,7 @@ module.exports = {
         electronBuilder: {
             preload: "src/preload.js",
             // Or, for multiple preload files:
-            // preload: { preload: "src/preload.js", otherPreload: "src/preload2.js" },
+            // preload: { preload: "src/preload.js", otherPreload: "src/menu.js" },
             mainProcessWatch: [
                 "src/js/mainModules/appBuilder.js",
                 "src/js/mainModules/componentTempl.js",
@@ -13,6 +13,7 @@ module.exports = {
                 "src/js/mainModules/project.js",
                 "src/js/mainModules/fileManager.js",
                 "src/js/mainModules/utilities.js",
+                "src/menu.js",
             ],
             builderOptions: {
                 extraResources: [
