@@ -160,43 +160,27 @@ const inputInit = (component) => {
 const radioInit = (component) => {
     console.log(component);
     const newComponent = /*javascript*/ `
-    ${component.group}.${component.id} = new FPComponents.Radio_A();
-    ${component.group}.${component.id}.attachToId("${component.id}");
-    ${component.group}.${component.id}.desc = "${component.text}";
+    ${component.radioGroup}.${component.id} = new FPComponents.Radio_A();
+    ${component.radioGroup}.${component.id}.attachToId("${component.id}");
+    ${component.radioGroup}.${component.id}.desc = "${component.text}";
 
-    ${component.group}.${component.id}.onclick = async function () {
-
-		try {
-			await ${component.group}.${component.id + component.id}.setValue(true);
-			${component.group}.${component.id}.checked = true;
-		} catch (e) {
-			FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
-		}
-
-		Object.entries(${component.group}).forEach(async (item) => {
-			if ('${component.id + component.id}' !== item[0] && '${
-        component.id
-    }' !== item[0]) {
-				if (item[0].length > 10) {
-					try {
-						await item[1].setValue(false);
-					} catch (e) {
-						FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
-					}
-				} else {
-					item[1].checked = false;
-				}
-			}
-		});
+    ${component.radioGroup}.${component.id}.onclick = async function () {
+        ${
+            component.alertType
+                ? Config.alertPopup(component)
+                : component.action === "set-value"
+                ? Config.setRadioButton(component)
+                : ""
+        }
     }
 
     ${Config.subscribeVariableRadio(component)}
 
 	try {
-		const initValue = await ${component.group}.${
+		const initValue = await ${component.radioGroup}.${
         component.id + component.id
     }.getValue();
-		${component.group}.${component.id}.checked = initValue;
+		${component.radioGroup}.${component.id}.checked = initValue;
 	} catch (e) {
 		FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
 	}

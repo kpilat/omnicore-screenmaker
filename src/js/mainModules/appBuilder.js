@@ -40,9 +40,9 @@ const build = async (data) => {
     data.forEach(component => {
         components.componentCode.push(JsTemplate.componentInit(component));
         if (component.type === 'radio') {
-            components.componentGroups.push(`var ${component.group} = {};`);
-            components.componentVariables.push(`${component.group}['${component.id}'] = '';`);
-            components.componentVariables.push(`${component.group}['${component.id + component.id}'] = '';`);
+            components.componentGroups.push(`var ${component.radioGroup} = {};`);
+            components.componentVariables.push(`${component.radioGroup}['${component.id}'] = '';`);
+            components.componentVariables.push(`${component.radioGroup}['${component.id + component.id}'] = '';`);
         } else {
             components.componentVariables.push('var ' + component.id + ';');
             components.componentVariables.push('var ' + component.id + component.id + ';');

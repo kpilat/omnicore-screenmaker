@@ -1,14 +1,21 @@
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     dropzone = ".workspace";
 
-
 const componentClone = (item) => {
     const newItem = item.cloneNode(true);
-    newItem["componentConfig"] = item.componentConfig;
-    newItem["componentSettings"] = item.componentSettings;
-    newItem.componentConfig.id = idGenerator(10);
-    newItem.style.top = eval(`${parseInt(newItem.style.top)} + 2`) + '%';
-    newItem.style.left = eval(`${parseInt(newItem.style.left)} + 2`) + '%';
+    // newItem["componentConfig"] = [...item.componentConfig];
+    // newItem["componentSettings"] = [...item.componentSettings];
+    newItem["componentConfig"] = {};
+    newItem["componentSettings"] = {};
+    for (const [key, value] of Object.entries(item.componentConfig)) {
+        newItem.componentConfig[`${key}`] = value;
+    }
+    for (const [key, value] of Object.entries(item.componentSettings)) {
+        newItem.componentSettings[`${key}`] = value;
+    }
+    newItem.componentConfig.id = idGenerator(5, item.componentConfig.type);
+    // newItem.style.top = eval(`${parseInt(newItem.style.top)} + 2`) + "%";
+    // newItem.style.left = eval(`${parseInt(newItem.style.left)} + 2`) + "%";
     document.querySelector(dropzone).appendChild(newItem);
 };
 
@@ -35,7 +42,7 @@ const componentInit = (item) => {
     resetComponent(newItem);
 
     newItem["componentConfig"] = {
-        id: idGenerator(10),
+        id: idGenerator(5, item.getAttribute("data-type")),
         type: item.getAttribute("data-type"),
         text: item.getAttribute("data-text"),
     };
@@ -50,8 +57,9 @@ const resetComponent = (item) => {
     item.classList.remove("dragging", "can-drop");
 };
 
-const idGenerator = (length) => {
-    let result = "";
+// Pass component type (Button) to prepend the generated id
+const idGenerator = (length, type) => {
+    let result = type ? `${type}_` : "";
     for (let i = 0; i < length; i++) {
         result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
     }
@@ -62,8 +70,24 @@ const assignSettings = (newItem) => {
     const obj = {};
     switch (newItem.type) {
         case "button":
+            obj["signal"] = true;
+            obj["rapid"] = true;
+            break;
         case "digital":
             obj["componentText"] = true;
+            obj["signal"] = true;
+            obj["rapid"] = true;
+            break;
+        case "radio":
+            obj["radioGroup"] = true;
+            obj["rapid"] = true;
+            break;
+        case "input":
+            obj["rapid"] = true;
+            break;
+        case "switch":
+            obj["signal"] = true;
+            obj["rapid"] = true;
             break;
     }
     return obj;
@@ -72,14 +96,19 @@ const assignSettings = (newItem) => {
 // Pass node to be set as active || pass nothing to just set a current node as inactive
 const changeActiveState = (target) => {
     if (window.activeComponent) {
-        window.activeComponent.classList.remove('active-component');
+        window.activeComponent.classList.remove("active-component");
     }
     if (target) {
-        target.classList.add('active-component');
+        target.classList.add("active-component");
         window.activeComponent = target;
     } else {
         window.activeComponent = undefined;
     }
 };
 
-export default { componentInit, componentClone, resetComponent, changeActiveState };
+export default {
+    componentInit,
+    componentClone,
+    resetComponent,
+    changeActiveState,
+};

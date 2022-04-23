@@ -2,29 +2,27 @@
 import Components from "./componentTempl";
 
 const componentInit = (component) => {
-  switch (component.type) {
-    case "button":
-      return Components.buttonInit(component);
-    case "digital":
-      return Components.digitalInit(component);
-    case "switch":
-      return Components.switchInit(component);
-    case "toggle":
-      return Components.toggleInit(component);
-    case "input":
-      return Components.inputInit(component);
-    case "input":
-      return Components.inputInit(component);
-    case "radio":
-      return Components.radioInit(component);
-    default:
-      return undefined;
-  }
+    switch (component.type) {
+        case "button":
+            return Components.buttonInit(component);
+        case "digital":
+            return Components.digitalInit(component);
+        case "switch":
+            return Components.switchInit(component);
+        case "toggle":
+            return Components.toggleInit(component);
+        case "input":
+            return Components.inputInit(component);
+        case "radio":
+            return Components.radioInit(component);
+        default:
+            return undefined;
+    }
 };
 
 // Inserting parts of code to actual template
 const injectTemplate = (components) => {
-  const code = `
+    const code = `
         ${components.componentGroups}
         ${components.componentVariables}
         window.addEventListener("load", async function () {
@@ -56,12 +54,12 @@ const injectTemplate = (components) => {
         }
     `;
 
-  return code;
+    return code;
 };
 
 // Values subscribe part of code
 const subscribe = (component) => {
-  return `
+    return `
     if (${component.id + component.id}) {
         await ${component.id + component.id}.subscribe(true);
     }
@@ -70,7 +68,7 @@ const subscribe = (component) => {
 
 // Values unsubscribe part of code
 const unsubscribe = (component) => {
-  return `
+    return `
     if (${component.id + component.id}) {
         await ${component.id + component.id}.unsubscribe();
     }
@@ -79,36 +77,36 @@ const unsubscribe = (component) => {
 
 // Parts of code from array is being put together as longer string
 const stringJoin = (input) => {
-  const components = {
-    componentCode: "",
-    componentVariables: "",
-    componentGroups: "",
-    componentSubscribe: "",
-    componentUnsubscribe: "",
-  };
+    const components = {
+        componentCode: "",
+        componentVariables: "",
+        componentGroups: "",
+        componentSubscribe: "",
+        componentUnsubscribe: "",
+    };
 
-  input.componentCode.forEach((item) => {
-    components.componentCode += item;
-  });
-  input.componentGroups.forEach((item) => {
-    components.componentGroups += item;
-  });
-  input.componentVariables.forEach((item) => {
-    components.componentVariables += item;
-  });
-  input.componentSubscribe.forEach((item) => {
-    components.componentSubscribe += item;
-  });
-  input.componentUnsubscribe.forEach((item) => {
-    components.componentUnsubscribe += item;
-  });
-  return components;
+    input.componentCode.forEach((item) => {
+        components.componentCode += item;
+    });
+    input.componentGroups.forEach((item) => {
+        components.componentGroups += item;
+    });
+    input.componentVariables.forEach((item) => {
+        components.componentVariables += item;
+    });
+    input.componentSubscribe.forEach((item) => {
+        components.componentSubscribe += item;
+    });
+    input.componentUnsubscribe.forEach((item) => {
+        components.componentUnsubscribe += item;
+    });
+    return components;
 };
 
 export default {
-  componentInit,
-  injectTemplate,
-  subscribe,
-  unsubscribe,
-  stringJoin,
+    componentInit,
+    injectTemplate,
+    subscribe,
+    unsubscribe,
+    stringJoin,
 };

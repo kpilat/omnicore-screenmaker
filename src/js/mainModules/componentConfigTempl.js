@@ -20,13 +20,13 @@ const subscribeVariable = (component) => {
 const subscribeVariableRadio = (component) => {
     const template = /*javascript*/ `
         try {
-          ${component.group}.${
+          ${component.radioGroup}.${
         component.id + component.id
     } = await RWS.Rapid.getData("${component.robotName}", "${
         component.moduleName
     }", "${component.targetName}");
 
-            await ${component.group}.${
+            await ${component.radioGroup}.${
         component.id + component.id
     }.subscribe(true);
         } catch(e) {
@@ -161,6 +161,36 @@ const setString = (component) => {
     return template;
 };
 
+const setRadioButton = (component) => {
+    const template = /*javascript*/ `
+        try {
+            await ${component.radioGroup}.${
+        component.id + component.id
+    }.setValue(true);
+            ${component.radioGroup}.${component.id}.checked = true;
+        } catch (e) {
+            FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
+        }
+
+        Object.entries(${component.radioGroup}).forEach(async (item) => {
+            if ('${component.id + component.id}' !== item[0] && '${
+        component.id
+    }' !== item[0]) {
+                if (item[0].split('_')[1].length > 5) {
+                    try {
+                        await item[1].setValue(false);
+                    } catch (e) {
+                        FPComponents.Popup_A.message(e.message, [e.httpStatus.code, e.controllerStatus.name, e.controllerStatus.description]);
+                    }
+                } else {
+                    item[1].checked = false;
+                }
+            }
+        });
+  `;
+    return template;
+};
+
 const alertPopup = (component) => {
     const template = /*javascript*/ `
         FPComponents.Popup_A.confirm('${component.alertTitle}', '${
@@ -177,16 +207,23 @@ const alertPopup = (component) => {
                         ? decreaseValue(component)
                         : ""
                 }
-                ${component.action === "set-value" ? setValue(component) : ""}
+                ${
+                    component.action === "set-value" &&
+                    component.type !== "radio"
+                        ? setValue(component)
+                        : ""
+                }
                 ${
                     component.action === "toggle-signal"
                         ? toggleSignal(component)
                         : ""
                 }
                 ${component.action === "set-string" ? setString(component) : ""}
+                ${component.type === "radio" ? setRadioButton(component) : ""}
             }
             ${component.type === "switch" ? alertElseSwitch(component) : ""}
             ${component.type === "input" ? alertElseInput(component) : ""}
+            ${component.type === "radio" ? alertElseRadio(component) : ""}
         }, FPComponents.Popup_A.STYLE.${component.alertType});
     `;
     return template;
@@ -216,6 +253,15 @@ const alertElseInput = (component) => {
     return template;
 };
 
+const alertElseRadio = (component) => {
+    const template = /*javascript*/ `
+        else {
+            ${component.radioGroup}.${component.id}.checked = false;
+        }
+    `;
+    return template;
+};
+
 const inputCallback = (component) => {
     const template = /*javascript*/ `
       ${
@@ -239,4 +285,5 @@ export default {
     setValue,
     alertPopup,
     setString,
+    setRadioButton,
 };

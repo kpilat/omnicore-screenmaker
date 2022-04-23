@@ -23,7 +23,7 @@ const sendData = () => {
             alertMessage: component.componentConfig.alertMessage,
             alertTitle: component.componentConfig.alertTitle,
             step: component.componentConfig.step,
-            group: "goup1",
+            radioGroup: component.componentConfig.radioGroup,
         };
         Object.keys(objectComponent).forEach((key) => {
             if (

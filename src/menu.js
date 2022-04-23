@@ -59,24 +59,20 @@ const menuInit = (win) => {
             submenu: [{ role: "cut" }, { role: "copy" }, { role: "paste" }],
         },
         // { role: 'viewMenu' }
-        // ...(isDev
-        //     ? [
-        //           {
-        //               label: "View",
-        //               submenu: [
-        //                   { role: "reload" },
-        //                   { role: "forceReload" },
-        //                   { role: "toggleDevTools" },
-        //                   { type: "separator" },
-        //                   { role: "resetZoom" },
-        //                   { role: "zoomIn" },
-        //                   { role: "zoomOut" },
-        //                   { type: "separator" },
-        //                   { role: "togglefullscreen" },
-        //               ],
-        //           },
-        //       ]
-        //     : []),
+        {
+            label: "View",
+            submenu: [
+                { role: "reload" },
+                { role: "forceReload" },
+                { role: "toggleDevTools" },
+                { type: "separator" },
+                { role: "resetZoom" },
+                { role: "zoomIn" },
+                { role: "zoomOut" },
+                { type: "separator" },
+                { role: "togglefullscreen" },
+            ],
+        },
         // { role: 'windowMenu' }
         {
             label: "Window",
