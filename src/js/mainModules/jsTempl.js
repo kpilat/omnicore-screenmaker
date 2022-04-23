@@ -1,22 +1,22 @@
 // Initializes the given component according its type
-import Components from "./componentTempl";
+import Components from './componentTempl';
 
 const componentInit = (component) => {
     switch (component.type) {
-        case "button":
+        case 'button':
             return Components.buttonInit(component);
-        case "digital":
+        case 'digital':
             return Components.digitalInit(component);
-        case "switch":
+        case 'switch':
             return Components.switchInit(component);
-        case "toggle":
-            return Components.toggleInit(component);
-        case "input":
+        case 'input':
             return Components.inputInit(component);
-        case "radio":
+        case 'radio':
             return Components.radioInit(component);
+        case 'label':
+            return Components.labelInit(component);
         default:
-            return undefined;
+            return '';
     }
 };
 
@@ -78,11 +78,11 @@ const unsubscribe = (component) => {
 // Parts of code from array is being put together as longer string
 const stringJoin = (input) => {
     const components = {
-        componentCode: "",
-        componentVariables: "",
-        componentGroups: "",
-        componentSubscribe: "",
-        componentUnsubscribe: "",
+        componentCode: '',
+        componentVariables: '',
+        componentGroups: '',
+        componentSubscribe: '',
+        componentUnsubscribe: '',
     };
 
     input.componentCode.forEach((item) => {

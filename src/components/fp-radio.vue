@@ -5,7 +5,7 @@
     data-text="Radio Button"
   >
     <div class="fp-components-radio"><div></div></div>
-    <span class="fp-components-radio-desc">Radio Button</span>
+    <span class="fp-components-radio-desc text">Radio Button</span>
   </div>
 </template>
 

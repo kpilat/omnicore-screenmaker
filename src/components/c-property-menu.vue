@@ -4,204 +4,101 @@
             <div class="c-property-menu__inner">
                 <!-- Tabs -->
                 <div class="tabs">
-                    <div class="tabs-item is-selected" name="general">
-                        General
-                    </div>
-                    <div class="tabs-item" name="action-callback">
-                        Action/Callback
-                    </div>
-                    <div class="tabs-item" name="alert">Alert</div>
+                    <div class="tabs-item is-selected" name="general">General</div>
+                    <div class="tabs-item" name="action-callback">Action/Callback</div>
+                    <div class="tabs-item" name="alert" v-if="component.componentSettings.alert">Alert</div>
                 </div>
 
                 <!-- General window -->
                 <div class="c-property-menu__content" name="general">
-                    <div
-                        class="input input-fullWidth"
-                        v-if="component.componentSettings.componentText"
-                    >
-                        <input
-                            v-model="componentText"
-                            placeholder="Component Text"
-                            type="text"
-                            name="component-text"
-                        />
+                    <div class="input input-fullWidth" v-if="component.componentSettings.componentText">
+                        <input v-model="componentText" placeholder="Component Text" type="text" name="component-text" />
                     </div>
-                    <label class="label" for="component-target"
-                        >Component Target</label
-                    >
-                    <div class="select select-fullWidth">
-                        <select name="component-target" v-model="targetType">
-                            <option value="">None</option>
-                            <option
-                                value="signal"
-                                v-if="component.componentSettings.signal"
-                            >
-                                Signal
-                            </option>
-                            <option
-                                value="rapid"
-                                v-if="component.componentSettings.rapid"
-                            >
-                                Rapid Variable
-                            </option>
-                        </select>
-                    </div>
-                    <div
-                        class="input input-fullWidth"
-                        v-if="this.targetType === 'rapid'"
-                    >
-                        <input
-                            v-model="robotName"
-                            placeholder="Robot Name"
-                            type="text"
-                            name="component-robotName"
-                        />
-                    </div>
-                    <div
-                        class="input input-fullWidth"
-                        v-if="this.targetType === 'rapid'"
-                    >
-                        <input
-                            v-model="moduleName"
-                            placeholder="Module Name"
-                            type="text"
-                            name="component-moduleName"
-                        />
-                    </div>
-                    <div
-                        class="input input-fullWidth"
-                        v-if="
-                            this.targetType === 'signal' ||
-                            this.targetType === 'rapid'
-                        "
-                    >
-                        <input
-                            v-model="targetName"
-                            placeholder="Target Name"
-                            type="text"
-                            name="component-targetName"
-                        />
+                    <div class="c-property-menu__item" v-if="component.componentSettings.target">
+                        <label class="label" for="component-target">Component Target</label>
+                        <div class="select select-fullWidth">
+                            <select name="component-target" v-model="targetType">
+                                <option value="">None</option>
+                                <option value="signal" v-if="component.componentSettings.signal">Signal</option>
+                                <option value="rapid" v-if="component.componentSettings.rapid">Rapid Variable</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div
-                        class="input input-fullWidth"
-                        v-if="component.componentSettings.radioGroup"
-                    >
-                        <input
-                            v-model="radioGroup"
-                            placeholder="Radio group"
-                            type="text"
-                            name="component-radioGroup"
-                        />
+                    <div class="input input-fullWidth" v-if="this.targetType === 'rapid'">
+                        <input v-model="robotName" placeholder="Robot Name" type="text" name="component-robotName" />
+                    </div>
+                    <div class="input input-fullWidth" v-if="this.targetType === 'rapid'">
+                        <input v-model="moduleName" placeholder="Module Name" type="text" name="component-moduleName" />
+                    </div>
+                    <div class="input input-fullWidth" v-if="this.targetType === 'signal' || this.targetType === 'rapid'">
+                        <input v-model="targetName" placeholder="Target Name" type="text" name="component-targetName" />
+                    </div>
+
+                    <div class="input input-fullWidth" v-if="component.componentSettings.radioGroup">
+                        <input v-model="radioGroup" placeholder="Radio group" type="text" name="component-radioGroup" />
                     </div>
                 </div>
 
                 <!-- Action and Callback Window -->
-                <div
-                    class="c-property-menu__content hide"
-                    name="action-callback"
-                >
-                    <label class="label" for="component-action"
-                        >Component Action</label
-                    >
-                    <div class="select select-fullWidth">
-                        <select name="component-action" v-model="actionType">
-                            <option value="">None</option>
-                            <option value="increase-value">
-                                Increase Value
-                            </option>
-                            <option value="decrease-value">
-                                Decrease Value
-                            </option>
-                            <option value="set-value">Set Value</option>
-                            <option value="push-signal">Push Signal</option>
-                            <option value="toggle-signal">Toggle Signal</option>
-                            <option value="set-string">Set String</option>
-                        </select>
+                <div class="c-property-menu__content hide" name="action-callback">
+                    <div class="c-property-menu__item" v-if="component.componentSettings.action">
+                        <label class="label" for="component-action">Component Action</label>
+                        <div class="select select-fullWidth">
+                            <select name="component-action" v-model="actionType">
+                                <option value="">None</option>
+                                <option value="increase-value">Increase Value</option>
+                                <option value="decrease-value">Decrease Value</option>
+                                <option value="set-value">Set Value</option>
+                                <option value="push-signal">Push Signal</option>
+                                <option value="toggle-signal">Toggle Signal</option>
+                                <option value="set-string">Set String</option>
+                            </select>
+                        </div>
                     </div>
-                    <div
-                        class="input input-fullWidth"
-                        v-if="
-                            this.actionType === 'increase-value' ||
-                            this.actionType === 'decrease-value'
-                        "
-                    >
-                        <input
-                            placeholder="Step"
-                            type="number"
-                            name="component-step"
-                            v-model="step"
-                        />
+                    <div class="input input-fullWidth" v-if="this.actionType === 'increase-value' || this.actionType === 'decrease-value'">
+                        <input placeholder="Step" type="number" name="component-step" v-model="step" />
                     </div>
-                    <label class="label" for="component-callback"
-                        >Component Callback</label
-                    >
-                    <div class="select select-fullWidth">
-                        <select
-                            name="component-callback"
-                            v-model="callbackType"
-                        >
-                            <option value="">None</option>
-                            <option value="increase-value">
-                                Increase Value
-                            </option>
-                            <option value="decrease-value">
-                                Decrease Value
-                            </option>
-                            <option value="set-value">Set Value</option>
-                            <option value="push-signal">Push Signal</option>
-                            <option value="toggle-signal">Toggle Signal</option>
-                        </select>
+                    <div class="c-property-menu__item" v-if="component.componentSettings.callback">
+                        <label class="label" for="component-callback">Component Callback</label>
+                        <div class="select select-fullWidth">
+                            <select name="component-callback" v-model="callbackType">
+                                <option value="">None</option>
+                                <option value="increase-value">Increase Value</option>
+                                <option value="decrease-value">Decrease Value</option>
+                                <option value="set-value">Set Value</option>
+                                <option value="push-signal">Push Signal</option>
+                                <option value="toggle-signal">Toggle Signal</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Alerts window -->
                 <div class="c-property-menu__content hide" name="alert">
-                    <label class="label" for="component-alertType"
-                        >Alert Type</label
-                    >
-                    <div class="select select-fullWidth">
-                        <select name="component-alertType" v-model="alertType">
-                            <option value="">None</option>
-                            <option value="INFORMATION">Information</option>
-                            <option value="WARNING">Warning</option>
-                            <option value="DANGER">Danger</option>
-                        </select>
+                    <div class="c-property-menu__item" v-if="component.componentSettings.alert">
+                        <label class="label" for="component-alertType">Alert Type</label>
+                        <div class="select select-fullWidth">
+                            <select name="component-alertType" v-model="alertType">
+                                <option value="">None</option>
+                                <option value="INFORMATION">Information</option>
+                                <option value="WARNING">Warning</option>
+                                <option value="DANGER">Danger</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="input input-fullWidth" v-if="alertType">
-                        <input
-                            v-model="alertTitle"
-                            placeholder="Alert Title"
-                            type="text"
-                            name="component-alertTitle"
-                        />
+                        <input v-model="alertTitle" placeholder="Alert Title" type="text" name="component-alertTitle" />
                     </div>
                     <div class="input input-fullWidth" v-if="alertType">
-                        <input
-                            v-model="alertMessage"
-                            placeholder="Alert Message"
-                            type="text"
-                            name="component-alertMessage"
-                        />
+                        <input v-model="alertMessage" placeholder="Alert Message" type="text" name="component-alertMessage" />
                     </div>
                 </div>
 
                 <!-- Buttons -->
                 <div class="c-property-menu__buttons">
-                    <div
-                        class="button button--primary"
-                        data-btn-type="cancel"
-                        :onclick="close"
-                    >
-                        Cancel
-                    </div>
-                    <button
-                        class="button button--primary"
-                        data-btn-type="save"
-                        :onclick="save"
-                    >
-                        Save
-                    </button>
+                    <div class="button button--primary" data-btn-type="cancel" :onclick="close">Cancel</div>
+                    <button class="button button--primary" data-btn-type="save" :onclick="save">Save</button>
                 </div>
             </div>
         </form>
@@ -209,10 +106,10 @@
 </template>
 
 <script>
-import componentsPropertyMenu from "./../js/modules/componentPropertyMenu";
+import componentsPropertyMenu from './../js/modules/componentPropertyMenu';
 
 export default {
-    name: "c-property-menu",
+    name: 'c-property-menu',
     props: {
         rendered: Boolean,
         close: Function,
@@ -220,20 +117,20 @@ export default {
     },
     data: function () {
         return {
-            targetType: "",
-            actionType: "",
-            alertType: "",
-            callbackType: "",
+            targetType: '',
+            actionType: '',
+            alertType: '',
+            callbackType: '',
 
             // Input values
-            componentText: "",
-            targetName: "",
-            robotName: "",
-            moduleName: "",
-            alertTitle: "",
-            alertMessage: "",
-            step: "",
-            radioGroup: "",
+            componentText: '',
+            targetName: '',
+            robotName: '',
+            moduleName: '',
+            alertTitle: '',
+            alertMessage: '',
+            step: '',
+            radioGroup: '',
         };
     },
     methods: {

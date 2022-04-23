@@ -1,9 +1,9 @@
-import Utilities from "./utilities";
-import Rescale from "./rescale";
-import ComponentService from "./componentService";
+import Utilities from './utilities';
+import Rescale from './rescale';
+import ComponentService from './componentService';
 
-const workspaceSelector = ".workspace",
-    menuSelector = ".c-context-menu",
+const workspaceSelector = '.workspace',
+    menuSelector = '.c-context-menu',
     components = [],
     observerConfig = {
         childList: true,
@@ -24,12 +24,12 @@ const contentChanged = (mutationsList, observer) => {
                 components.push(node);
                 ComponentService.changeActiveState(node);
 
-                node.addEventListener("contextmenu", (event) => {
+                node.addEventListener('contextmenu', (event) => {
                     event.preventDefault();
                     ComponentService.changeActiveState(event.target);
                     contextMenuVisibility(event);
                 });
-                node.addEventListener("click", (event) => {
+                node.addEventListener('click', (event) => {
                     ComponentService.changeActiveState(event.target);
                 });
             });
@@ -47,10 +47,10 @@ const contentChanged = (mutationsList, observer) => {
 
 // Modifying components according data-action attributes
 const contextMenuActions = (event) => {
-    const action = event.target.getAttribute("data-action");
+    const action = event.target.getAttribute('data-action');
 
     switch (action) {
-        case "delete":
+        case 'delete':
             window.activeComponent.remove();
             break;
         default:
@@ -61,9 +61,9 @@ const contextMenuActions = (event) => {
 const contextMenuVisibility = (event) => {
     const menu = document.querySelector(menuSelector);
     if (event.button === 2) {
-        menu.classList.remove("hide");
+        menu.classList.remove('hide');
     } else {
-        menu.classList.add("hide");
+        menu.classList.add('hide');
     }
     menu.style.cssText = `
         top: ${event.pageY}px;
@@ -77,7 +77,7 @@ const contextMenuInit = (event) => {
     const menuItems = Array.from(menu.children);
 
     menuItems.forEach((item) => {
-        item.addEventListener("click", (event) => {
+        item.addEventListener('click', (event) => {
             contextMenuActions(event);
         });
     });
@@ -87,7 +87,7 @@ const contextMenuInit = (event) => {
 const init = () => {
     watchDog();
     contextMenuInit();
-    document.addEventListener("click", contextMenuVisibility);
+    document.addEventListener('click', contextMenuVisibility);
 };
 
 export default { init };

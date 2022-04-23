@@ -2,10 +2,17 @@ const injectTemplate = (components) => {
     let elements = '';
 
     components.forEach((component) => {
-        elements += `
-            <div id="${component.id}" style="position: absolute; top:${component.top}; left:${component.left}; ${component.type === 'input' ? 'width:200px;' : ''};"></div>
-            
-        `;
+        if (component.type === 'label') {
+            elements += /*html*/`
+                <div id="${component.id}" style="font-size: 18px; position: absolute; top:${component.top}; left:${component.left};">
+                    <div style="white-space:nowrap;" class="text">${component.text}</div>
+                </div>
+            `;
+        } else {
+            elements += /*html*/`
+                <div id="${component.id}" style="position: absolute; top:${component.top}; left:${component.left}; ${component.type === 'input' ? 'width:200px' : ''};"></div>
+            `;
+        }
     });
 
     const template = `

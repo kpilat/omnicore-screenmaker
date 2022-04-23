@@ -1,3 +1,6 @@
+import Rescale from "./rescale";
+
+
 const windowInit = () => {
   const tabs = document.querySelector(".c-property-menu .tabs").children;
   [...tabs].forEach((tab) => tab.addEventListener("click", tabSwitch));
@@ -41,6 +44,12 @@ const saveConfig = () => {
     ...window.components[index].componentConfig,
     ...componentConfig,
   };
+
+  const textNode = window.components[index].querySelector('.text');
+  if (textNode) {
+    textNode.innerHTML = window.components[index].componentConfig.text
+    Rescale.rescaleComponents();
+  }
 
   // Not working beacuse some elements have nested element which would overwrite (works just with button)
 

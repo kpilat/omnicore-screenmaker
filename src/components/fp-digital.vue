@@ -5,7 +5,7 @@
     data-text="Digital"
   >
     <div class="fp-components-digital-a">0</div>
-    <div class="fp-components-digital-a-desc">Digital</div>
+    <div class="fp-components-digital-a-desc text">Digital</div>
   </div>
 </template>
 
