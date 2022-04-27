@@ -26,10 +26,7 @@ const sendData = () => {
             radioGroup: component.componentConfig.radioGroup,
         };
         Object.keys(objectComponent).forEach((key) => {
-            if (
-                objectComponent[key] === "" ||
-                objectComponent[key] === undefined
-            ) {
+            if (objectComponent[key] === '' || objectComponent[key] === undefined) {
                 delete objectComponent[key];
             }
         });

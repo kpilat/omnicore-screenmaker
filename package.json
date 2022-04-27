@@ -21,6 +21,7 @@
     "electron-is-dev": "^2.0.0",
     "fs-extra": "^10.0.1",
     "interactjs": "^1.10.11",
+    "mitt": "^3.0.0",
     "object-observer": "^5.0.0",
     "vue": "^3.0.0"
   },

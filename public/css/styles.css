@@ -50,7 +50,7 @@ body {
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  padding-top: 40px; }
+  padding-top: 48px; }
 
 p {
   font-weight: normal;
@@ -3228,10 +3228,34 @@ ABB reserves all rights regarding Intellectual Property Rights
   position: absolute;
   top: 0;
   left: 0;
-  height: 40px;
-  background-color: #F0F0F0;
-  border: 1px solid #969da6;
+  height: 48px;
   width: 100%; }
+
+.top-menu__tab {
+  position: relative; }
+  .top-menu__tab:not(.fp-components-tabcontainer-activetab) {
+    cursor: pointer; }
+
+.top-menu__button {
+  margin-left: 8px;
+  background-image: url("fp-components/img/svg/abb_right_24.svg");
+  display: block;
+  font-size: 42px;
+  display: flex;
+  cursor: pointer; }
+  .top-menu__button > * {
+    margin: auto; }
+
+.top-menu__cross {
+  position: absolute;
+  inset: auto 0 0 auto;
+  width: 15%;
+  height: calc(100% - 5px);
+  display: flex;
+  font-size: 22px;
+  cursor: pointer; }
+  .top-menu__cross > * {
+    margin: auto; }
 
 .right-menu-wrapper {
   width: -webkit-fit-content;

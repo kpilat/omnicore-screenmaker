@@ -8,9 +8,10 @@ const workspaceSelector = '.workspace',
     observerConfig = {
         childList: true,
     };
+let updateComponentList;
 
 // Workspace changes observer
-const watchDog = () => {
+const watchDog = (definedFunction) => {
     const workspace = document.querySelector(workspaceSelector);
     const observer = new MutationObserver(contentChanged);
     observer.observe(workspace, observerConfig);
@@ -42,13 +43,13 @@ const contentChanged = (mutationsList, observer) => {
         // Saves components contained in workspace (for app build)
         window.components = components;
         Rescale.rescaleComponents();
+        updateComponentList();
     });
 };
 
 // Modifying components according data-action attributes
 const contextMenuActions = (event) => {
     const action = event.target.getAttribute('data-action');
-
     switch (action) {
         case 'delete':
             window.activeComponent.remove();
@@ -84,7 +85,8 @@ const contextMenuInit = (event) => {
 };
 
 // Initialization
-const init = () => {
+const init = (definedFunction) => {
+    updateComponentList = definedFunction;
     watchDog();
     contextMenuInit();
     document.addEventListener('click', contextMenuVisibility);

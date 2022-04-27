@@ -48,12 +48,12 @@ async function createWindow() {
     }
 
     // IRPC
-    ipcMain.on('build_fromRenderer', (event, data) => {
-        AppBuilder.build(data);
+    ipcMain.on('build_fromRenderer', (event, components, workspaces) => {
+        AppBuilder.build(components);
         // win.webContents.send('fromMain', args);
     });
-    ipcMain.on('save_fromRenderer', (event, data) => {
-        Project.save(data);
+    ipcMain.on('save_fromRenderer', (event, components, workspaces) => {
+        Project.save(components);
     });
     // ipcMain.on('load', async () => {
     //     const result = await Project.load();

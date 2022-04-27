@@ -14,6 +14,7 @@ const componentClone = (item) => {
         newItem.componentSettings[`${key}`] = value;
     }
     newItem.componentConfig.id = idGenerator(5, item.componentConfig.type);
+    newItem.componentConfig.workspaceId = document.querySelector('.workspace').getAttribute('id');
     // newItem.style.top = eval(`${parseInt(newItem.style.top)} + 2`) + "%";
     // newItem.style.left = eval(`${parseInt(newItem.style.left)} + 2`) + "%";
     document.querySelector(dropzone).appendChild(newItem);
@@ -45,6 +46,7 @@ const componentInit = (item) => {
         id: idGenerator(5, item.getAttribute('data-type')),
         type: item.getAttribute('data-type'),
         text: item.getAttribute('data-text'),
+        workspaceId: workspace.getAttribute('id')
     };
     newItem['componentSettings'] = assignSettings(newItem.componentConfig);
     document.querySelector(dropzone).appendChild(newItem);
@@ -134,4 +136,5 @@ export default {
     componentClone,
     resetComponent,
     changeActiveState,
+    idGenerator
 };
