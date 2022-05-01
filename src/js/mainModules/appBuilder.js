@@ -29,15 +29,18 @@ const build = async (data) => {
     }
     
     data = JSON.parse(data);
+
     const components = {
         'componentCode': [],
         'componentVariables': [],
         'componentGroups': [],
         'componentSubscribe': [],
-        'componentUnsubscribe': []
+        'componentUnsubscribe': [],
+        'tabs': []
     }
+    console.log(data);
 
-    data.forEach(component => {
+    data.components.forEach(component => {
         components.componentCode.push(JsTemplate.componentInit(component));
         if (component.type === 'radio') {
             components.componentGroups.push(`var ${component.radioGroup} = {};`);
@@ -51,6 +54,9 @@ const build = async (data) => {
         components.componentUnsubscribe.push(JsTemplate.unsubscribe(component));
     });
 
+    // Init Tabs
+    components.tabs.push(JsTemplate.tabsInit(data.tabs));
+    
     // Unique group names
     components.componentGroups = components.componentGroups.filter((x, i, a) => a.indexOf(x) == i);
 

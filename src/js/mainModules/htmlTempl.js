@@ -1,19 +1,5 @@
-const injectTemplate = (components) => {
-    let elements = '';
+const injectTemplate = (data) => {
 
-    components.forEach((component) => {
-        if (component.type === 'label') {
-            elements += /*html*/`
-                <div id="${component.id}" style="font-size: 18px; position: absolute; top:${component.top}; left:${component.left};">
-                    <div style="white-space:nowrap;" class="text">${component.text}</div>
-                </div>
-            `;
-        } else {
-            elements += /*html*/`
-                <div id="${component.id}" style="position: absolute; top:${component.top}; left:${component.left}; ${component.type === 'input' ? 'width:200px' : ''};"></div>
-            `;
-        }
-    });
 
     const template = `
         <!DOCTYPE html>
@@ -56,19 +42,98 @@ const injectTemplate = (components) => {
                     flex-direction: row;
                     height: 680px;
                     width: 1024px;">
-            <div class="content" id="io-view" style="position: relative;
-                                                    flex-direction: column;
-                                                    justify-content: flex-start;
-                                                    align-items: flex-start;
-                                                    padding: 30px;
-                                                    flex: 1 1 auto;">
-                ${elements}
-            </div>
+
+            ${
+                data.tabs.length > 1 ? (`<div id="tab-container"></div>` + genertateContainers(data.tabs, data.components)) : generateBasicContent(data.components)
+            }
+
         </body>
         </html>
     `;
 
     return template;
+};
+
+const genertateContainers = (tabs, components) => {
+    const template = `
+        ${
+            tabs.map((tab) => {
+                let template = '';
+                let nodes =  components.map((component) => {
+                    if(component.workspaceId === tab.id) {
+                        return createNode(component)
+                    }
+                }).join('')
+
+                template = `
+                    <div class="content" id="${tab.id}" style="position: relative;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    padding: 30px;
+                    flex: 1 1 auto;">
+                        ${nodes}
+                    </div>
+                `;
+
+                return template;
+            })
+            .join('')
+        }
+    `;
+    return template;
+};
+
+const generateBasicContent = (components) => {
+    let elements = '';
+    let template = '';
+
+    components.forEach((component) => {
+        if (component.type === 'label') {
+            elements += /*html*/ `
+                <div id="${component.id}" style="font-size: 18px; position: absolute; top:${component.top}; left:${component.left};">
+                    <div style="white-space:nowrap;" class="text">${component.text}</div>
+                </div>
+            `;
+        } else {
+            elements += /*html*/ `
+                <div id="${component.id}" style="position: absolute; top:${component.top}; left:${component.left}; ${
+                component.type === 'input' ? 'width:200px' : ''
+            };"></div>
+            `;
+        }
+    });
+
+    template = `
+        <div class="content" id="io-view" style="position: relative;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 30px;
+        flex: 1 1 auto;">
+            ${elements}
+        </div>
+    `;
+
+    return template;
 }
 
-export default {injectTemplate}
+const createNode = (component) => {
+    let element = '';
+    if (component.type === 'label') {
+        element += /*html*/ `
+            <div id="${component.id}" style="font-size: 18px; position: absolute; top:${component.top}; left:${component.left};">
+                <div style="white-space:nowrap;" class="text">${component.text}</div>
+            </div>
+        `;
+    } else {
+        element += /*html*/ `
+            <div id="${component.id}" style="position: absolute; top:${component.top}; left:${component.left}; ${
+            component.type === 'input' ? 'width:200px' : ''
+        };"></div>
+        `;
+    }
+    return element;
+};
+
+export default { injectTemplate };

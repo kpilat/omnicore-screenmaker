@@ -6,7 +6,7 @@
                     <div v-for="tab in tabs" :key="tab.name" id="tabWrapper" class="fp-components-tabcontainer-tabbar">
                         <component :is="tab" :key="tab.name"></component>
                     </div>
-                    <div :onclick="newTab" class="top-menu__button fp-components-tabcontainer-sidebutton fp-components-tabcontainer-sidebutton-active">
+                    <div @click="newTab()" class="top-menu__button fp-components-tabcontainer-sidebutton fp-components-tabcontainer-sidebutton-active">
                         <div>+</div>
                     </div>
                     <div class="fp-components-tabcontainer-dynspace"></div>
@@ -18,6 +18,7 @@
 
 <script>
 import ComponentService from './../js/modules/componentService';
+import Api from './../js/modules/services/api';
 import { defineComponent, createVNode } from 'vue';
 import FpTab from './fp-tab.vue';
 
@@ -41,15 +42,18 @@ export default {
             this.setActiveState(id);
         });
         this.eventBus.emit('createWorkspace', this.tabs[0].props.id);
+        Api.openProject(this.openProject);
+        Api.saveProject(this.packTabs);
+        Api.buildProject(this.packTabs);
     },
     methods: {
-        newTab: function () {
+        newTab: function (newId, newName) {
             if (this.counter === 5) return;
             const componentDefinition = defineComponent(FpTab);
             const component = createVNode(componentDefinition, {
-                id: ComponentService.idGenerator(5),
+                id: newId ? newId : ComponentService.idGenerator(5),
                 active: true,
-                tabName: 'New Tab',
+                tabName: newName ? newName : 'New Tab',
                 closeTab: this.closeTab,
             });
 
@@ -70,6 +74,20 @@ export default {
             this.tabs.forEach((tab) => (tab.props.id === id ? (tab.props.active = true) : (tab.props.active = false)));
             this.eventBus.emit('setActiveWorkspace', id);
             this.$forceUpdate();
+        },
+        openProject: function (newTabs) {
+            this.tabs?.forEach((tab) => this.closeTab(tab.props.id));
+            newTabs?.forEach((newTab) => this.newTab(newTab.id, newTab.name));
+        },
+        packTabs: function () {
+            const tabs = [];
+            this.tabs?.forEach((tab) =>
+                tabs.push({
+                    id: tab.props.id,
+                    name: tab.props.tabName,
+                })
+            );
+            return tabs;
         },
     },
 };

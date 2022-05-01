@@ -24,6 +24,7 @@ const sendData = () => {
             alertTitle: component.componentConfig.alertTitle,
             step: component.componentConfig.step,
             radioGroup: component.componentConfig.radioGroup,
+            workspaceId: component.componentConfig.workspaceId
         };
         Object.keys(objectComponent).forEach((key) => {
             if (objectComponent[key] === '' || objectComponent[key] === undefined) {

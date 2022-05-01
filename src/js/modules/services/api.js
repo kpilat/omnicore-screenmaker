@@ -1,7 +1,7 @@
 import Utilities from '../utilities';
 import ComponentParser from '../componentParser';
 
-const openProject = () => {
+const openProject = (definedFunction) => {
     window.api.receive('load_fromMain', (data) => {
         const parsed = JSON.parse(data);
         const elements = [];
@@ -11,32 +11,35 @@ const openProject = () => {
             workspace.removeChild(workspace.firstChild);
         }
 
-        parsed?.forEach((item) => elements.push(Utilities.toDOM(item)));
+        parsed.components?.forEach((item) => elements.push(Utilities.toDOM(item)));
+        definedFunction(parsed.tabs);
         elements?.forEach((item) => workspace.appendChild(item));
     });
 };
 
-const saveProject = () => {
+const saveProject = (definedFunction) => {
     window.api.receive('save_fromMain', () => {
-        const components = [];
-        const workspaces = [];
-        window.components?.forEach((item) => components.push(Utilities.toJSON(item)));
-        workspaces = Utilities
+        const data = {
+            components: [],
+            tabs: []
+        }
+        window.components?.forEach((item) => data.components.push(Utilities.toJSON(item)));
+        definedFunction()?.forEach((item) => data.tabs.push(item));
 
-        window.api.send('save_fromRenderer', JSON.stringify(components), JSON.stringify(window.workspace));
+        window.api.send('save_fromRenderer', JSON.stringify(data));
     });
 };
 
-const buildProject = () => {
+const buildProject = (definedFunction) => {
     window.api.receive('build_fromMain', () => {
-        window.api.send('build_fromRenderer', JSON.stringify(ComponentParser.sendData()), JSON.stringify(window.workspace));
+        const data = {
+            components: ComponentParser.sendData(),
+            tabs: []
+        }
+        definedFunction()?.forEach((item) => data.tabs.push(item));
+        
+        window.api.send('build_fromRenderer', JSON.stringify(data));
     });
 };
 
-const init = () => {
-    saveProject();
-    buildProject();
-    openProject();
-};
-
-export default { init };
+export default { buildProject, saveProject, openProject };

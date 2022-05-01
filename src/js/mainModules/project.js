@@ -1,19 +1,15 @@
 const path = require('path')
 import FileManager from "./fileManager";
 
-const save = async (components, workspaces) => {
+const save = async (data) => {
     const extension = '.json'
     const result = await FileManager.saveDialog();
-    const data = {
-        components: components,
-        workspaces: workspaces
-    }
     if(result.canceled) {
         return;
     } else {
         const filePath = path.dirname(result.filePath) + '/';
         const basename = path.parse(path.basename(result.filePath)).name;
-        FileManager.fsWrite(JSON.stringify(data), filePath, basename + extension);
+        FileManager.fsWrite(data, filePath, basename + extension);
     }
 }
 

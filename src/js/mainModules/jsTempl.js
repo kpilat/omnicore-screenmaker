@@ -21,7 +21,7 @@ const componentInit = (component) => {
 };
 
 // Inserting parts of code to actual template
-const injectTemplate = (components) => {
+const injectTemplate = (components, tabs) => {
     const code = `
         ${components.componentGroups}
         ${components.componentVariables}
@@ -35,14 +35,10 @@ const injectTemplate = (components) => {
             console.log(e);
             FPComponents.Popup_A.message("Something went wrong!", "Application might not work as intended");
             }
-            this.initView();
+            
+            ${components.tabs ? components.tabs : ''}
         });
     
-        var initView = function () {
-        var mainView = document.getElementById("io-view");
-        mainView.style.display = "flex";
-        mainView.style.position = "relative";
-        }
         var appActivate = async function () {
             ${components.componentSubscribe}
             return true;
@@ -83,6 +79,7 @@ const stringJoin = (input) => {
         componentGroups: '',
         componentSubscribe: '',
         componentUnsubscribe: '',
+        tabs: '',
     };
 
     input.componentCode.forEach((item) => {
@@ -100,8 +97,23 @@ const stringJoin = (input) => {
     input.componentUnsubscribe.forEach((item) => {
         components.componentUnsubscribe += item;
     });
+    components.tabs = input.tabs
+
     return components;
 };
+
+const tabsInit = (tabs) => {
+    if (tabs.length < 2) return null;
+    let template = 'var tabContainer = new FPComponents.Tabcontainer_A();';
+
+    tabs.forEach(tab => {
+        template += `tabContainer.addTab("${tab.name}", "${tab.id}");`;
+    });
+
+    template += 'tabContainer.attachToId("tab-container");'
+
+    return template;
+}
 
 export default {
     componentInit,
@@ -109,4 +121,5 @@ export default {
     subscribe,
     unsubscribe,
     stringJoin,
+    tabsInit
 };

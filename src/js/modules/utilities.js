@@ -24,8 +24,4 @@ const getAttributes = (element) => {
     return attributes;
 };
 
-const arrToObj = () => {
-
-}
-
-export default { toJSON, toDOM, arrToObj };
+export default { toJSON, toDOM };

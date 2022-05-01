@@ -17,7 +17,6 @@ import Workspace from './components/workspace.vue';
 import DragNDrop from './js/modules/dragNDrop';
 import Rescale from './js/modules/rescale';
 import WorkspaceService from './js/modules/workSpace';
-import Api from './js/modules/services/api';
 
 export default {
     name: 'App',
@@ -36,7 +35,6 @@ export default {
     mounted() {
         DragNDrop.init();
         Rescale.init();
-        Api.init();
     },
 };
 </script>
