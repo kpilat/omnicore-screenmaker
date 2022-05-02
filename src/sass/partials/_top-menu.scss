@@ -18,6 +18,13 @@
         }
     }
 
+    .tab {
+
+        &__text {
+            cursor: pointer;
+        }
+    }
+
     &__button {
         margin-left: 8px;
         background-image: url('fp-components/img/svg/abb_right_24.svg');

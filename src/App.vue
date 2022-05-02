@@ -28,13 +28,15 @@ export default {
     },
     data() {
         return {
-            workspaceInit: WorkspaceService.init
-        }
+            workspaceInit: WorkspaceService.init,
+        };
     },
     beforeCreate() {},
     mounted() {
         DragNDrop.init();
         Rescale.init();
+    },
+    methods: {
     },
 };
 </script>
