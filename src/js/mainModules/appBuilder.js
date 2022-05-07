@@ -30,6 +30,8 @@ const build = async (data) => {
     
     data = JSON.parse(data);
 
+    if(!data.components) return;
+
     const components = {
         'componentCode': [],
         'componentVariables': [],
@@ -63,7 +65,7 @@ const build = async (data) => {
     const jsTemplate = JsTemplate.injectTemplate(JsTemplate.stringJoin(components));
     const htmlTemplate = HtmlTemplate.injectTemplate(data);
 
-    const appInfo = `<?xml version="1.0" encoding="UTF-8"?><WebApp><name>Generated APP</name><icon>App_Default_100.png</icon><path>index.html</path></WebApp>`;
+    const appInfo = `<?xml version="1.0" encoding="UTF-8"?><WebApp><name>${data.appSettings.appName}</name><icon>App_Default_100.png</icon><path>index.html</path></WebApp>`;
 
     FileManager.fsWrite(jsTemplate, appPath, jsFile);
     FileManager.fsWrite(htmlTemplate, appPath, htmlFile);

@@ -49,6 +49,9 @@ export default {
             this.closeWorkspace(id);
         });
         this.$props.init(this.updateComponentList);
+        this.copyComponent();
+        this.pasteComponent();
+        this.removeComponent();
     },
 
     updated() {
@@ -98,6 +101,15 @@ export default {
                 if ((e.ctrlKey && e.key === 'v') || (e.metaKey && e.key === 'v')) {
                     if (window.clipBoard) {
                         ComponentService.componentClone(window.clipBoard);
+                    }
+                }
+            });
+        },
+        removeComponent: function () {
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Delete') {
+                    if(window.activeComponent) {
+                        window.activeComponent.remove();
                     }
                 }
             });

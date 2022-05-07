@@ -50,7 +50,6 @@
                                 <option value="increase-value">Increase Value</option>
                                 <option value="decrease-value">Decrease Value</option>
                                 <option value="set-value">Set Value</option>
-                                <option value="push-signal">Push Signal</option>
                                 <option value="toggle-signal">Toggle Signal</option>
                                 <option value="set-string">Set String</option>
                             </select>
@@ -64,11 +63,7 @@
                         <div class="select select-fullWidth">
                             <select name="component-callback" v-model="callbackType">
                                 <option value="">None</option>
-                                <option value="increase-value">Increase Value</option>
-                                <option value="decrease-value">Decrease Value</option>
-                                <option value="set-value">Set Value</option>
-                                <option value="push-signal">Push Signal</option>
-                                <option value="toggle-signal">Toggle Signal</option>
+                                <option value="var-value">Variable value</option>
                             </select>
                         </div>
                     </div>
@@ -134,8 +129,13 @@ export default {
         };
     },
     methods: {
-        save: () => {
-            componentsPropertyMenu.saveConfig();
+        save: async function () {
+            try {
+                await componentsPropertyMenu.saveConfig();
+                this.close();
+            } catch (e) {
+                console.error(e);
+            }
         },
         consoleLog: (text) => {
             console.log(text);

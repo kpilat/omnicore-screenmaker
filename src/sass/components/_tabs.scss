@@ -14,6 +14,9 @@
 .tabs {
   border-bottom: $bdb-tabs;
   text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
 
   &-item {
     border-bottom: $bdb-tabs-item;

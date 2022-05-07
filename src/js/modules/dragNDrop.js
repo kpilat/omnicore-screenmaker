@@ -1,8 +1,9 @@
-import interact from "interactjs";
-import ComponentService from "./componentService";
+import interact from 'interactjs';
+import ComponentService from './componentService';
 
-const draggable = ".draggable",
-    dropzone = ".workspace";
+const draggable = '.draggable',
+    dropzone = '.workspace',
+    trash = '.right-menu__trash-wrapper';
 let interactable;
 
 // Draggable components setup
@@ -17,8 +18,8 @@ const draggableInit = () => {
                     { x: 0, y: 1 }, // to the bottom-left
                     // { x: 1, y: 1 }, // to the bottom-right
                 ],
-                mode: "grid",
-            })
+                mode: 'grid',
+            }),
         ],
         onstart: function (event) {
             ComponentService.changeActiveState(event.target);
@@ -26,8 +27,8 @@ const draggableInit = () => {
         onmove: function (event) {
             const target = event.target;
 
-            const dataX = target.getAttribute("data-x");
-            const dataY = target.getAttribute("data-y");
+            const dataX = target.getAttribute('data-x');
+            const dataY = target.getAttribute('data-y');
             const initialX = parseFloat(dataX) || 0;
             const initialY = parseFloat(dataY) || 0;
 
@@ -39,27 +40,59 @@ const draggableInit = () => {
 
             target.style.transform = `translate(${newX}px, ${newY}px)`;
 
-            target.setAttribute("data-x", newX);
-            target.setAttribute("data-y", newY);
+            target.setAttribute('data-x', newX);
+            target.setAttribute('data-y', newY);
         },
         onend: function (event) {
             const target = event.target;
-            if (target.classList.contains("assigned")) {
+            if (target.classList.contains('assigned')) {
                 const position = target.getBoundingClientRect();
                 const workspace = document.querySelector(dropzone);
 
-                target.style.top = `${
-                    (100 / workspace.clientHeight) *
-                    (position.y - workspace.offsetTop)
-                }%`;
-                target.style.left = `${
-                    (100 / workspace.clientWidth) * position.x
-                }%`;
+                target.style.top = `${(100 / workspace.clientHeight) * (position.y - workspace.offsetTop)}%`;
+                target.style.left = `${(100 / workspace.clientWidth) * position.x}%`;
 
-                target.style.transform = "translate(0,0)";
-                target.setAttribute("data-x", "0");
-                target.setAttribute("data-y", "0");
+                target.style.transform = 'translate(0,0)';
+                target.setAttribute('data-x', '0');
+                target.setAttribute('data-y', '0');
             }
+        },
+    });
+};
+
+// Trash setup
+const trashInit = () => {
+    interact(trash).dropzone({
+        accept: draggable,
+        overlap: 1,
+        ondropactivate: function (event) {
+            const item = event.relatedTarget;
+            item.classList.add('dragging');
+        },
+        ondropdeactivate: function (event) {
+            const item = event.relatedTarget;
+            const trashZone = document.querySelector(trash);
+            if (item.classList.contains('can-destroy')) {
+                item.remove();
+                trashZone.classList.remove('is-expanded');
+            } else if (!item.classList.contains('can-drop')) {
+                ComponentService.changeActiveState();
+                ComponentService.resetComponent(item);
+            }
+        },
+        ondragenter: function (event) {
+            const item = event.relatedTarget;
+            const trashZone = document.querySelector(trash);
+            if (item.classList.contains('assigned')) {
+                item.classList.add('can-destroy');
+                trashZone.classList.add('is-expanded');
+            }
+        },
+        ondragleave: function (event) {
+            const item = event.relatedTarget;
+            const trashZone = document.querySelector(trash);
+            item.classList.remove('can-destroy');
+            trashZone.classList.remove('is-expanded');
         },
     });
 };
@@ -71,11 +104,11 @@ const dropzoneInit = () => {
         overlap: 1,
         ondropactivate: function (event) {
             const item = event.relatedTarget;
-            item.classList.add("dragging");
+            item.classList.add('dragging');
         },
         ondropdeactivate: function (event) {
             const item = event.relatedTarget;
-            if (!item.classList.contains("can-drop")) {
+            if (!item.classList.contains('can-drop')) {
                 ComponentService.changeActiveState();
                 ComponentService.resetComponent(item);
             } else {
@@ -84,11 +117,11 @@ const dropzoneInit = () => {
         },
         ondragenter: function (event) {
             const item = event.relatedTarget;
-            item.classList.add("can-drop");
+            item.classList.add('can-drop');
         },
         ondragleave: function (event) {
             const item = event.relatedTarget;
-            item.classList.remove("can-drop");
+            item.classList.remove('can-drop');
         },
     });
 };
@@ -105,10 +138,6 @@ const snapGridInit = () => {
         y: 40,
 
         // optional
-        // range: 10,
-        relativePoints: [{ x: 0, y: 0 }],
-
-        // optional
         offset: { x: 0, y: 0 },
 
         // optional
@@ -116,7 +145,8 @@ const snapGridInit = () => {
             top: clientRect.top + 1,
             left: clientRect.left + 1,
             bottom: clientRect.top + clientRect.height - 1,
-            right: clientRect.left + clientRect.width - 1,
+            // right: clientRect.left + clientRect.width - 1,
+            right: window.innerWidth,
         },
     });
 
@@ -132,8 +162,9 @@ const dropzoneRedefine = () => {
 const init = () => {
     draggableInit();
     dropzoneInit();
+    trashInit();
 
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
         dropzoneRedefine();
     });
 };

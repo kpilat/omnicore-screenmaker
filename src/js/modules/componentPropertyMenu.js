@@ -24,7 +24,7 @@ const tabSwitch = (event) => {
 };
 
 // Saves new component config to window property (component settings will be withdrawn in componentParser.js during app build)
-const saveConfig = () => {
+const saveConfig = async () => {
     const form = document.forms.namedItem('c-property-form');
     const componentConfig = {};
     Array.from(form.elements).forEach((item) => {
@@ -49,6 +49,7 @@ const saveConfig = () => {
     // if (window.components[index].innerText) {
     //   window.components[index].innerText = componentConfig.text;
     // }
+    return true;
 };
 
 export default { windowInit, saveConfig };

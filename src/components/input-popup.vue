@@ -50,6 +50,7 @@ export default {
                 value: this.currentValue,
             };
             this.returnData(data);
+            this.$props.close();
         },
     },
 };

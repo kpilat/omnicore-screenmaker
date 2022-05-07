@@ -94,6 +94,7 @@ export default {
         openProject: function (newTabs) {
             this.tabs?.forEach((tab) => this.closeTab(tab.props.id));
             newTabs?.forEach((newTab) => this.newTab(newTab.id, newTab.name));
+            this.eventBus.emit('setAppName');
         },
         packTabs: function () {
             const tabs = [];

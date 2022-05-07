@@ -9,7 +9,7 @@
         </div>
         <div></div>
         <div @click="closeTab(id)" class="top-menu__cross">
-            <div>X</div>
+            <div>+</div>
         </div>
     </div>
 </template>

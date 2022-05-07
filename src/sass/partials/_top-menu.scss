@@ -26,10 +26,11 @@
     }
 
     &__button {
-        margin-left: 8px;
+        margin-left: -8px;
+        // padding-top: 5px;
         background-image: url('fp-components/img/svg/abb_right_24.svg');
         display: block;
-        font-size: 42px;
+        font-size: 28px;
         display: flex;
         cursor: pointer;
 
@@ -44,11 +45,12 @@
         width: 15%;
         height: calc(100% - 5px);
         display: flex;
-        font-size: 22px;
+        font-size: 28px;
         cursor: pointer;
 
         & > * {
             margin: auto;
+            transform: rotate(45deg);
         }
     }
 }

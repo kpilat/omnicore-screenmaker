@@ -11,6 +11,9 @@ const openProject = (definedFunction) => {
             workspace.removeChild(workspace.firstChild);
         }
 
+        window.appSettings = {
+            appName: parsed.appSettings.appName,
+        };
         parsed.components?.forEach((item) => elements.push(Utilities.toDOM(item)));
         definedFunction(parsed.tabs);
         elements?.forEach((item) => workspace.appendChild(item));
@@ -21,8 +24,9 @@ const saveProject = (definedFunction) => {
     window.api.receive('save_fromMain', () => {
         const data = {
             components: [],
-            tabs: []
-        }
+            tabs: [],
+            appSettings: window.appSettings,
+        };
         window.components?.forEach((item) => data.components.push(Utilities.toJSON(item)));
         definedFunction()?.forEach((item) => data.tabs.push(item));
 
@@ -34,10 +38,11 @@ const buildProject = (definedFunction) => {
     window.api.receive('build_fromMain', () => {
         const data = {
             components: ComponentParser.sendData(),
-            tabs: []
-        }
+            tabs: [],
+            appSettings: window.appSettings,
+        };
         definedFunction()?.forEach((item) => data.tabs.push(item));
-        
+
         window.api.send('build_fromRenderer', JSON.stringify(data));
     });
 };
