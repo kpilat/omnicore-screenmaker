@@ -34,7 +34,12 @@ async function createWindow() {
     });
 
     // Setting up native window menu
-    const menu = Menu.buildFromTemplate(MenuTemplate.menuInit(win))
+    let menu;
+    if (isDevelopment) {
+        menu = Menu.buildFromTemplate(MenuTemplate.menuDevelopmentInit(win))
+    } else {
+        menu = Menu.buildFromTemplate(MenuTemplate.menuInit(win))
+    }
     Menu.setApplicationMenu(menu)
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
