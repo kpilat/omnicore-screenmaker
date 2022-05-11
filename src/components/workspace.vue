@@ -52,6 +52,7 @@ export default {
         this.copyComponent();
         this.pasteComponent();
         this.removeComponent();
+        this.openPropertyMenuKeyboard();
     },
 
     updated() {
@@ -89,6 +90,12 @@ export default {
                 },
             };
         },
+        openPropertyMenuKeyboard: function () {
+            window.addEventListener('dblclick', (e) => {
+                if(!e.target.classList.contains('assigned')) return;
+                this.openPropertyMenu();
+            });
+        },
         copyComponent: function () {
             window.addEventListener('keydown', (e) => {
                 if ((e.ctrlKey && e.key === 'c') || (e.metaKey && e.key === 'c')) {
@@ -108,7 +115,7 @@ export default {
         removeComponent: function () {
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Delete') {
-                    if(window.activeComponent) {
+                    if (window.activeComponent) {
                         window.activeComponent.remove();
                     }
                 }
