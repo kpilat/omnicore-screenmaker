@@ -1,0 +1,34 @@
+$utils-container-widths: (
+    sm: 900px
+) !default;
+
+
+// Mixins
+@mixin container-padding{
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+}
+
+
+// Base
+.container{
+    --container-offset: max(var(--container-padding), (100vw - var(--container-width)) / 2);
+    width: #{'min(var(--container-width), 100% - (2 * var(--container-padding)))'};
+    margin-left: auto;
+    margin-right: auto;
+
+    &--fluid{
+        --container-offset: var(--container-padding);
+        width: calc(100% - (2 * var(--container-padding)));
+    }
+}
+
+
+// Generate utility classes
+@include generate-utility((
+    important: false,
+    property: --container-width,
+    class: container,
+    class-separator: '--',
+    values: $utils-container-widths
+));

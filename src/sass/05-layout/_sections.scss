@@ -1,0 +1,45 @@
+@mixin section{
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+}
+
+
+.section{
+    @include section;
+    background-color: var(--section-bg);
+
+    &:not([class*='bg-']){
+
+        & + &{
+            margin-top: calc(var(--section-padding) * -1);
+        }
+    }
+
+    &.bg-light{
+        --section-bg: var(--light);
+
+        & + &{
+            margin-top: calc(var(--section-padding) * -1);
+        }
+    }
+
+    /* &.bg-primary{
+        --section-bg: var(--primary);
+        color: #fff;
+
+        & + &{
+            margin-top: calc(var(--section-padding) * -1);
+        }
+    } */
+
+    /* &.border-top{
+        margin-top: 0 !important;
+    }
+
+    &.border-bottom{
+
+        & + .section{
+            margin-top: 0 !important;
+        }
+    } */
+}

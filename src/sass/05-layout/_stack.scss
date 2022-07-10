@@ -1,0 +1,14 @@
+@mixin stack($gutter-y: get-var(--gutter-y)){
+    --gutter-y: #{$gutter-y};
+    display: flex;
+    flex-direction: column;
+
+    & > * + *{
+        margin-top: var(--gutter-y);
+    }
+}
+
+
+.stack{
+    @include stack;
+}

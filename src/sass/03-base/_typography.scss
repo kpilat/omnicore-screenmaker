@@ -1,0 +1,73 @@
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    @include heading;
+}
+
+h1{
+    @include h1;
+}
+
+h2{
+    @include h2;
+}
+
+h3{
+    @include h3;
+}
+
+h4{
+    @include h4;
+}
+
+h5{
+    @include h5;
+}
+
+h6{
+    @include h6;
+}
+
+p,
+address{
+    margin-bottom: var(--paragraph-spacing);
+}
+
+a{
+    color: currentColor;
+    text-decoration: none;
+
+    &:hover{
+        // color: var(--primary);
+        // text-decoration: underline;
+    }
+
+    /* &:active{
+        outline: none;
+        -moz-outline-style: none;
+    } */
+}
+
+b,
+strong{
+    font-weight: 700;
+}
+
+i,
+em{
+    font-style: italic;
+}
+
+sub{
+    font-size: 60%;
+    vertical-align: sub;
+}
+
+sup{
+    font-size: 60%;
+    vertical-align: super;
+}

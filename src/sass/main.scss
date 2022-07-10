@@ -1,44 +1,46 @@
-@charset 'UTF-8';
+// CONFIG
+@import "01-config/variables";
+@import "01-config/utils";
 
-// Settings
-@import 'settings';
+// MIXINS
+@import "02-mixins/functions";
+@import "02-mixins/breakpoints";
+@import "02-mixins/carets";
+@import "02-mixins/clearfix";
+@import "02-mixins/gradients";
+@import "02-mixins/headings";
+@import "02-mixins/lists";
+@import "02-mixins/margins";
+@import "02-mixins/placeholder";
+@import "02-mixins/position";
+@import "02-mixins/ratio";
+@import "02-mixins/resets";
+@import "02-mixins/text-truncate";
+@import "02-mixins/text";
+@import "02-mixins/triangles";
+@import "02-mixins/utilities";
+@import "02-mixins/visually-hidden";
 
-// Utils
-@import 'utils/breakpoints';
-@import 'utils/reset';
-@import 'utils/default';
-@import 'utils/background';
-@import 'utils/border';
-@import 'utils/aligner';
-@import 'utils/helpers';
-@import 'utils/layout';
-@import 'utils/typography';
+// BASE
+@import "03-base/fonts";
+@import "03-base/root";
+@import "03-base/reset";
+@import "03-base/base";
+@import "03-base/typography";
+@import "03-base/formatting";
 
-// Components
-@import 'components/badge';
-@import 'components/buttons';
-@import 'components/forms';
-@import 'components/loading-bar';
-@import 'components/loading-spinner';
-@import 'components/notification';
-@import 'components/paginator';
-@import 'components/table';
-@import 'components/tabs';
-@import 'components/tag';
-@import 'components/fp-components';
-@import 'components/fp-components-custom';
+// VENDOR
+// @import "04-vendor/animate";
+// @import "04-vendor/lazysizes";
+// @import "04-vendor/cookieconsent";
+// @import "04-vendor/owl-carousel";
+// @import "04-vendor/magnific-popup";
+// @import "04-vendor/contact-form7";
 
-// Partials
-@import 'partials/top-menu';
-@import 'partials/right-menu';
-@import 'partials/workspace';
-@import 'partials/c-context-menu';
-@import 'partials/c-property-menu';
-@import 'partials/input-popup';
-
-
-// Twitter bootstrap's grid v4.1.0
-// More info: https://getbootstrap.com/examples/grid/
-@import 'grid/grid-framework';
-@import 'grid/grid';
-@import 'utils/grid';
+// LAYOUT
+@import "05-layout/container";
+@import "05-layout/grid";
+// @import "05-layout/stack";
+// @import "05-layout/cluster";
+@import "05-layout/sections";
+@import "05-layout/wrapper";

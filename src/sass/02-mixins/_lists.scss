@@ -1,0 +1,45 @@
+@mixin ul{
+
+    li{
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 5px;
+
+        &:last-child{
+            margin-bottom: 0;
+        }
+
+        &:before{
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            left: 0;
+            top: .6em;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+    }
+}
+
+@mixin ol{
+    counter-reset: ol-counter;
+
+    li{
+        position: relative;
+        counter-increment: ol-counter;
+        padding-left: 20px;
+        margin-bottom: 5px;
+
+        &:last-child{
+            margin-bottom: 0;
+        }
+
+        &:before{
+            content: counter(ol-counter) ') ';
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}

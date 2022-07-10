@@ -1,0 +1,7 @@
+@mixin gradient-x($start-color, $end-color, $start-percent: 0%, $end-percent: 100%){
+    background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
+}
+
+@mixin gradient-y($start-color, $end-color, $start-percent: 0%, $end-percent: 100%){
+    background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+}

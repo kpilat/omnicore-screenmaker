@@ -1,0 +1,23 @@
+::selection{
+    background: var(--primary);
+    color: #fff;
+}
+
+html{
+    height: 100%;
+    font-size: var(--font-size);
+    overflow-x: hidden;
+}
+
+body{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    font-family: var(--font);
+    line-height: var(--line-height);
+    color: var(--color);
+    background-color: var(--bg-color);
+    overflow: hidden;
+}

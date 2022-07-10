@@ -1,1 +1,0 @@
-Copy contents from fp-components release to this folder

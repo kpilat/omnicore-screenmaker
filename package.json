@@ -1,71 +1,38 @@
 {
-  "name": "omnicore-screenmaker",
-  "version": "0.1.0",
+  "name": "electron-vue-vite",
+  "version": "2.0.0",
+  "main": "dist/electron/main/index.js",
+  "description": "Really simple Electron + Vue + Vite boilerplate.",
+  "author": "草鞋没号 <308487730@qq.com>",
+  "license": "MIT",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:build-windows": "vue-cli-service electron:build --windows",
-    "electron:serve": "vue-cli-service electron:serve & nodemon --watch src -e scss --exec 'npm run sierra'",
-    "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps",
-    "sierra": "npm run sierra:dev",
-    "sierra:prod": "node-sass --include-path scss src/sass/main.scss public/css/styles.min.css  --output-style compressed && postcss --use autoprefixer public/css/styles.min.css -d public/css/",
-    "sierra:dev": "node-sass --include-path scss src/sass/main.scss public/css/styles.css && postcss --use autoprefixer public/css/styles.css -d public/css/"
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build && electron-builder"
   },
-  "main": "background.js",
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "electron-is-dev": "^2.0.0",
-    "fs-extra": "^10.0.1",
-    "interactjs": "^1.10.11",
-    "mitt": "^3.0.0",
-    "object-observer": "^5.0.0",
-    "vue": "^3.0.0"
+  "engines": {
+    "node": ">=14.17.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "autoprefixer": "8",
-    "babel-eslint": "^10.1.0",
-    "commitizen": "3",
-    "cpx": "1",
-    "cz-conventional-changelog": "2",
-    "electron": "^13.0.0",
-    "electron-devtools-installer": "^3.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "husky": "1",
-    "node-sass": "^6.0.1",
-    "nodemon": "^2.0.15",
-    "np": "3",
-    "postcss-cli": "2",
-    "sierra-library": "^3.5.0",
-    "vue-cli-plugin-electron-builder": "~2.1.1"
+    "@vitejs/plugin-vue": "^2.3.3",
+    "electron": "^19.0.8",
+    "electron-builder": "^23.1.0",
+    "sass": "^1.53.0",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.13",
+    "vite-plugin-electron": "^0.7.2",
+    "vue": "^3.2.37",
+    "vue-tsc": "^0.38.3"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "no-unused-vars": "off"
-    }
+  "env": {
+    "VITE_DEV_SERVER_HOST": "127.0.0.1",
+    "VITE_DEV_SERVER_PORT": 3344
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
+  "keywords": [
+    "electron",
+    "rollup",
+    "vite",
+    "vue3",
+    "vue"
   ]
 }

@@ -1,0 +1,294 @@
+$utils-use-important: true !default;
+$utils-class-separator: '-' !default;
+
+$utils-gutters-x: (
+    0: 0,
+    sm: calc(map-get(map-get($css-vars, 'base'), --gutter-x) / 2),
+    lg: calc(map-get(map-get($css-vars, 'base'), --gutter-x) * 2)
+) !default;
+
+$utils-gutters-y: (
+    0: 0,
+    sm: calc(map-get(map-get($css-vars, 'base'), --gutter-y) / 2),
+    lg: calc(map-get(map-get($css-vars, 'base'), --gutter-y) * 2)
+) !default;
+
+$utils-spacing: (
+    0: 0,
+    // 1: var(--spacing),
+    // 2: calc(var(--spacing) * 2),
+    // 3: calc(var(--spacing) * 3),
+    // 4: calc(var(--spacing) * 4),
+    // 5: calc(var(--spacing) * 5),
+    // 6: calc(var(--spacing) * 6),
+    // 7: calc(var(--spacing) * 7),
+    // 8: calc(var(--spacing) * 8),
+    // 9: calc(var(--spacing) * 9),
+    // 10: calc(var(--spacing) * 10),
+    xxs: var(--spacing),
+    xs: calc(var(--spacing) * 2),
+    sm: calc(var(--spacing) * 3),
+    md: calc(var(--spacing) * 4),
+    lg: calc(var(--spacing) * 8),
+    xl: calc(var(--spacing) * 12),
+    xxl: calc(var(--spacing) * 16)
+) !default;
+
+
+$utils: (
+
+    // Gutters
+    'gutters': (
+        responsive: false,
+        important: false,
+        property: --gutter-x --gutter-y,
+        class: g,
+        values: $utils-gutters-x
+    ),
+
+    'gutters-x': (
+        responsive: false,
+        important: false,
+        property: --gutter-x,
+        class: gx,
+        values: $utils-gutters-x
+    ),
+
+    'gutters-y': (
+        responsive: false,
+        important: false,
+        property: --gutter-y,
+        class: gy,
+        values: $utils-gutters-y
+    ),
+
+    // Row Columns
+    /* 'row-columns': (
+        responsive: true,
+        important: false,
+        property: --columns,
+        class: row-cols,
+        values: 1 2 3 4 5 6
+    ), */
+
+    // Display
+    'display': (
+        responsive: true,
+        property: display,
+        class: d,
+        values: block flex none
+    ),
+
+    // Flex
+    'justify-content': (
+        property: justify-content,
+        values: (
+            start: flex-start,
+            end: flex-end,
+            center: center,
+            between: space-between,
+            around: space-around,
+            evenly: space-evenly,
+        )
+    ),
+
+    'align-items': (
+        property: align-items,
+        values: (
+            start: flex-start,
+            end: flex-end,
+            center: center,
+        )
+    ),
+
+    /* 'justify-self': (
+        property: justify-self,
+        values: (
+            start: start,
+            end: end,
+            center: center,
+        )
+    ),
+
+    'align-self': (
+        property: align-self,
+        values: (
+            start: start,
+            end: end,
+            center: center,
+        )
+    ), */
+
+    'order': (
+        responsive: true,
+        property: order,
+        values: (
+            first: -1,
+            last: 1,
+        ),
+    ),
+
+    // Color
+    'color': (
+        property: color,
+        class: text,
+        values: (
+            primary: var(--primary),
+            secondary: var(--secondary),
+            gray: var(--gray),
+            white: #fff
+        )
+    ),
+
+    // Font Family
+    /* 'font-family': (
+        property: font-family,
+        class: font,
+        values: (
+            primary: var(--font),
+            secondary: var(--font-secondary),
+            heading: var(--font-heading, var(--font-secondary)),
+        )
+    ), */
+
+    // Font Weight
+    /* 'font-weight': (
+        property: font-weight,
+        class: fw,
+        values: (
+            lighter: 100,
+            light: 300,
+            normal: 400,
+            bold: 700,
+            bolder: 900
+        )
+    ), */
+
+    // Text Align
+    'text-align': (
+        property: text-align,
+        class: text,
+        values: left center right
+    ),
+
+    // Text Transform
+    /* 'text-transform': (
+        property: text-transform,
+        class: text,
+        values: lowercase uppercase
+    ), */
+
+    // Borders
+    /* 'border': (
+        property: border,
+        values: (
+            null: '1px solid var(--border-color)'
+        )
+    ),
+
+    'border-top': (
+        property: border-top,
+        values: (
+            null: '1px solid var(--border-color)'
+        )
+    ),
+
+    'border-bottom': (
+        property: border-bottom,
+        values: (
+            null: '1px solid var(--border-color)'
+        )
+    ),
+
+    'border-left': (
+        property: border-left,
+        values: (
+            null: '1px solid var(--border-color)'
+        )
+    ),
+
+    'border-right': (
+        property: border-right,
+        values: (
+            null: '1px solid var(--border-color)'
+        )
+    ),
+
+    'border-radius': (
+        property: border-radius,
+        values: (
+            null: var(--border-radius),
+            50: 50%
+        )
+    ), */
+
+    // Spacing
+    /* 'margin-top': (
+        property: margin-top,
+        class: mt,
+        values: $utils-spacing
+    ),
+
+    'margin-bottom': (
+        property: margin-bottom,
+        class: mb,
+        values: $utils-spacing
+    ),
+
+    "margin-x": (
+        property: margin-left margin-right,
+        class: mx,
+        values: $utils-spacing
+    ),
+
+    "margin-y": (
+        property: margin-top margin-bottom,
+        class: my,
+        values: $utils-spacing
+    ),
+
+    'padding-top': (
+        property: padding-top,
+        class: pt,
+        values: $utils-spacing
+    ),
+
+    'padding-bottom': (
+        property: padding-bottom,
+        class: pb,
+        values: $utils-spacing
+    ),
+
+    "padding-x": (
+        property: padding-left padding-right,
+        class: px,
+        values: $utils-spacing
+    ),
+
+    "padding-y": (
+        property: padding-top padding-bottom,
+        class: py,
+        values: $utils-spacing
+    ), */
+
+    // Object Position
+    /* 'object-position': (
+        important: false,
+        property: object-position,
+        class: object,
+        values: (
+            bottom: 'bottom',
+            center: 'center',
+            left: 'left',
+            left-bottom: 'left bottom',
+            left-top: 'left top',
+            right: 'right',
+            right-bottom: 'right bottom',
+            right-top: 'right top',
+            top: 'top',
+            center-bottom: 'center bottom',
+            center-top: 'center top',
+        )
+    ), */
+
+) !default;

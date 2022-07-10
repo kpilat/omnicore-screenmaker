@@ -1,0 +1,48 @@
+@mixin generate-utility($utility){
+    $important: if(map-has-key($utility, important), map-get($utility, important), $utils-use-important);
+    $responsive: if(map-has-key($utility, responsive), map-get($utility, responsive), false);
+    $class-separator: if(map-has-key($utility, class-separator), map-get($utility, class-separator), $utils-class-separator);
+
+    $values: map-get($utility, values);
+
+    // if the values are a list or string, convert it into a map
+    @if type-of($values) == 'string' or (length($values) > 0 and type-of(nth($values, 1)) != 'list') {
+        $values: zip($values, $values);
+    }
+
+    $properties: map-get($utility, property);
+
+    // multiple properties are possible (for example with vertical or horizontal margins or paddings)
+    @if type-of($properties) == 'string' {
+        $properties: append((), $properties);
+    }
+
+    // use custom class if present
+    $class: if(map-has-key($utility, class), map-get($utility, class), nth($properties, 1));
+
+    // output
+    @include __generate-utility-output($class, $class-separator, $important, $properties, $values);
+
+    // responsive
+    @if $responsive and variable-exists(breakpoints) {
+        @each $breakpoint, $value in $breakpoints {
+            @include bp(#{$breakpoint}){
+                @include __generate-utility-output($class, $class-separator, $important, $properties, $values, $breakpoint + '\\:');
+            }
+        }
+    }
+}
+
+@mixin __generate-utility-output($class, $class-separator, $important, $properties, $values, $class-prefix: ''){
+    @each $key, $value in $values {
+        $infix: if($key == null, '', $class-separator);
+
+        @if $value != null {
+            #{'.' + $class-prefix + $class + $infix + $key}{
+                @each $property in $properties {
+                    #{$property}: #{$value} if($important, !important, null);
+                }
+            }
+        }
+    }
+}
