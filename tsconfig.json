@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "jsx": "preserve",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "types": ["vite-plugin-svg-icons/client"],
+        "baseUrl": ".",
+        "paths": {
+            "@Layouts/*": ["./src/Layouts/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@components/*": ["./src/components/*"],
+            "@samples/*": ["./src/samples/*"],
+            "@sass/*": ["./src/sass/*"],
+            "@/*": ["./src/*"]
+        }
+    },
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ],
+    "exclude": ["node_modules"]
+}

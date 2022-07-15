@@ -1,0 +1,196 @@
+// Get CSS variable
+@function get-var($var, $breakpoint: 'base') {
+    $value: map-get(map-get($css-vars, $breakpoint), $var);
+
+    // if the value is referencing another variable
+    @if type-of($value) == 'string' and str-slice($value, 1, 4) == 'var(' {
+        $nested-var-name: str-slice($value, 5, -2);
+        $value: get-var($nested-var-name, $breakpoint);
+    }
+
+    @return $value;
+}
+
+// PX to REM
+@function rem($pixels) {
+    @return strip-units($pixels) / strip-units(get-var(--font-size)) * 1rem;
+}
+
+// PX to EM
+@function em($pixels, $context: get-var(--font-size)) {
+    @if unitless($pixels) {
+        $pixels: $pixels * 1px;
+    }
+
+    @if type-of($context) == 'string' and str-slice($context, 1, 2) == '--' {
+        $context: get-var($context);
+    }
+
+    @if unitless($context) {
+        $context: $context * 1px;
+    }
+
+    @return calc($pixels / $context * 1em);
+}
+
+// PX helper function
+@function px($pixels) {
+    @if unitless($pixels) {
+        @return $pixels * 1px;
+    } @else {
+        @return $pixels;
+    }
+}
+
+// VH helper function
+@function vh($vh) {
+    @return calc(var(--vh, 1vh) * #{strip-units($vh)});
+}
+
+// Spacing helper function
+@function spacing($size: 1) {
+    @if type-of($size) != 'number' {
+        @return 0;
+    }
+
+    @if $size == 1 {
+        @return var(--spacing);
+    }
+
+    @return calc(var(--spacing) * #{$size});
+}
+
+// HEX to RGB
+@function hex2rgb($hex) {
+    @return red($hex), green($hex), blue($hex);
+}
+
+// Strip units
+@function strip-units($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+// Recursive map merge
+// See https://github.com/pentzzsolt/sass-recursive-map-merge
+@function recursive-map-merge($map1, $map2, $config:() ) {
+    @if (type-of($map1) == map or (type-of($map1) == list and length($map1) == 0)) and (type-of($map2) == map or (type-of($map2) == list and length($map2) == 0)) {
+        $result: $map1;
+
+        @each $key, $value in $map2 {
+            @if (type-of(map-get($result, $key)) == map and type-of($value) == map) {
+                $result: map-merge($result, ($key: recursive-map-merge(map-get($result, $key), $value)));
+            } @else if (map-get($config, "merge-lists") and type-of(map-get($result, $key)) == list and type-of($value) == list) {
+                $result: map-merge($result, ($key: join(map-get($result, $key), $value)));
+            } @else {
+                $result: map-merge($result, ($key: $value));
+            }
+        }
+
+        @return $result;
+    } @else {
+        @warn "recursive-map-merge() expects it\'s parameters to be map types!";
+        @return null;
+    }
+}
+
+// Map get next
+@function map-get-next($map, $key, $fallback: null, $return: value) {
+
+    // Check if map is valid
+    @if type-of($map) == map {
+
+        // Check if key exists in map
+        @if map-has-key($map, $key) {
+
+            // Init index counter variable
+            $i: 0;
+
+            // Init key index
+            $key-index: false;
+
+            // Traverse map for key
+            @each $map-key, $map-value in $map {
+                // Update index
+                $i: $i + 1;
+
+                // If map key found, set key index
+                @if $map-key == $key {
+                    $key-index: $i;
+                }
+
+                // If next index return next value or key based on $return
+                @if $i == $key-index + 1 {
+                    @if $return == key {
+                        @return $map-key;
+                    } @else {
+                        @return $map-value;
+                    }
+                }
+
+                // If last entry return false
+                @if $i == length($map) {
+                    @return $fallback;
+                }
+            }
+
+            @warn 'No next map item for key #{$key}';
+            @return $fallback;
+        }
+
+        @warn 'No valid key #{$key} in map';
+        @return $fallback;
+    }
+
+    @warn 'No valid map';
+    @return $fallback;
+}
+
+// Str Replace
+// Replace `$search` with `$replace` in `$string`
+// Used on our SVG icon backgrounds for custom forms.
+//
+// @author Hugo Giraudel
+// @param {String} $string - Initial string
+// @param {String} $search - Substring to replace
+// @param {String} $replace ('') - New value
+// @return {String} - Updated string
+@function str-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+// Escape SVG
+// See https://codepen.io/kevinweber/pen/dXWoRw
+// Requires the use of quotes around data URIs.
+@function escape-svg($string) {
+
+    $escaped-characters: (
+        ("<", "%3c"),
+        (">", "%3e"),
+        ("#", "%23"),
+        ("(", "%28"),
+        (")", "%29"),
+    );
+
+    @if str-index($string, "data:image/svg+xml") {
+        @each $char, $encoded in $escaped-characters {
+            // Do not escape the url brackets
+            @if str-index($string, "url(") == 1 {
+                $string: url("#{str-replace(str-slice($string, 6, -3), $char, $encoded)}");
+            } @else {
+                $string: str-replace($string, $char, $encoded);
+            }
+        }
+    }
+
+    @return $string;
+}

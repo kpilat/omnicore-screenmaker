@@ -1,0 +1,22 @@
+// Fade in effect
+.lazyload,
+.lazyloading,
+.lazyload.lazyloaded,
+.lazyloading.lazyloaded{
+    opacity: 0;
+}
+
+.lazyloaded{
+    opacity: 1;
+    transition: opacity .5s;
+}
+
+.ls-is-cached{
+    opacity: 1;
+    transition: opacity 0s;
+}
+
+// data-sizes="auto"
+img[data-sizes="auto"]{
+    width: 100%;
+}

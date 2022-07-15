@@ -1,0 +1,57 @@
+:root{
+    --field-header-width: 160px;
+    --field-mb: 10px;
+}
+
+
+.fieldset{
+    margin-bottom: 50px;
+
+    & > .field{
+
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+.field{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: var(--field-mb);
+
+    &__header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        min-height: var(--input-height);
+        width: var(--field-header-width);
+        padding-right: 20px;
+    }
+
+    &__content{
+        @include last-mb-0;
+        width: calc(100% - var(--field-header-width));
+        margin-left: auto;
+
+        .checkbox,
+        .radio-button{
+            margin-bottom: 12px;
+        }
+    }
+}
+
+
+// Required field
+.field--required{
+
+    label:after{
+        content: '*';
+        display: inline-block;
+        margin-left: em(3);
+    }
+}

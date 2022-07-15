@@ -1,0 +1,14 @@
+$select-arrow-size: 16px !default;
+$select-arrow-color: get-var(--color) !default;
+$select-arrow-svg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$select-arrow-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>") !default;
+
+
+.select{
+    @include default-field;
+    padding: 0 calc((var(--input-padding) * 2) + #{$select-arrow-size}) 0 var(--input-padding);
+    background-image: escape-svg($select-arrow-svg);
+    background-repeat: no-repeat;
+    background-position: right var(--input-padding) center;
+    background-size: $select-arrow-size $select-arrow-size;
+    cursor: pointer;
+}

@@ -1,0 +1,14 @@
+.text-field{
+    @include default-field;
+    padding: 0 var(--input-padding);
+
+    // reset number field
+    &[type='number']{
+        appearance: textfield;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button{
+        appearance: none;
+    }
+}

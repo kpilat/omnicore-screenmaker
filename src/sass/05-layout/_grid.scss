@@ -1,0 +1,110 @@
+@use 'sass:math';
+$grid-columns: 12 !default;
+$grid-enable-fifths: false !default;
+$grid-enable-offset: false !default;
+
+
+// Mixins
+@mixin row($gutter-x: get-var(--gutter-x), $gutter-y: get-var(--gutter-y)){
+    --gutter-x: #{$gutter-x};
+    --gutter-y: #{$gutter-y};
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--gutter-x) / -2);
+    margin-right: calc(var(--gutter-x) / -2);
+    margin-top: calc(var(--gutter-y) * -1);
+}
+
+@mixin row-cols($columns: 1){
+    --columns: #{$columns};
+
+    & > *{
+        @include col(calc(100% / var(--columns, 1)));
+    }
+}
+
+@mixin col($size: false, $columns: $grid-columns){
+    @if $size == 'auto' {
+        flex: 1 1 0;
+    } @else {
+        flex: 0 0 auto;
+    }
+
+    @if $size {
+        @if type-of($size) == 'number' and unitless($size) {
+            width: calc($size / $columns);
+        } @else {
+            width: $size;
+        }
+    }
+
+    padding-left: calc(var(--gutter-x) / 2);
+    padding-right: calc(var(--gutter-x) / 2);
+    margin-top: var(--gutter-y);
+}
+
+
+// Base
+.row{
+    @include row;
+    @include row-cols;
+}
+
+
+// Columns
+@if $grid-columns > 0 {
+
+    // Column Widths
+    @for $i from 1 through $grid-columns {
+        .col-#{$i}{
+            width: calc($i / $grid-columns);
+        }
+    }
+
+    @if $grid-enable-fifths {
+        // stylelint-disable rule-empty-line-before
+        .col-1-5{ width: 20%; }
+        .col-2-5{ width: 40%; }
+        .col-3-5{ width: 60%; }
+        .col-4-5{ width: 80%; }
+        // stylelint-enable rule-empty-line-before
+    }
+
+    // Offset
+    @if $grid-enable-offset {
+        @for $i from 1 through $grid-columns - 1 {
+            .offset-#{$i}{
+                margin-left: calc($i / $grid-columns);
+            }
+        }
+    }
+
+}
+
+
+// ================================================
+//                  MEDIA QUERIES
+// ================================================
+@if $grid-columns > 0 {
+    @each $breakpoint, $value in $breakpoints {
+        @include bp(#{$breakpoint}){
+
+            // Column Widths
+            @for $i from 1 through $grid-columns {
+                .#{$breakpoint}\:col-#{$i}{
+                    width: calc($i / $grid-columns);
+                }
+            }
+
+            // Offset
+            @if $grid-enable-offset {
+                @for $i from 0 through $grid-columns - 1 {
+                    .#{$breakpoint}\:offset-#{$i}{
+                        margin-left: calc($i / $grid-columns);
+                    }
+                }
+            }
+
+        }
+    }
+}

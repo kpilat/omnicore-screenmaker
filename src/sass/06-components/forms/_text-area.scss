@@ -1,0 +1,6 @@
+.text-area{
+    @include default-field;
+    height: auto;
+    padding: var(--input-padding);
+    resize: none;
+}

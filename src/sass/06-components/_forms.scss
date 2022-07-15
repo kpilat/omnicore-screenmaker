@@ -1,0 +1,39 @@
+:root{
+    --input-height: 40px;
+    --input-padding: 15px;
+    --input-bg-color: var(--bg-color);
+    --input-border-color: var(--border-color);
+    --input-border-radius: var(--border-radius);
+    --input-border-color-focus: var(--primary);
+}
+
+
+@mixin default-field{
+    display: block;
+    width: 100%;
+    height: var(--input-height);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--input-border-radius);
+    background-color: var(--input-bg-color);
+    appearance: none;
+
+    &:focus{
+        border-color: var(--input-border-color-focus);
+        outline: 0;
+    }
+
+    &[disabled]{
+        background-color: var(--gray-light);
+        color: var(--gray);
+    }
+}
+
+
+@import "forms/text-field";
+@import "forms/text-area";
+@import "forms/select";
+@import "forms/checkbox";
+@import "forms/radio-button";
+@import "forms/toggle";
+@import "forms/label";
+@import "forms/fields";

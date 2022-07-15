@@ -1,0 +1,161 @@
+$breakpoints-mobile-first: false !default;
+$breakpoints-enable-css-var: true !default;
+
+$breakpoints: (
+    xl: 1400px, // 1366
+    lg: 1280px, // 1024
+    md: 992px,  // 768
+    sm: 768px,  // 600
+    xs: 576px   // 320
+) !default;
+
+@if $breakpoints-mobile-first {
+    $breakpoints: (
+        sm:  map-get($breakpoints, xs),
+        md:  map-get($breakpoints, sm),
+        lg:  map-get($breakpoints, md),
+        xl:  map-get($breakpoints, lg),
+        xxl: map-get($breakpoints, xl),
+    );
+}
+
+
+// Helper Functions
+@function breakpoint($name){
+    $breakpoint: map-get($breakpoints, $name);
+
+    @if not $breakpoint and type-of(strip-units($name)) == 'number' {
+        @return px($name);
+    }
+
+    @return $breakpoint;
+}
+
+@function breakpoint-next($name){
+    $breakpoint: map-get-next($breakpoints, $name);
+
+    @if not $breakpoint and type-of(strip-units($name)) == 'number' {
+        @return px($name);
+    }
+
+    @return $breakpoint;
+}
+
+
+// Generate --breakpoint CSS variable
+@function breakpoint-css-var($var-name: 'breakpoint') {
+    $map: ();
+
+    @if $breakpoints-mobile-first {
+        $map: map-merge($map, (base: (--#{$var-name}: xs)));
+    } @else {
+        $map: map-merge($map, (base: (--#{$var-name}: xxl)));
+    }
+
+    @each $key, $value in $breakpoints {
+        $map: map-merge($map, ($key: (--#{$var-name}: $key)));
+    }
+
+    @return $map;
+}
+
+@if $breakpoints-enable-css-var {
+    $css-vars: recursive-map-merge(breakpoint-css-var(), $css-vars);
+}
+
+
+// Mixins
+@mixin bp($breakpoint){
+    @if $breakpoints-mobile-first {
+        @include bp-up($breakpoint){
+            @content;
+        }
+    } @else {
+        @include bp-down($breakpoint){
+            @content;
+        }
+    }
+}
+
+@mixin bp-up($breakpoint){
+    $min: breakpoint($breakpoint);
+
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin bp-down($breakpoint){
+    $max: breakpoint($breakpoint);
+    $max: if($max and $max > 0, $max - .02, null);
+
+    @if $max {
+        @media (max-width: $max) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin bp-only($breakpoint){
+    // edge cases
+    @if not (map-has-key($breakpoints, $breakpoint)) {
+
+        @if $breakpoints-mobile-first == true and $breakpoint == xs {
+            @include bp-down(sm){
+                @content;
+            }
+        }
+
+        @if $breakpoints-mobile-first == false and $breakpoint == xxl {
+            @include bp-up(xl){
+                @content;
+            }
+        }
+
+    } @else {
+        @include bp-between($breakpoint, $breakpoint){
+            @content;
+        }
+    }
+}
+
+@mixin bp-between($breakpoint-max, $breakpoint-min) {
+    $min: 0px;
+    $max: 0px;
+
+    @if $breakpoints-mobile-first {
+        $min: breakpoint($breakpoint-max);
+        $max: breakpoint-next($breakpoint-min);
+    } @else {
+        $min: breakpoint-next($breakpoint-min);
+        $max: breakpoint($breakpoint-max);
+    }
+
+    @if $min != null and $max != null {
+        @media (min-width: $min) and (max-width: $max - .02) {
+            @content;
+        }
+    } @else if $max != null {
+        @media (max-width: $max - .02) {
+            @content;
+        }
+    } @else if $min != null {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin bp-retina{
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @content;
+    }
+}

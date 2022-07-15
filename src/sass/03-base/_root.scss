@@ -1,0 +1,18 @@
+// CSS variables
+@each $breakpoint, $vars in $css-vars {
+    @if $breakpoint == 'base' {
+        :root{
+            @each $key, $value in $vars {
+                #{$key}: #{$value};
+            }
+        }
+    } @else {
+        @include bp(#{$breakpoint}){
+            :root{
+                @each $key, $value in $vars {
+                    #{$key}: #{$value};
+                }
+            }
+        }
+    }
+}

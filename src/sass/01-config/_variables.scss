@@ -1,0 +1,81 @@
+$css-vars: (
+    base: (
+        // Typography
+        --font: "-apple-system, BlinkMacSystemFont, 'Avenir Next', Avenir, 'Nimbus Sans L', Roboto, Noto, 'Segoe UI', Arial, Helvetica, 'Helvetica Neue', sans-serif",
+        --font-secondary: var(--font),
+
+        --font-size: 16px,
+        --line-height: 1.5,
+        --paragraph-spacing: 1.5rem,
+
+        --font-size-sm: 14px,
+        --font-size-lg: 18px,
+
+        --h0: 60px,
+        --h1: 40px,
+        --h2: 30px,
+        --h3: 25px,
+        --h4: 20px,
+        --h5: 16px,
+        --h6: 14px,
+
+
+        // Colors
+        --color: #000,
+        --bg-color: #fff,
+
+        --primary: #264697,
+        --primary-dark: #182d61,
+
+        --secondary: #b00400,
+        --secondary-dark: #{darken(#b00400, 10)},
+
+        --light: #f2f2f2,
+        --dark: #212529,
+
+        --gray-light: #f2f2f2,
+        --gray: #999,
+        --gray-dark: #666,
+
+        --border-color: #e4e8f1,
+        --corner-radius: 6px,
+        --img-bg: var(--gray-light),
+
+        --green: #7ab573,
+        --orange: #f6b036,
+        --red: #de594a,
+
+        --info: var(--light),
+        --success: var(--green),
+        --warning: var(--orange),
+        --error: var(--red),
+
+
+        // Spacing
+        --spacing: 8px,
+
+
+        // Grid
+        --gutter-x: 30px,
+        --gutter-y: 30px,
+        --container-width: 1180px,
+        --container-padding: 30px,
+
+
+        // Sections
+        --section-padding: 100px,
+
+
+        // Other
+        --border-radius: 3px,
+        --ribbon-height: 50px,
+    ),
+    // Breakpoints
+    // Be careful not to leave behind empty arrays like md:().
+    md: (
+        --section-padding: 80px,
+    ),
+    xs: (
+        --section-padding: 60px,
+    )
+) !default;

@@ -1,0 +1,34 @@
+@mixin triangle($direction, $size: 6, $color: null){
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+
+    @if $color != null {
+        color: $color;
+    }
+
+    @if $direction == 'up' {
+        border-bottom: px($size) solid currentColor;
+        border-left: px($size) solid transparent;
+        border-right: px($size) solid transparent;
+    }
+
+    @else if $direction == 'down' {
+        border-top: px($size) solid currentColor;
+        border-left: px($size) solid transparent;
+        border-right: px($size) solid transparent;
+    }
+
+    @else if $direction == 'left' {
+        border-top: px($size) solid transparent;
+        border-bottom: px($size) solid transparent;
+        border-right: px($size) solid currentColor;
+    }
+
+    @else if $direction == 'right' {
+        border-top: px($size) solid transparent;
+        border-bottom: px($size) solid transparent;
+        border-left: px($size) solid currentColor;
+    }
+}
