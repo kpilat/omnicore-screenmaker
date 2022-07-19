@@ -1,6 +1,13 @@
 <template>
     <div class="control-panel">
-        <Module/>
+        <Module :defaultState="true" label="General settings">
+            <div class="module__item">
+                <div class="field">
+                    <label class="label">App name</label>
+                    <input class="text-field" type="text" />
+                </div>
+            </div>
+        </Module>
     </div>
 </template>
 
@@ -10,7 +17,7 @@ import Module from '@components/ControlPanel/Module.vue'
 </script>
 
 <style lang="scss" scoped>
-.control-panel:v-deep {
+.control-panel {
     min-width: 290px;
     width: fit-content;
     height: calc(100vh - var(--ribbon-height));

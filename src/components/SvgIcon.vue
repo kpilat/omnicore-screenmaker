@@ -27,7 +27,7 @@ const props = defineProps({
     },
     color: {
         type: String,
-        default: '#fff',
+        default: '#000',
     },
 })
 
@@ -44,7 +44,7 @@ const symbolId = computed(() => `#${props.prefix}-${props.name}`)
 <style lang="scss" scoped>
 .icon {
     display: flex;
-    color: v-bind('cssVars[' --color ']');
+    color: v-bind(color);
 
     svg {
         margin: auto;

@@ -1,13 +1,14 @@
 $css-vars: (
     base: (
         // Typography
-        --font: "-apple-system, BlinkMacSystemFont, 'Avenir Next', Avenir, 'Nimbus Sans L', Roboto, Noto, 'Segoe UI', Arial, Helvetica, 'Helvetica Neue', sans-serif",
+        --font: "'Roboto', sans-serif",
         --font-secondary: var(--font),
 
         --font-size: 16px,
         --line-height: 1.5,
         --paragraph-spacing: 1.5rem,
 
+        --font-size-xs: 12px,
         --font-size-sm: 14px,
         --font-size-lg: 18px,
 
@@ -24,7 +25,7 @@ $css-vars: (
         --color: #000,
         --bg-color: #fff,
 
-        --primary: #264697,
+        --primary: #5956e9,
         --primary-dark: #182d61,
 
         --secondary: #b00400,
@@ -67,7 +68,7 @@ $css-vars: (
 
 
         // Other
-        --border-radius: 3px,
+        --border-radius: 8px,
         --ribbon-height: 50px,
     ),
     // Breakpoints

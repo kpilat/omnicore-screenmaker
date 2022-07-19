@@ -1,5 +1,8 @@
 <template>
-    <div class="workspace"></div>
+    <div class="workspace">
+        <h1>Layout</h1>
+        <h2>Layout</h2>
+    </div>
 </template>
 
 <script setup lang="ts">

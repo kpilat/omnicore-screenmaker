@@ -1,0 +1,10 @@
+@mixin dropdown {
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+}
+
+@mixin dropdown-active {
+    max-height: 500px;
+    transition: max-height 0.15s ease-in;
+}

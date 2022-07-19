@@ -3,10 +3,10 @@
         <SvgIcon name="vite" class="ribbon__logo" color="#000" />
         <div class="ribbon__nav">
             <div class="ribbon__tab">
-                <SvgIcon name="vite" />
+                <SvgIcon name="settings" />
             </div>
             <div class="ribbon__tab">
-                <SvgIcon name="vite" class="ribbon__icon" color="#000" />
+                <SvgIcon name="components" class="ribbon__icon" color="#000" />
             </div>
             <div class="ribbon__tab">
                 <SvgIcon name="vite" class="ribbon__icon" color="#000" />
@@ -40,21 +40,13 @@ import SvgIcon from '@components/SvgIcon.vue'
     }
 
     &__nav {
+        position: relative;
         display: flex;
+        justify-content: space-evenly;
         margin-left: auto;
         width: 290px;
-    }
 
-    &__tab {
-        position: relative;
-        width: calc(100% / 3);
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-
-        &:first-child:before {
+        &:before {
             content: '';
             position: absolute;
             top: 50%;
@@ -64,9 +56,39 @@ import SvgIcon from '@components/SvgIcon.vue'
             height: 70%;
             background-color: var(--border-color);
         }
+    }
+
+    &__tab {
+        position: relative;
+        width: fit-content;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+        cursor: pointer;
 
         .icon {
-            height: 25px;
+            width: 18px;
+            height: 18px;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: max(40%, 35px);
+            height: 0;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            background-color: var(--primary);
+            // opacity: 0;
+        }
+        &:hover:after {
+            height: 4px;
+            transition: height 0.25s;
         }
     }
 }
