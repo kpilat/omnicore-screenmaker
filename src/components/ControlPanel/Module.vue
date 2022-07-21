@@ -78,26 +78,15 @@ const toggle = useToggle(isExpanded)
         @include dropdown;
     }
 
-    ::v-slotted(.module__item) {
+    ::v-slotted(.module__content > *) {
         padding-left: var(--padding);
         font-weight: 300;
         @include text-xs;
+        margin-bottom: 15px;
+        --input-height: 30px;
 
-        & > :last-child {
+        &:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    ::v-slotted(.field) {
-        display: flex;
-        align-items: center;
-
-        label {
-            width: 30%;
-        }
-
-        & > *:not(label) {
-            width: 70%;
         }
     }
 

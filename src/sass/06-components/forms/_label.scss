@@ -1,3 +1,5 @@
 .label{
-
+    width: 30%;
+    @include text-sm;
+    color: var(--gray);
 }

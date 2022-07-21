@@ -8,9 +8,9 @@
 
 <script setup lang="ts">
      // * imports
-     import Ribbon from '@components/Ribbon/Ribbon.vue'
-     import Workspace from '@components/Workspace/Workspace.vue'
-     import ControlPanel from '@components/ControlPanel/ControlPanel.vue'
+     import Ribbon from '@components/ribbon/Ribbon.vue'
+     import Workspace from '@components/workspace/Workspace.vue'
+     import ControlPanel from '@components/controlPanel/ControlPanel.vue'
      import BaseLayout from '@layouts/BaseLayout.vue'
     //  import from '@sass/main.scss'
 

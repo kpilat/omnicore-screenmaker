@@ -1,11 +1,13 @@
 <template>
     <div class="control-panel">
         <Module :defaultState="true" label="General settings">
-            <div class="module__item">
-                <div class="field">
-                    <label class="label">App name</label>
-                    <input class="text-field" type="text" />
-                </div>
+            <div class="field">
+                <label class="label">App name</label>
+                <input class="text-field" type="text" />
+            </div>
+                        <div class="field">
+                <label class="label">App name</label>
+                <input class="text-field" type="text" />
             </div>
         </Module>
     </div>

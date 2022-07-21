@@ -1,5 +1,5 @@
 :root{
-    --input-height: 30px;
+    --input-height: 40px;
     --input-padding: 15px;
     --input-bg-color: var(--bg-color);
     --input-border-color: var(--border-color);
@@ -10,7 +10,7 @@
 
 @mixin default-field{
     display: block;
-    width: 100%;
+    width: 70%;
     height: var(--input-height);
     border: 1px solid var(--input-border-color);
     border-radius: var(--input-border-radius);

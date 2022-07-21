@@ -2,11 +2,13 @@
     <div class="workspace">
         <h1>Layout</h1>
         <h2>Layout</h2>
+        <Modal/>
     </div>
 </template>
 
 <script setup lang="ts">
 // * imports
+import Modal from '@components/ui/Modal.vue'
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 :root{
     --field-header-width: 160px;
-    --field-mb: 10px;
+    --field-mb: 25px;
 }
 
 
@@ -19,7 +19,7 @@
 .field{
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     margin-bottom: var(--field-mb);
 

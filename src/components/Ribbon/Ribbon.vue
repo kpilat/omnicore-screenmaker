@@ -69,8 +69,8 @@ import SvgIcon from '@components/SvgIcon.vue'
         cursor: pointer;
 
         .icon {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
         }
 
         &:after {
