@@ -1,10 +1,10 @@
 <template>
-    <div class="modal">
+    <div class="modal" :style="style" ref="modal">
         <div class="modal__cross">
-            <SvgIcon name="cross"/>
+            <SvgIcon name="cross" />
         </div>
-        <div class="modal__head">
-            <h3 class="modal__title">Payment method</h3>
+        <div class="modal__head" ref="draggable">
+            <h3 class="modal__title">Payment method I am at {{ x }}, {{ y }}</h3>
         </div>
         <div class="modal__content">
             <div class="field">
@@ -31,17 +31,42 @@
 // * imports
 import Button from '@components/ui/Button.vue'
 import SvgIcon from '@components/SvgIcon.vue'
+import { ref } from 'vue'
+import { useDraggable, useElementBounding } from '@vueuse/core'
+import usePositionConstraint from '@use/usePositionConstraint'
+
+const draggable = ref<HTMLElement | null>(null)
+const modal = ref(null)
+const { width, height } = useElementBounding(modal)
+
+const onMove = (position: { x: number; y: number }) => {
+    const modalSize = {
+        width: width.value,
+        height: height.value,
+    }
+    usePositionConstraint(position, modalSize)
+}
+
+const { x, y, style } = useDraggable(draggable, {
+    // * Only start the dragging when click on the element directly
+    exact: true,
+    initialValue: { x: 100, y: 100 },
+    onMove: onMove,
+})
 </script>
 
 <style lang="scss" scoped>
 .modal {
-    position: relative;
+    position: fixed;
     width: 615px;
     height: 460px;
     display: flex;
     flex-direction: column;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: var(--border-radius);
+    overflow: hidden;
+    z-index: 1000;
+    background-color: var(--bg-color);
 
     &__head {
         padding: 40px 30px 0;
@@ -71,7 +96,7 @@ import SvgIcon from '@components/SvgIcon.vue'
         border-radius: 6px;
         background-color: var(--gray-light);
         cursor: pointer;
-        transition: all .25s;
+        transition: all 0.25s;
 
         .icon {
             width: 10px;
@@ -79,10 +104,10 @@ import SvgIcon from '@components/SvgIcon.vue'
         }
 
         &:hover {
-            background-color: var(--primary-light);
+            background-color: var(--primary);
 
             .icon {
-                // color: #fff;
+                color: #fff;
             }
         }
     }
