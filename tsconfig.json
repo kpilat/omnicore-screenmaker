@@ -14,6 +14,8 @@
         "types": ["vite-plugin-svg-icons/client"],
         "baseUrl": ".",
         "paths": {
+            "@use/*": ["./src/use/*"],
+            "@stores/*": ["./src/stores/*"],
             "@layouts/*": ["./src/layouts/*"],
             "@assets/*": ["./src/assets/*"],
             "@components/*": ["./src/components/*"],

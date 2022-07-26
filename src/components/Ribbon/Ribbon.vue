@@ -2,13 +2,13 @@
     <div class="ribbon">
         <SvgIcon name="vite" class="ribbon__logo" color="#000" />
         <div class="ribbon__nav">
-            <div class="ribbon__tab">
+            <div @click="setActiveTab(0)" class="ribbon__tab" :class="{'is-active': controlPanelTabs.activeTab === 0}">
                 <SvgIcon name="settings" />
             </div>
-            <div class="ribbon__tab">
+            <div @click="setActiveTab(1)" class="ribbon__tab" :class="{'is-active': controlPanelTabs.activeTab === 1}">
                 <SvgIcon name="components" class="ribbon__icon" color="#000" />
             </div>
-            <div class="ribbon__tab">
+            <div @click="setActiveTab(2)" class="ribbon__tab" :class="{'is-active': controlPanelTabs.activeTab === 2}">
                 <SvgIcon name="vite" class="ribbon__icon" color="#000" />
             </div>
         </div>
@@ -17,7 +17,16 @@
 
 <script setup lang="ts">
 // * imports
+import {ref, onBeforeMount} from 'vue'
 import SvgIcon from '@components/SvgIcon.vue'
+import { useControlPanelTabsStore } from '@stores/controlPanelTabs'
+
+// * tabs
+const controlPanelTabs = useControlPanelTabsStore()
+
+const setActiveTab = (id: number) => controlPanelTabs.setActive(id)
+
+onBeforeMount(() => controlPanelTabs.setActive(0))
 </script>
 
 <style lang="scss" scoped>
@@ -34,6 +43,10 @@ import SvgIcon from '@components/SvgIcon.vue'
     // electron window behavior
     -webkit-user-select: none;
     -webkit-app-region: drag;
+
+    & * {
+        -webkit-app-region: no-drag;
+    }
 
     &__logo {
         height: 100%;
@@ -84,9 +97,9 @@ import SvgIcon from '@components/SvgIcon.vue'
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
             background-color: var(--primary);
-            // opacity: 0;
         }
-        &:hover:after {
+        
+        &:hover:after, &.is-active:after {
             height: 4px;
             transition: height 0.25s;
         }

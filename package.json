@@ -42,6 +42,8 @@
   "dependencies": {
     "@vueuse/core": "^8.9.4",
     "external-svg-loader": "^1.6.0",
-    "typeface-roboto": "^1.1.13"
+    "pinia": "^2.0.17",
+    "typeface-roboto": "^1.1.13",
+    "vue-composable": "^1.0.0-beta.24"
   }
 }
