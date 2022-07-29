@@ -2,8 +2,8 @@
   "name": "electron-vue-vite",
   "version": "2.0.0",
   "main": "dist/electron/main/index.js",
-  "description": "Really simple Electron + Vue + Vite boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "description": "ScreenMaker for OmniCore family controllers",
+  "author": "Kristian Pilat",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -15,6 +15,7 @@
     "node": ">=14.17.0"
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.4",
     "@vitejs/plugin-vue": "^2.3.3",
     "electron": "^19.0.8",
     "electron-builder": "^23.1.0",
@@ -44,6 +45,7 @@
     "external-svg-loader": "^1.6.0",
     "pinia": "^2.0.17",
     "typeface-roboto": "^1.1.13",
+    "uuid": "^8.3.2",
     "vue-composable": "^1.0.0-beta.24"
   }
 }

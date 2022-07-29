@@ -1,18 +1,18 @@
 <template>
     <div class="ribbon">
-        <SvgIcon name="vite" class="ribbon__logo" color="#000" />
         <div class="ribbon__tabs">
-            <div class="ribbon__tab is-active">
-                New Tab
-                <SvgIcon name="cross" class="ribbon__cross" />
-            </div>
-            <div class="ribbon__tab">
-                New Tab
-                <SvgIcon name="cross" class="ribbon__cross" />
-            </div>
-            <div class="ribbon__tab">
-                New Tab
-                <SvgIcon name="cross" class="ribbon__cross" />
+            <component
+                v-for="tab in workspaceTabs.tabs"
+                :key="tab.title"
+                :is="tab.tab"
+                :componentId="tab.componentId"
+                :title="tab.title"
+                :isActive="tab.isActive"
+                @click="workspaceTabs.setActive(tab)"
+                @closeTab="workspaceTabs.closeTab(tab)"
+            />
+            <div class="ribbon__tabs-button" @click="workspaceTabs.createNewTab()">
+                <SvgIcon name="plus" />
             </div>
         </div>
         <div class="ribbon__nav">
@@ -43,15 +43,19 @@
 
 <script setup lang="ts">
 // * imports
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, defineComponent, markRaw } from 'vue'
+import Tab from '@components/ribbon/Tab.vue'
 import SvgIcon from '@components/SvgIcon.vue'
 import { useControlPanelTabsStore } from '@stores/controlPanelTabs'
+import { useWorkspaceTabsStore } from '@stores/workspaceTabs'
 
-// * tabs
+// workspace tabs
+const workspaceTabs = useWorkspaceTabsStore()
+workspaceTabs.createNewTab()
+
+// * navigation tabs
 const controlPanelTabs = useControlPanelTabsStore()
-
 const setActiveTab = (id: number) => controlPanelTabs.setActive(id)
-
 onBeforeMount(() => controlPanelTabs.setActive(0))
 </script>
 
@@ -74,46 +78,49 @@ onBeforeMount(() => controlPanelTabs.setActive(0))
         -webkit-app-region: no-drag;
     }
 
-    &__logo {
-        height: 100%;
-        margin-left: 100px;
-        margin-right: 30px;
-        width: 50px;
-    }
-
     &__tabs {
+        position: relative;
         display: flex;
         width: 100%;
         padding: 4px 0;
-    }
+        padding-left: 10px;
+        margin-left: 120px;
 
-    &__tab {
-        // width: min(100%, 200px);
-        position: relative;
-        flex: 0 1 250px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        margin-right: 4px;
-        padding: 0 em(15);
-        border-radius: var(--border-radius);
-        border: 1px solid var(--border-color);
-        cursor: pointer;
-        transition: border-color 0.25s;
-
-        &:hover, &.is-active {
-            border-color: var(--primary);
+        &:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 70%;
+            background-color: var(--border-color);
         }
     }
 
-    &__cross {
-        width: 10px;
-        height: 100%;
-        margin-left: auto;
-        transition: color 0.25s;
+    &__tabs-button {
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--primary);
+        // background-color: var(--gray-light);
+        cursor: pointer;
+        transition: all 0.25s;
+        z-index: +1;
+
+        .icon {
+            width: 12px;
+            height: 100%;
+        }
 
         &:hover {
-            color: var(--primary);
+            background-color: var(--primary);
+
+            .icon {
+                color: #fff;
+            }
         }
     }
 
