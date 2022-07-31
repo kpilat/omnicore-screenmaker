@@ -14,19 +14,20 @@ export const useWorkspaceTabsStore = defineStore({
     id: 'workspaceTabs',
     state: () => ({
         activeTabState: null as number | null,
-        tabsSate: [] as Array<workspaceTabsType>
+        tabsState: [] as Array<workspaceTabsType>
     }),
     getters: {
         activeTab: (state): number | null => state.activeTabState,
-        tabs: (state): Array<workspaceTabsType> => state.tabsSate
+        tabs: (state): Array<workspaceTabsType> => state.tabsState,
+        count: (state): number => state.tabsState.length
     },
     actions: {
         deactivateAll() {
-            this.tabsSate.forEach((tab) => tab.isActive = false)
+            this.tabsState.forEach((tab) => tab.isActive = false)
         },
         setActive(tab: workspaceTabsType) {
             this.deactivateAll()
-            // this.tabsSate.forEach((tab) => tab.isActive ? tab.isActive = false : tab.isActive = false)
+            // this.tabsState.forEach((tab) => tab.isActive ? tab.isActive = false : tab.isActive = false)
             tab.isActive = true
         },
         createNewTab(title: string = 'New Tab') {
@@ -37,10 +38,11 @@ export const useWorkspaceTabsStore = defineStore({
                 isActive: true,
                 tab: markRaw(Tab),
             }
-            this.tabsSate.push(newTab)
+            this.tabsState.push(newTab)
         },
         closeTab(tab: workspaceTabsType) {
-            this.tabsSate = this.tabsSate.filter((item: workspaceTabsType) => item.componentId !== tab.componentId)
+            if (this.tabsState.length < 2) return
+            this.tabsState = this.tabsState.filter((item: workspaceTabsType) => item.componentId !== tab.componentId)
         }
     }
 })

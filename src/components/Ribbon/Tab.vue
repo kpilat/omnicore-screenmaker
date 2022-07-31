@@ -7,10 +7,8 @@
 
 <script setup lang="ts">
 // * imports
-// import { onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import SvgIcon from '@components/SvgIcon.vue'
-// import { uuid } from 'uuidv4'
-// import { v4 as uuidv4 } from "uuid"
 
 // * props
 const props = defineProps({
@@ -30,23 +28,27 @@ const props = defineProps({
 
 // * close tab
 const emit = defineEmits<{ (e: 'closeTab'): void }>()
-const closeTab = (): void => emit('closeTab')
+const closeTab = (): void => {
+    emit('closeTab')
+}
 </script>
 
 <style lang="scss" scoped>
 .tab {
-    // width: min(100%, 200px);
+    --width: 250px;
     position: relative;
-    flex: 0 1 250px;
+    flex: 0 1 var(--width);
     height: 100%;
     display: flex;
     align-items: center;
     margin-right: 4px;
     padding: 0 em(15);
-    border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: border-color 0.25s;
+    max-width: var(--width);
+    overflow: hidden;
 
     &:hover,
     &.is-active {
@@ -54,14 +56,29 @@ const closeTab = (): void => emit('closeTab')
     }
 
     &__cross {
-        width: 10px;
+        width: 40px;
+        position: absolute;
+        right: 0;
         height: 100%;
         margin-left: auto;
+        padding: 0 em(15);
         transition: color 0.25s;
 
         &:hover {
             color: var(--primary);
         }
+    }
+
+    // mounted & unmounted transition
+    &.v-enter-active,
+    &.v-leave-active {
+        transition: all 0.1s ease;
+        white-space: nowrap;
+    }
+    &.v-enter-from,
+    &.v-leave-to {
+        max-width: 0;
+        opacity: 0;
     }
 }
 </style>

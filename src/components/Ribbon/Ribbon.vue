@@ -1,17 +1,23 @@
 <template>
     <div class="ribbon">
         <div class="ribbon__tabs">
-            <component
-                v-for="tab in workspaceTabs.tabs"
-                :key="tab.title"
-                :is="tab.tab"
-                :componentId="tab.componentId"
-                :title="tab.title"
-                :isActive="tab.isActive"
-                @click="workspaceTabs.setActive(tab)"
-                @closeTab="workspaceTabs.closeTab(tab)"
-            />
-            <div class="ribbon__tabs-button" @click="workspaceTabs.createNewTab()">
+            <TransitionGroup>
+                <component
+                    v-for="tab in workspaceTabs.tabs"
+                    :key="tab.title"
+                    :is="tab.tab"
+                    :componentId="tab.componentId"
+                    :title="tab.title"
+                    :isActive="tab.isActive"
+                    @click="workspaceTabs.setActive(tab)"
+                    @closeTab="workspaceTabs.closeTab(tab)"
+                />
+            </TransitionGroup>
+            <div
+                class="ribbon__tabs-button"
+                @click="workspaceTabs.createNewTab()"
+                v-if="workspaceTabs.count < 5"
+            >
                 <SvgIcon name="plus" />
             </div>
         </div>
@@ -43,8 +49,7 @@
 
 <script setup lang="ts">
 // * imports
-import { ref, onBeforeMount, defineComponent, markRaw } from 'vue'
-import Tab from '@components/ribbon/Tab.vue'
+import { onBeforeMount } from 'vue'
 import SvgIcon from '@components/SvgIcon.vue'
 import { useControlPanelTabsStore } from '@stores/controlPanelTabs'
 import { useWorkspaceTabsStore } from '@stores/workspaceTabs'
@@ -73,7 +78,6 @@ onBeforeMount(() => controlPanelTabs.setActive(0))
     // electron window behavior
     -webkit-user-select: none;
     -webkit-app-region: drag;
-
     & * {
         -webkit-app-region: no-drag;
     }
@@ -99,7 +103,7 @@ onBeforeMount(() => controlPanelTabs.setActive(0))
     }
 
     &__tabs-button {
-        width: 40px;
+        min-width: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
