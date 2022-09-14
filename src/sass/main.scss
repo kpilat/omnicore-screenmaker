@@ -1,50 +1,34 @@
 // CONFIG
-@import "01-config/variables";
-@import "01-config/utils";
+@import "config/variables";
+@import "config/utils";
 
 // MIXINS
-@import "02-mixins/functions";
-@import "02-mixins/breakpoints";
-@import "02-mixins/dropdown";
-@import "02-mixins/carets";
-@import "02-mixins/clearfix";
-@import "02-mixins/gradients";
-@import "02-mixins/headings";
-@import "02-mixins/lists";
-@import "02-mixins/margins";
-@import "02-mixins/placeholder";
-@import "02-mixins/position";
-@import "02-mixins/ratio";
-@import "02-mixins/resets";
-@import "02-mixins/text-truncate";
-@import "02-mixins/text";
-@import "02-mixins/triangles";
-@import "02-mixins/utilities";
-@import "02-mixins/visually-hidden";
+@import "mixins/functions";
+@import "mixins/breakpoints";
+@import "mixins/dropdown";
+@import "mixins/gradients";
+@import "mixins/headings";
+@import "mixins/margins";
+@import "mixins/ratio";
+@import "mixins/text";
+@import "mixins/triangles";
+@import "mixins/utilities";
+@import "mixins/lists";
 
 // BASE
-@import "03-base/fonts";
-@import "03-base/root";
-@import "03-base/reset";
-@import "03-base/base";
-@import "03-base/typography";
-@import "03-base/formatting";
-
-// VENDOR
-// @import "04-vendor/animate";
-// @import "04-vendor/lazysizes";
-// @import "04-vendor/cookieconsent";
-// @import "04-vendor/owl-carousel";
-// @import "04-vendor/magnific-popup";
-// @import "04-vendor/contact-form7";
+@import "base/fonts";
+@import "base/root";
+@import "base/reset";
+@import "base/base";
+@import "base/typography";
+@import "base/formatting";
 
 // LAYOUT
-@import "05-layout/container";
-@import "05-layout/grid";
-// @import "05-layout/stack";
-// @import "05-layout/cluster";
-@import "05-layout/sections";
-@import "05-layout/wrapper";
+@import "layout/container";
+@import "layout/grid";
+@import "layout/sections";
+@import "layout/wrapper";
 
 // COMPONENTS
-@import "06-components/forms";
+@import "components/forms";
+@import "components/fp-components";

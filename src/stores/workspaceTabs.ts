@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import Tab from '@components/ribbon/Tab.vue'
+import Tab from '@components/ribbon/OsTab.vue'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 

@@ -1,0 +1,29 @@
+@mixin first-mt-0{
+    & > *:first-child{
+        margin-top: 0 !important;
+    }
+}
+
+@mixin last-mb-0{
+    & > *:last-child{
+        margin-bottom: 0 !important;
+    }
+}
+
+@mixin deep-mx-0{
+    & > :deep(*:first-child){
+        margin-left: 0 !important;
+    }
+    & > :deep(*:last-child){
+        margin-right: 0 !important;
+    }
+}
+
+@mixin deep-my-0{
+    & > :deep(*:first-child){
+        margin-top: 0 !important;
+    }
+    & > :deep(*:last-child){
+        margin-bottom: 0 !important;
+    }
+}

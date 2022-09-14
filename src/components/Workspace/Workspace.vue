@@ -46,11 +46,11 @@
 <script setup lang="ts">
 // * imports
 import { ref } from 'vue'
-import Modal from '@components/ui/Modal.vue'
-import Button from '@components/ui/Button.vue'
+import Modal from '@components/ui/OsModal.vue'
+import Button from '@components/ui/OsButton.vue'
 
-import TabWrapper from '@components/tabs/TabWrapper.vue'
-import TabContent from '@components/tabs/TabContent.vue'
+import TabWrapper from '@components/tabs/OsTabWrapper.vue'
+import TabContent from '@components/tabs/OsTabContent.vue'
 
 // * modal
 const showModal = ref<boolean>(false)
