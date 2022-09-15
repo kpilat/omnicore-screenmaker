@@ -92,7 +92,7 @@ const { x, y, style } = useDraggable(draggableRef, {
     onStart: () => {
         isUserSelect.value = true
     },
-    onMove: onMove,
+    onMove,
     onEnd: () => {
         isUserSelect.value = false
     },

@@ -71,6 +71,40 @@ $css-vars: (
         // Other
         --border-radius: 8px,
         --ribbon-height: 50px,
+
+
+        // Fp components
+        --fp-color-STD-BACKGROUND:          #FFFFFF,
+        --fp-color-PRIMARY-TEXT:            #000000,
+        --fp-color-SECONDARY-TEXT:          #696969,
+
+        --fp-color-GRAY-10:                 #EBEBEB,
+        --fp-color-GRAY-20:                 #DBDBDB,
+        --fp-color-GRAY-30:                 #BABABA,
+        --fp-color-GRAY-40:                 #9F9F9F,
+        --fp-color-GRAY-50:                 #868686,
+        --fp-color-GRAY-60:                 #696969,
+        --fp-color-GRAY-70:                 #464646,
+        --fp-color-GRAY-80:                 #333333,
+        --fp-color-GRAY-90:                 #1F1F1F,
+        --fp-color-GRAY-100:                #0F0F0F,
+
+        --fp-color-BLUE-10:                 #E0F0FF,
+        --fp-color-BLUE-20:                 #C5E0FA,
+        --fp-color-BLUE-30:                 #9EBFF7,
+        --fp-color-BLUE-40:                 #77A3FC,
+        --fp-color-BLUE-50:                 #4C85FF,
+        --fp-color-BLUE-60:                 #3366FF,
+        --fp-color-BLUE-70:                 #2A35FF,
+        --fp-color-BLUE-80:                 #2C20D4,
+        --fp-color-BLUE-90:                 #160C9C,
+        --fp-color-BLUE-100:                #080261,
+
+        --fp-color-BLUE-PRIMARY-HIGHLIGHT:  #3366FF,
+
+        --fp-color-GREEN-OK:                #0CA919,
+        --fp-color-YELLOW-WARNING:          #FFD800,
+        --fp-color-RED-DANGER:              #F03040,
     ),
     // Breakpoints
     // Be careful not to leave behind empty arrays like md:().

@@ -22,7 +22,6 @@
                     <FpComponent type="label"/>
                     <FpComponent type="radio"/>
                     <FpComponent type="switch"/>
-                    <FpComponent type="toggle"/>
                 </OsFlex>
             </OsModule>
         </div>
