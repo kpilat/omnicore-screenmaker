@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 // * imports
-import { ref } from 'vue'
+import { ref, onUpdated } from 'vue'
 import OsModule from '@components/controlPanel/OsModule.vue'
 import { useControlPanelTabsStore } from '@stores/controlPanelTabs'
 import FpComponent from '@components/ui/FpComponent.vue'
@@ -38,7 +38,6 @@ import OsFlex from '@components/ui/OsFlex.vue'
 
 // * tabs
 const controlPanelTabs = useControlPanelTabsStore()
-
 </script>
 
 <style lang="scss" scoped>

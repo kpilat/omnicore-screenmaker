@@ -20,6 +20,27 @@ export function useDraggableConstraint(
     position.y = yPosition(position.y, targetSize.height, offset)
 }
 
+export function isWithinBoundaries(
+    position: { x: number; y: number },
+    targetSize: { width: number; height: number },
+    offset: Offset = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+    }
+): boolean {
+    return isWithinX(position.x, targetSize.width, offset) && isWithinY(position.y, targetSize.height, offset)
+}
+
+const isWithinX = (position: number, targetWidth: number, offset: Offset): boolean => {
+    return position >= offset.left && position + targetWidth < offset.right
+}
+
+const isWithinY = (position: number, targetHeight: number, offset: Offset): boolean => {
+    return position > offset.top && position + targetHeight < offset.bottom
+}
+
 const xPosition = (position: number, targetWidth: number, offset: Offset): number => {
     if (position < 0 + offset.left) return 0 + offset.left
     if (position > window.innerWidth - targetWidth - offset.right) return window.innerWidth - targetWidth - offset.right

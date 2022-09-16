@@ -87,7 +87,10 @@
 <script lang="ts" setup>
 // imports
 import { onUpdated, ref } from 'vue'
-import { useDraggable } from '@vueuse/core'
+import { useDraggable, useElementBounding } from '@vueuse/core'
+import { useDraggableConstraint, isWithinBoundaries } from '@use/useDraggableConstraint';
+import type { Offset } from '@use/useDraggableConstraint';
+import { useWorkspaceStore } from '@stores/workspace'
 
 // props
 const props = defineProps({
@@ -107,17 +110,48 @@ const props = defineProps({
 // draggable
 const componentWrapperRef = ref<HTMLElement | null>(null)
 const draggableRef = ref<HTMLElement | null>(null)
+const draggableRect = useElementBounding(draggableRef)
+const workspaceStore = useWorkspaceStore()
+const offset: Offset = {
+    top: 16,
+    right: 16,
+    bottom: 16,
+    left: 16,
+}
+
+const onMove = (position: { x: number; y: number }) => {
+    const targetSize = {
+        width: draggableRect.width.value,
+        height: draggableRect.height.value,
+    }
+    useDraggableConstraint(position, targetSize, offset)
+}
+
 const {x, y, style} = useDraggable(draggableRef, {
     onStart: () => {
         if (!draggableRef.value || !componentWrapperRef.value) return
-        componentWrapperRef.value.style.height = draggableRef.value.offsetHeight + 'px'
+        componentWrapperRef.value.style.height = draggableRect.height.value + 'px'
         draggableRef.value.classList.add('dragging')
     },
-    onEnd: () => {
+    onMove,
+    onEnd: (position: { x: number; y: number }) => {
         if (!draggableRef.value || !componentWrapperRef.value) return
         componentWrapperRef.value.removeAttribute('style')
         draggableRef.value.classList.remove('dragging')
         draggableRef.value.removeAttribute('style')
+
+        const targetSize = {
+            width: draggableRect.width.value,
+            height: draggableRect.height.value,
+        }
+        const workspaceRect = useElementBounding(workspaceStore.workspaceObject)
+        const workspaceCoordinates: Offset = {
+            top: workspaceRect.top.value,
+            right: workspaceRect.right.value,
+            bottom: workspaceRect.bottom.value,
+            left: workspaceRect.left.value,
+        }
+        console.log(isWithinBoundaries(position, targetSize, workspaceCoordinates))
     }
 })
 </script>
@@ -131,6 +165,7 @@ const {x, y, style} = useDraggable(draggableRef, {
     & > * {
         width: fit-content;
         user-select: none;
+        cursor: move;
 
         &.dragging {
             position: fixed;

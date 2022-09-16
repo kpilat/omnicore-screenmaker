@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import TabContent from '@components/tabs/OsTabContent.vue'
-import { ref, provide, onMounted, useSlots } from 'vue'
+import { ref, provide, useSlots } from 'vue'
 import type { InjectionKey } from 'vue'
 import SvgIcon from '@components/OsSvgIcon.vue'
 
