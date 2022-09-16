@@ -4,6 +4,10 @@
     >
         <h1>Layout</h1>
         <h2>Layout</h2>
+        <div v-for="(fpComponent, index) in fpComponents" :key="index">
+            <component :is="FpComponent" :type="fpComponent.type" :positionX="fpComponent.position.x"
+                       :positionY="fpComponent.position.y" is-fixed></component>
+        </div>
         <Modal v-model="showModal">
             <!-- <template #header>
                 <h3>Some title!</h3>
@@ -51,9 +55,11 @@ import { onMounted, ref, watch } from 'vue'
 import { useWorkspaceStore } from '@stores/workspace'
 import Modal from '@components/ui/OsModal.vue'
 import Button from '@components/ui/OsButton.vue'
+import FpComponent from '@components/ui/FpComponent.vue'
 
 import TabWrapper from '@components/tabs/OsTabWrapper.vue'
 import TabContent from '@components/tabs/OsTabContent.vue'
+import type { fpComponent } from '@/types/fpComponent';
 
 // * modal
 const showModal = ref<boolean>(false)
@@ -65,6 +71,12 @@ onMounted(() => workspaceStore.setRef(workspaceRef.value))
 watch(workspaceRef, (newValue, oldValue) => {
     if (newValue === oldValue) return
     workspaceStore.setRef(newValue)
+})
+
+// fp-components synchro
+const fpComponents = ref<Array<fpComponent> | null>(null)
+onMounted(() => {
+    fpComponents.value = workspaceStore.getComponents()
 })
 </script>
 

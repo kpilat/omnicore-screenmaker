@@ -5,6 +5,7 @@
              class="fp-button"
              ref="draggableRef"
              :style="style"
+             :class="{'fixed': isFixed}"
         >
             <span class="fp-button__text">{{ componentText }}</span>
         </div>
@@ -14,6 +15,7 @@
              class="fp-digital"
              ref="draggableRef"
              :style="style"
+             :class="{'fixed': isFixed}"
         >
             <div class="fp-digital__value">0</div>
             <div class="fp-digital__text">{{ componentText }}</div>
@@ -24,6 +26,7 @@
              class="fp-input"
              ref="draggableRef"
              :style="style"
+             :class="{'fixed': isFixed}"
         >
             <div class="fp-input__inner">
                 <p>{{ componentText }}</p>
@@ -35,6 +38,7 @@
              class="fp-label"
              ref="draggableRef"
              :style="style"
+             :class="{'fixed': isFixed}"
         >
             <div>{{ componentText }}</div>
         </div>
@@ -44,6 +48,7 @@
              class="fp-radio"
              ref="draggableRef"
              :style="style"
+             :class="{'fixed': isFixed}"
         >
             <div class="fp-radio__value">
                 <div></div>
@@ -56,6 +61,7 @@
              class="fp-switch"
              ref="draggableRef"
              :style="style"
+             :class="{'fixed': isFixed}"
         >
             <div class="fp-switch__button">
                 <div></div>
@@ -86,11 +92,13 @@
 
 <script lang="ts" setup>
 // imports
-import { onUpdated, ref } from 'vue'
+import { onUpdated, ref, computed } from 'vue'
 import { useDraggable, useElementBounding } from '@vueuse/core'
 import { useDraggableConstraint, isWithinBoundaries } from '@use/useDraggableConstraint';
 import type { Offset } from '@use/useDraggableConstraint';
 import { useWorkspaceStore } from '@stores/workspace'
+import { fpComponent } from '@/types/fpComponent';
+import { v4 as uuidv4 } from 'uuid'
 
 // props
 const props = defineProps({
@@ -104,6 +112,15 @@ const props = defineProps({
     componentText: {
         String,
         default: (props: any): string => props.type
+    },
+    positionX: {
+        type: Number
+    },
+    positionY: {
+        type: Number
+    },
+    isFixed: {
+        type: Boolean
     }
 })
 
@@ -119,6 +136,14 @@ const offset: Offset = {
     left: 16,
 }
 
+const initialPosition = computed(() => {
+    if (props.positionX && props.positionY) return {x: props.positionX, y: props.positionY}
+    return {
+        x: draggableRect.x.value || 0,
+        y: draggableRect.y.value || 0
+    }
+})
+
 const onMove = (position: { x: number; y: number }) => {
     const targetSize = {
         width: draggableRect.width.value,
@@ -128,6 +153,7 @@ const onMove = (position: { x: number; y: number }) => {
 }
 
 const {x, y, style} = useDraggable(draggableRef, {
+    initialValue: initialPosition.value,
     onStart: () => {
         if (!draggableRef.value || !componentWrapperRef.value) return
         componentWrapperRef.value.style.height = draggableRect.height.value + 'px'
@@ -151,7 +177,14 @@ const {x, y, style} = useDraggable(draggableRef, {
             bottom: workspaceRect.bottom.value,
             left: workspaceRect.left.value,
         }
-        console.log(isWithinBoundaries(position, targetSize, workspaceCoordinates))
+
+        if (!isWithinBoundaries(position, targetSize, workspaceCoordinates)) return
+        const newFpComponent: fpComponent = {
+            id: uuidv4(),
+            type: props.type,
+            position
+        }
+        workspaceStore.push(newFpComponent)
     }
 })
 </script>
@@ -167,7 +200,7 @@ const {x, y, style} = useDraggable(draggableRef, {
         user-select: none;
         cursor: move;
 
-        &.dragging {
+        &.dragging, &.fixed {
             position: fixed;
         }
     }
